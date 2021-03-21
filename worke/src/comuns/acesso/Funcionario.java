@@ -11,6 +11,7 @@ public class Funcionario extends Usuario{
     private int qntTotalExercicios;
     private double qntHorasTotais;
     private double duracaoExercicios;
+    private double intervaloExercicios;
 
     public List<Exercicio> getExercicios() {
         return exercicios;
@@ -58,5 +59,13 @@ public class Funcionario extends Usuario{
 
     public void setDuracaoExercicios(double duracaoExercicios) {
         this.duracaoExercicios = duracaoExercicios;
+    }
+
+    public double getIntervaloExercicios() {
+        return intervaloExercicios;
+    }
+
+    public void setIntervaloExercicios(double intervaloExercicios) {
+        this.intervaloExercicios = intervaloExercicios;
     }
 }
