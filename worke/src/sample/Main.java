@@ -6,12 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("criarSenha.fxml"));
         primaryStage.setTitle("worke!");
         Scene scene = new Scene(root, 1200, 780);
         scene.getStylesheets().add(getClass().getResource("/resources/fonts/styles.css").toExternalForm());
@@ -19,6 +20,7 @@ public class Main extends Application {
         /* código que tira o foco dos textfields ao carregar a tela (antes focava e nao aparecia a placeholder */
         Platform.runLater( () -> root.requestFocus() );
 
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
