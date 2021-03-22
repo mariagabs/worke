@@ -5,7 +5,7 @@ import comuns.conteudo.Exercicio;
 
 import java.util.List;
 
-public class Usuario extends Entidade {
+public class Usuario extends Entidade implements IUsuario{
     private String nome;
     private String email;
     private String senha;

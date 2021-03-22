@@ -4,7 +4,12 @@ import comuns.conteudo.Exercicio;
 
 import java.util.List;
 
-public class Funcionario extends Usuario{
+public class Funcionario extends Usuario implements IUsuario{
+
+    public Funcionario(){
+        tipo = TipoUsuario.FUNCIONARIO;
+    }
+    private TipoUsuario tipo;
     private List<Exercicio> exercicios;
     private String lembrete;
     private int ranking;

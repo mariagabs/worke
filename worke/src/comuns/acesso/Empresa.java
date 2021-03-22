@@ -1,6 +1,11 @@
 package comuns.acesso;
 
-public class Empresa extends Usuario{
+public class Empresa extends Usuario implements IUsuario{
+
+    public Empresa(){
+        tipo = TipoUsuario.EMPRESA;
+    }
+    private TipoUsuario tipo;
     private String fraseMotivacional;
     private boolean premio;
     private String nomePremio;
@@ -82,4 +87,5 @@ public class Empresa extends Usuario{
     public void setQntExerciciosDiario(int qntExerciciosDiario) {
         this.qntExerciciosDiario = qntExerciciosDiario;
     }
+
 }
