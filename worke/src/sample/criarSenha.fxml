@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane hgap="10.0" minHeight="780.0" style="-fx-background-color: #F6F6F6;" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CriarSenhaController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="1200" prefWidth="780" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Pane maxWidth="1200.0" minWidth="1200.0" prefHeight="780.0" prefWidth="1200.0" style="-fx-background-color: #F6F6F6;" GridPane.halignment="RIGHT">
+            <children>
+                <Pane layoutX="217.0" layoutY="232.0">
+                    <children>
+                        <ImageView fitHeight="896.0" fitWidth="1231.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../resources/img/estampa.png" />
+                            </image>
+                        </ImageView>
+                        <GridPane layoutX="410.0" layoutY="-60.0" minHeight="423.0" minWidth="440.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 35; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" stylesheets="@../resources/fonts/styles.css">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label prefHeight="65.0" prefWidth="404.0" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="Crie uma senha" textFill="#071c35">
+                                    <font>
+                                        <Font name="System Bold" size="46.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets left="40.0" />
+                                    </padding>
+                                    <GridPane.margin>
+                                        <Insets top="20.0" />
+                                    </GridPane.margin>
+                                </Label>
+                                <TextField fx:id="novaSenha" maxWidth="362.0" minHeight="29.5" minWidth="362.0" prefWidth="362.0" promptText="Nova senha" style="-fx-font-family: Nunito;" GridPane.rowIndex="1">
+                                    <GridPane.margin>
+                                        <Insets left="40.0" top="30.0" />
+                                    </GridPane.margin>
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor></TextField>
+                                <TextField fx:id="confirmarSenha" layoutX="50.0" layoutY="169.0" maxWidth="362.0" minHeight="29.5" minWidth="362.0" prefWidth="362.0" promptText="Confirmar nova senha" style="-fx-font-family: Nunito;" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                    <GridPane.margin>
+                                        <Insets bottom="30.0" left="40.0" />
+                                    </GridPane.margin>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                                </TextField>
+                                <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="362.0" style="-fx-background-color: #A3D3E4; -fx-font-family: Nunito; -fx-background-radius: 10;" text="SALVAR SENHA" textFill="WHITE" GridPane.rowIndex="3">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                    <GridPane.margin>
+                                        <Insets bottom="50.0" left="40.0" />
+                                    </GridPane.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                                </Button>
+                                <Label style="-fx-font-family: Nunito;" text="No próximo login, utiliza sua nova senha!" textFill="#c7c7c7">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                    <GridPane.margin>
+                                        <Insets left="40.0" top="100.0" />
+                                    </GridPane.margin>
+                                </Label>
+                            </children>
+                        </GridPane>
+                        <Label text="Label" />
+                    </children>
+                </Pane>
+            </children></Pane>
+        <Pane maxWidth="491.0" minWidth="491.0" prefHeight="780.0" prefWidth="491.0" style="-fx-background-color: #A3D3E4; -fx-background-radius: 0 20 20 0;" stylesheets="@../resources/fonts/styles.css">
+            <GridPane.margin>
+                <Insets right="54.0" />
+            </GridPane.margin>
+            <children>
+                <ImageView fitHeight="253.0" fitWidth="359.0" layoutX="66.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../resources/img/worke_logo.png" />
+                    </image>
+                </ImageView>
+            </children></Pane>
+    </children>
+</GridPane>
