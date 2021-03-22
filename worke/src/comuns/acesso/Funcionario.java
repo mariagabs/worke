@@ -4,13 +4,19 @@ import comuns.conteudo.Exercicio;
 
 import java.util.List;
 
-public class Funcionario extends Usuario{
+public class Funcionario extends Usuario implements IUsuario{
+
+    public Funcionario(){
+        tipo = TipoUsuario.FUNCIONARIO;
+    }
+    private TipoUsuario tipo;
     private List<Exercicio> exercicios;
     private String lembrete;
     private int ranking;
     private int qntTotalExercicios;
     private double qntHorasTotais;
     private double duracaoExercicios;
+    private double intervaloExercicios;
 
     public List<Exercicio> getExercicios() {
         return exercicios;
@@ -58,5 +64,13 @@ public class Funcionario extends Usuario{
 
     public void setDuracaoExercicios(double duracaoExercicios) {
         this.duracaoExercicios = duracaoExercicios;
+    }
+
+    public double getIntervaloExercicios() {
+        return intervaloExercicios;
+    }
+
+    public void setIntervaloExercicios(double intervaloExercicios) {
+        this.intervaloExercicios = intervaloExercicios;
     }
 }
