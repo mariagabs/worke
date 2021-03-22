@@ -108,6 +108,14 @@
                   <Label text="Label" />
                </children>
             </Pane>
+            <ImageView fx:id="sair" fitHeight="22.0" fitWidth="22.0" layoutX="1145.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/img/sair.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
          </children></Pane>
       <Pane maxWidth="491.0" minWidth="491.0" prefHeight="780.0" prefWidth="491.0" style="-fx-background-color: #A3D3E4; -fx-background-radius: 0 20 20 0;" stylesheets="@../resources/fonts/styles.css">
          <GridPane.margin>
