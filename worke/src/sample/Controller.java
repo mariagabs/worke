@@ -8,7 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 import java.io.File;
@@ -18,10 +22,39 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
-    private Label labelTeste;
+    private ImageView Home;
+    @FXML
+    private ImageView ExerciseDetails;
+    @FXML
+    private ImageView playPause;
+    @FXML
+    private Pane homeGrayScreen;
+    @FXML
+    private Pane homeWhiteScreen;
+    @FXML
+    private Pane exerciseScreen;
+    @FXML
+    private GridPane playGrid;
+
+    //Image imagePause = new Image(getClass().getResource("resources/img/simbolo-de-pausa.png").toExternalForm());
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        Home.setPickOnBounds(true);
+        Home.setOnMouseClicked((MouseEvent e) -> {
+            homeGrayScreen.setVisible(true);
+            homeWhiteScreen.setVisible(true);
+            exerciseScreen.setVisible(false);
+        });
+        ExerciseDetails.setPickOnBounds(true);
+        ExerciseDetails.setOnMouseClicked((MouseEvent e) -> {
+            exerciseScreen.setVisible(true);
+            homeGrayScreen.setVisible(false);
+            homeWhiteScreen.setVisible(false);
+        });
+        //playGrid.setOnMouseClicked((MouseEvent e) -> {
+        //    playPause.setImage(imagePause);
+        //});
     }
 }
