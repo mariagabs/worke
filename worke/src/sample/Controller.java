@@ -36,7 +36,10 @@ public class Controller implements Initializable {
     @FXML
     private GridPane playGrid;
 
-    //Image imagePause = new Image(getClass().getResource("resources/img/simbolo-de-pausa.png").toExternalForm());
+    Image imagePause = new Image(getClass().getResource("/resources/img/simbolo-de-pausa.png").toExternalForm());
+    Image imagePlay = new Image(getClass().getResource("/resources/img/botao-play-ponta-de-seta.png").toExternalForm());
+
+    static boolean pause;
 
 
     @Override
@@ -53,8 +56,20 @@ public class Controller implements Initializable {
             homeGrayScreen.setVisible(false);
             homeWhiteScreen.setVisible(false);
         });
-        //playGrid.setOnMouseClicked((MouseEvent e) -> {
-        //    playPause.setImage(imagePause);
-        //});
+
+
+        playGrid.setOnMouseClicked((MouseEvent e) -> {
+
+            if (pause) {
+                playPause.setImage(imagePlay);
+                pause = false;
+            } else {
+                pause = true;
+                playPause.setImage(imagePause);
+
+            }
+
+        });
+
     }
 }
