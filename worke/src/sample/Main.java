@@ -2,17 +2,22 @@ package sample;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PopupControl;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Main extends Application {
+    @FXML
+    private GridPane PopUpImpress;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("PaneEmpresa.fxml"));
         primaryStage.setTitle("worke!");
         Scene scene = new Scene(root, 1200, 780);
         scene.getStylesheets().add(getClass().getResource("/resources/fonts/styles.css").toExternalForm());
@@ -23,6 +28,10 @@ public class Main extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        //PopupControl popup = new PopupControl();
+        //popup.getScene().setRoot(PopUpImpress);
+        //popup.show(PopUpImpress.getScene().getWindow());
     }
 
 

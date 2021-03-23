@@ -42,3 +42,29 @@
     -fx-font-size: 16;
     -fx-font-weight: bold;
 }
+
+ .text-area .content{
+      -fx-background-color: #F6F6F6;
+  }
+
+
+.check-box {
+    selected-box-color: transparent;
+    -fx-border-color:#C7C7C7;
+    -fx-border-radius:3px;
+    box-color: white;
+    mark-color: #C7C7C7;
+}
+
+.check-box:selected > .box {
+    -fx-background-color: selected-box-color;
+}
+
+.check-box > .box {
+    -fx-background-color: box-color;
+}
+
+.check-box:selected > .box > .mark,
+.check-box:indeterminate  > .box > .mark {
+    -fx-background-color: mark-color;
+}

@@ -212,7 +212,7 @@
                               <Image url="@../resources/img/stretching-exercises.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="ExerciseDetails" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../resources/img/right-arrow.png" />
                            </image>
@@ -355,7 +355,7 @@
                               <Image url="@../resources/img/man-exercising.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <ImageView fx:id="ExerciseDetails" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../resources/img/right-arrow.png" />
                            </image>
@@ -483,7 +483,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button layoutX="216.0" layoutY="54.0" mnemonicParsing="false" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" text="Imprimir" textFill="#071c35">
+                  <Button fx:id="btnImpress" layoutX="216.0" layoutY="54.0" mnemonicParsing="false" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" text="Imprimir" textFill="#071c35">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

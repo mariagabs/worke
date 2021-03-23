@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:id="PopUpImpress" alignment="center" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../resources/fonts/styles.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PopUpImpressaoController">
+   <children>
+   <Pane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <Label layoutX="28.0" layoutY="30.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Impressão" textFill="#071c35">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button layoutX="54.0" layoutY="108.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="293.0" style="-fx-background-color: #a3d3e4; -fx-background-radius: 20; -fx-font-family: Nunito; -fx-font-weight: bOLD;" text="RELATÓRIO GERAL 6 MESES" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button layoutX="54.0" layoutY="267.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="293.0" style="-fx-background-color: #ffd46a; -fx-background-radius: 20; -fx-font-family: Nunito; -fx-font-weight: Bold;" text="RANKING COMPLETO" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="336.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/img/sair.png" />
+               </image></ImageView>
+            <Button layoutX="54.0" layoutY="189.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="293.0" style="-fx-background-color: #f5986d; -fx-background-radius: 20; -fx-font-family: Nunito; -fx-font-weight: bOLD;" text="RELATÓRIO GERAL 1 ANO" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+         </children></Pane>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
