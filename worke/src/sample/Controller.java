@@ -26,6 +26,8 @@ public class Controller implements Initializable {
     @FXML
     private ImageView ExerciseDetails;
     @FXML
+    private ImageView Config;
+    @FXML
     private ImageView playPause;
     @FXML
     private Pane homeGrayScreen;
@@ -33,6 +35,8 @@ public class Controller implements Initializable {
     private Pane homeWhiteScreen;
     @FXML
     private Pane exerciseScreen;
+    @FXML
+    private Pane configScreen;
     @FXML
     private GridPane playGrid;
 
@@ -49,14 +53,22 @@ public class Controller implements Initializable {
             homeGrayScreen.setVisible(true);
             homeWhiteScreen.setVisible(true);
             exerciseScreen.setVisible(false);
+            configScreen.setVisible(false);
         });
         ExerciseDetails.setPickOnBounds(true);
         ExerciseDetails.setOnMouseClicked((MouseEvent e) -> {
             exerciseScreen.setVisible(true);
             homeGrayScreen.setVisible(false);
             homeWhiteScreen.setVisible(false);
+            configScreen.setVisible(false);
         });
-
+        Config.setPickOnBounds(true);
+        Config.setOnMouseClicked((MouseEvent e) -> {
+            configScreen.setVisible(true);
+            exerciseScreen.setVisible(false);
+            homeGrayScreen.setVisible(false);
+            homeWhiteScreen.setVisible(false);
+        });
 
         playGrid.setOnMouseClicked((MouseEvent e) -> {
 
