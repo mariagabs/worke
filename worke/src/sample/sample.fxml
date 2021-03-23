@@ -920,6 +920,9 @@
                      </children>
                   </GridPane>
                </children></Pane>
+             <fx:define>
+                 <Image fx:id="btnPrint" url="@../resources/img/printer.png" />
+             </fx:define>
             <Pane fx:id="homeWhiteScreen" layoutX="883.0" prefHeight="780.0" prefWidth="318.0" style="-fx-background-color: #FFFFFF;">
                <children>
                   <Label layoutX="40.0" layoutY="52.0" style="-fx-font-family: Nunito;" text="Conquistas" textFill="#071c35">
@@ -927,7 +930,10 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnImpress" layoutX="216.0" layoutY="54.0" mnemonicParsing="false" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" text="Imprimir" textFill="#071c35">
+                  <Button fx:id="btnImpress" layoutX="216.0" layoutY="54.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" textFill="#071c35">
+                      <graphic>
+                          <ImageView image="$btnPrint" />
+                      </graphic>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
