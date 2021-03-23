@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PopupControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -57,6 +58,8 @@ public class Controller implements Initializable {
     private Pane configScreen;
     @FXML
     private GridPane playGrid;
+    @FXML
+    private Button btnImpress;
     @FXML
     private ImageView Logout;
     @FXML
