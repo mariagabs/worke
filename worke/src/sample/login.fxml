@@ -68,7 +68,7 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="362.0" style="-fx-background-color: #A3D3E4; -fx-font-family: Nunito; -fx-background-radius: 10;" text="ENTRAR" textFill="WHITE" GridPane.rowIndex="3">
+                        <Button fx:id="entrar" mnemonicParsing="false" prefHeight="54.0" prefWidth="362.0" style="-fx-background-color: #A3D3E4; -fx-font-family: Nunito; -fx-background-radius: 10;" text="ENTRAR" textFill="WHITE" GridPane.rowIndex="3">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
