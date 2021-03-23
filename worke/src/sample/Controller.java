@@ -45,12 +45,17 @@ public class Controller implements Initializable {
     private ImageView ExerciseDetails;
     @FXML
     private Button playPause;
+    private ImageView Config;
+    @FXML
+    private ImageView playPause;
     @FXML
     private Pane homeGrayScreen;
     @FXML
     private Pane homeWhiteScreen;
     @FXML
     private Pane exerciseScreen;
+    @FXML
+    private Pane configScreen;
     @FXML
     private GridPane playGrid;
     @FXML
@@ -112,6 +117,7 @@ public class Controller implements Initializable {
             homeGrayScreen.setVisible(true);
             homeWhiteScreen.setVisible(true);
             exerciseScreen.setVisible(false);
+            configScreen.setVisible(false);
         });
 
         play.setPickOnBounds(true);
@@ -131,8 +137,15 @@ public class Controller implements Initializable {
             exerciseScreen.setVisible(true);
             homeGrayScreen.setVisible(false);
             homeWhiteScreen.setVisible(false);
+            configScreen.setVisible(false);
         });
-
+        Config.setPickOnBounds(true);
+        Config.setOnMouseClicked((MouseEvent e) -> {
+            configScreen.setVisible(true);
+            exerciseScreen.setVisible(false);
+            homeGrayScreen.setVisible(false);
+            homeWhiteScreen.setVisible(false);
+        });
 
         Logout.setPickOnBounds(true);
         Logout.setOnMouseClicked((MouseEvent e) -> {
