@@ -45,9 +45,8 @@ public class Controller implements Initializable {
     private ImageView ExerciseDetails;
     @FXML
     private Button playPause;
-    private ImageView Config;
     @FXML
-    private ImageView playPause;
+    private ImageView Config;
     @FXML
     private Pane homeGrayScreen;
     @FXML
@@ -110,7 +109,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        playPause.setOnAction(playPauseEvent);
+        //playPause.setOnAction(playPauseEvent);
 
         Home.setPickOnBounds(true);
         Home.setOnMouseClicked((MouseEvent e) -> {
@@ -120,7 +119,7 @@ public class Controller implements Initializable {
             configScreen.setVisible(false);
         });
 
-        play.setPickOnBounds(true);
+        /*play.setPickOnBounds(true);
         play.setOnMouseClicked((MouseEvent e) -> {
             if (pause) {
                 btnImagePlay = imagePlay;
@@ -130,7 +129,7 @@ public class Controller implements Initializable {
                 btnImagePlay = imagePause;
 
             }
-        });
+        });*/
 
         ExerciseDetails.setPickOnBounds(true);
         ExerciseDetails.setOnMouseClicked((MouseEvent e) -> {
