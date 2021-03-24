@@ -618,7 +618,7 @@
                   </GridPane>
                   </children>
                </Pane>
-               <Pane fx:id="UserPane" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
+               <Pane layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
                   <children>
                      <Label layoutX="50.0" layoutY="55.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Configurações" textFill="#071c35">
                         <font>
@@ -687,7 +687,10 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextArea>
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></CheckBox>
                         <Label style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Não terá premiação" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                            <GridPane.margin>
                               <Insets left="25.0" />

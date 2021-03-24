@@ -68,6 +68,8 @@ public class Controller implements Initializable {
     private Label timer;
     @FXML
     private Image btnImagePlay;
+    @FXML
+    private Button btnIniciar;
 
     Image imagePause = new Image(getClass().getResource("/resources/img/simbolo-de-pausa.png").toExternalForm());
     Image imagePlay = new Image(getClass().getResource("/resources/img/botao-play-ponta-de-seta.png").toExternalForm());
@@ -91,7 +93,7 @@ public class Controller implements Initializable {
 
         timer.setText(secondsToWait[0] + "");
         exec.scheduleAtFixedRate(task, 1, 1, TimeUnit.SECONDS);
-        
+
     }
 
     EventHandler<ActionEvent> playPauseEvent = new EventHandler<ActionEvent>() {
@@ -108,7 +110,7 @@ public class Controller implements Initializable {
             }
         }
     };
-    
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -166,7 +168,7 @@ public class Controller implements Initializable {
         });
 
     }
-    
-    
+
+
 
 }
