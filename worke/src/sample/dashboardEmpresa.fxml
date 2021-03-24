@@ -671,18 +671,6 @@
                                                 <Label style="-fx-font-family: Nunito;" text="Maria Clara Fagundes" textFill="#071c35" GridPane.columnIndex="1" />
                                             </children>
                                         </GridPane>
-                                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: E6E6E6; -fx-background-radius: 10;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-                                            <graphic>
-                                                <ImageView fitHeight="15.0" fitWidth="15.0">
-                                                    <image>
-                                                        <Image url="@../resources/img/printer.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                            <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                            </cursor>
-                                        </Button>
                                     </children>
                                 </GridPane>
                                 <GridPane layoutX="10.0" layoutY="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="2">
@@ -748,18 +736,6 @@
                                                 <Label style="-fx-font-family: Nunito;" text="Francisco Pereira " textFill="#071c35" GridPane.columnIndex="1" />
                                             </children>
                                         </GridPane>
-                                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: E6E6E6; -fx-background-radius: 10;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-                                            <graphic>
-                                                <ImageView fitHeight="15.0" fitWidth="15.0">
-                                                    <image>
-                                                        <Image url="@../resources/img/printer.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                            <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                            </cursor>
-                                        </Button>
                                     </children>
                                 </GridPane>
                                 <GridPane layoutX="359.0" layoutY="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="4">
@@ -825,18 +801,6 @@
                                                 <Label style="-fx-font-family: Nunito;" text="Tereza Ferreira" textFill="#071c35" GridPane.columnIndex="1" />
                                             </children>
                                         </GridPane>
-                                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: E6E6E6; -fx-background-radius: 10;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-                                            <graphic>
-                                                <ImageView fitHeight="15.0" fitWidth="15.0">
-                                                    <image>
-                                                        <Image url="@../resources/img/printer.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                            <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                            </cursor>
-                                        </Button>
                                     </children>
                                 </GridPane>
                                 <GridPane layoutX="10.0" layoutY="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.rowIndex="2">
@@ -902,18 +866,6 @@
                                                 <Label style="-fx-font-family: Nunito;" text="José Carlos da Silva" textFill="#071c35" GridPane.columnIndex="1" />
                                             </children>
                                         </GridPane>
-                                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: E6E6E6; -fx-background-radius: 10;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-                                            <graphic>
-                                                <ImageView fitHeight="15.0" fitWidth="15.0">
-                                                    <image>
-                                                        <Image url="@../resources/img/printer.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                            <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                            </cursor>
-                                        </Button>
                                     </children>
                                 </GridPane>
                                 <GridPane layoutX="10.0" layoutY="268.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -979,18 +931,6 @@
                                                 <Label style="-fx-font-family: Nunito;" text="Ana Paula Oliveira " textFill="#071c35" GridPane.columnIndex="1" />
                                             </children>
                                         </GridPane>
-                                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: E6E6E6; -fx-background-radius: 10;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-                                            <graphic>
-                                                <ImageView fitHeight="15.0" fitWidth="15.0">
-                                                    <image>
-                                                        <Image url="@../resources/img/printer.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                            <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                            </cursor>
-                                        </Button>
                                     </children>
                                 </GridPane>
                                 <GridPane layoutX="359.0" layoutY="268.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="4" GridPane.rowIndex="2">
@@ -1056,18 +996,6 @@
                                                 <Label style="-fx-font-family: Nunito;" text="Larissa Fernandes" textFill="#071c35" GridPane.columnIndex="1" />
                                             </children>
                                         </GridPane>
-                                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: E6E6E6; -fx-background-radius: 10;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-                                            <graphic>
-                                                <ImageView fitHeight="15.0" fitWidth="15.0">
-                                                    <image>
-                                                        <Image url="@../resources/img/printer.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                            <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                            </cursor>
-                                        </Button>
                                     </children>
                                 </GridPane>
                             </children>
