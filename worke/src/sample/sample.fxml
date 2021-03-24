@@ -812,7 +812,7 @@
                             </children>
                         </GridPane>
                     </children></Pane>
-                <Pane fx:id="configScreen" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">
+                <Pane fx:id="configScreen" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
                     <children>
                         <Label layoutX="50.0" layoutY="54.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Configurações" textFill="#071c35">
                             <font>
@@ -1571,6 +1571,11 @@
                                 </GridPane>
                             </children>
                         </GridPane>
+                  <Button layoutX="905.0" layoutY="695.0" mnemonicParsing="false" prefWidth="145.0" style="-fx-background-color: #ffd46a; -fx-background-radius: 30; -fx-font-family: Nunito; -fx-font-weight: Bold;" text="INICIAR" textFill="WHITE">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
                     </children></Pane>
             </children>
         </Pane>
