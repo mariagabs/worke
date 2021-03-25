@@ -1209,6 +1209,11 @@
                                 </Label>
                             </children>
                         </GridPane>
+                        <Button layoutX="905.0" layoutY="695.0" mnemonicParsing="false" prefWidth="145.0" style="-fx-background-color: #ffd46a; -fx-background-radius: 30; -fx-font-family: Nunito; -fx-font-weight: Bold;" text="SALVAR" textFill="WHITE">
+                            <font>
+                                <Font size="21.0" />
+                            </font>
+                        </Button>
                     </children>
                 </Pane>
             </children>
