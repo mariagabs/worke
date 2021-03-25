@@ -33,6 +33,8 @@ public class DashboardEmpresaController implements Initializable {
     @FXML
     private Button btnImprimir;
     @FXML
+    private Button btnSalvarConfig;
+    @FXML
     private Button btnCriarUsuario;
     @FXML
     private ImageView btnUsuarios;
@@ -123,6 +125,18 @@ public class DashboardEmpresaController implements Initializable {
             DashboardPane.setVisible(false);
             ConfigPane.setVisible(true);
         });
+
+        btnSalvarConfig.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        UserPane.setVisible(false);
+                        PremioPane.setVisible(false);
+                        DashboardPane.setVisible(true);
+                        ConfigPane.setVisible(false);
+                    }
+                }
+        );
 
         btnImprimir.setOnAction(
                 new EventHandler<ActionEvent>() {
