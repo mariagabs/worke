@@ -15,11 +15,11 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Button layoutX="34.0" layoutY="302.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="332.0" style="-fx-background-color: #a3d3e4; -fx-background-radius: 10; -fx-font-family: Nunito; -fx-font-weight: bOLD;" text="SALVAR" textFill="WHITE">
+                <Button fx:id="btnSalvar" layoutX="34.0" layoutY="302.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="332.0" style="-fx-background-color: #a3d3e4; -fx-background-radius: 10; -fx-font-family: Nunito; -fx-font-weight: bOLD;" text="SALVAR" textFill="WHITE">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor></Button>
-                <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="336.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="btnSair" fitHeight="22.0" fitWidth="22.0" layoutX="336.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../resources/img/sair.png" />
                     </image>

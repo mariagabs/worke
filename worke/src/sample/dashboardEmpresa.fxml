@@ -29,7 +29,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                        <ImageView fx:id="home" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="3">
                             <image>
                                 <Image url="@../resources/img/home.png" />
                             </image>
@@ -40,7 +40,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </ImageView>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                        <ImageView fx:id="usuarios" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="4">
                             <image>
                                 <Image url="@../resources/img/user.png" />
                             </image>
@@ -51,7 +51,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </ImageView>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                        <ImageView fx:id="historico" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="5">
                             <image>
                                 <Image url="@../resources/img/clock.png" />
                             </image>
@@ -62,7 +62,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </ImageView>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="6">
+                        <ImageView fx:id="config" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="6">
                             <image>
                                 <Image url="@../resources/img/settings.png" />
                             </image>
@@ -73,7 +73,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </ImageView>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="9">
+                        <ImageView fx:id="logout" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="9">
                             <image>
                                 <Image url="@../resources/img/logout.png" />
                             </image>
@@ -89,7 +89,7 @@
                 <fx:define>
                     <Image fx:id="btnPrint" url="@../resources/img/printer.png" />
                 </fx:define>
-                <Pane layoutX="92.0" prefHeight="780.0" prefWidth="1109.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
+                <Pane fx:id="DashboardPane" layoutX="92.0" prefHeight="780.0" prefWidth="1109.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
                     <children>
                         <Label layoutX="52.0" layoutY="54.0" prefHeight="53.0" prefWidth="209.0" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="Empresa X" textFill="#071c35">
                             <opaqueInsets>
@@ -99,7 +99,7 @@
                                 <Font name="System Bold" size="36.0" />
                             </font>
                         </Label>
-                        <Button layoutX="1016.0" layoutY="63.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" textFill="#071c35">
+                        <Button fx:id="btnImprimir" layoutX="1016.0" layoutY="63.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" textFill="#071c35">
                             <graphic>
                                 <ImageView>
                            <image>
@@ -386,7 +386,7 @@
                                         <Image url="@../resources/img/user.png" />
                                     </image>
                                 </ImageView>
-                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <ImageView fx:id="btnUsuarios" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <image>
                                         <Image url="@../resources/img/right-arrow.png" />
                                     </image>
@@ -435,7 +435,7 @@
                                         <Image url="@../resources/img/clock.png" />
                                     </image>
                                 </ImageView>
-                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <ImageView fx:id="btnHistorico" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <image>
                                         <Image url="@../resources/img/right-arrow.png" />
                                     </image>
@@ -1058,7 +1058,7 @@
                                 <Font size="36.0" />
                             </font>
                         </Label>
-                        <Button layoutX="948.0" layoutY="65.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="110.0" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" text="Criar Usuário" textFill="#071c35" />
+                        <Button fx:id="btnCriarUsuario" layoutX="948.0" layoutY="65.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="110.0" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" text="Criar Usuário" textFill="#071c35" />
                         <GridPane layoutX="50.0" layoutY="146.0" prefHeight="575.0" prefWidth="686.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" />
@@ -1125,7 +1125,7 @@
                         </GridPane>
                     </children>
                 </Pane>
-                <Pane layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">
+                <Pane fx:id="ConfigPane" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">
                     <children>
                         <Label layoutX="50.0" layoutY="55.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Configurações" textFill="#071c35">
                             <font>
