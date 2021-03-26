@@ -102,7 +102,7 @@
                                         <Insets />
                                     </GridPane.margin>
                                 </Label>
-                                <Button alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: #ffd46a; -fx-padding: 10px 30px; -fx-font-family: Nunito; -fx-background-radius: 50px;" text="INICIAR" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                <Button fx:id="btnIniciar" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: #ffd46a; -fx-padding: 10px 30px; -fx-font-family: Nunito; -fx-background-radius: 50px;" text="INICIAR" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font>
