@@ -1029,12 +1029,12 @@
                                 <RowConstraints maxHeight="18.0" minHeight="18.0" prefHeight="18.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label prefHeight="30.0" prefWidth="285.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Horário de trabalho" textFill="#071c35" GridPane.columnIndex="1" GridPane.columnSpan="8" GridPane.valignment="BOTTOM">
+                                <Label prefHeight="30.0" prefWidth="285.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Exercícios" textFill="#071c35" GridPane.columnIndex="1" GridPane.columnSpan="8" GridPane.valignment="BOTTOM">
                                     <font>
                                         <Font size="20.0" />
                                     </font>
                                 </Label>
-                                <Label prefHeight="18.0" prefWidth="268.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Quando inicia seu expediente e quando termina?" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.columnSpan="8" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                <Label prefHeight="18.0" prefWidth="268.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Selecione os exercícios que serão parte de sua rotina" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.columnSpan="8" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                     <font>
                                         <Font size="10.0" />
                                     </font>
