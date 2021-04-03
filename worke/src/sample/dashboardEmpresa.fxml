@@ -104,7 +104,10 @@
                                 <ImageView>
                            <image>
                               <Image url="@../resources/img/printer.png" />
-                           </image></ImageView>
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ImageView>
                             </graphic>
                             <cursor>
                                 <Cursor fx:constant="HAND" />
@@ -1058,7 +1061,10 @@
                                 <Font size="36.0" />
                             </font>
                         </Label>
-                        <Button fx:id="btnCriarUsuario" layoutX="948.0" layoutY="65.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="110.0" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" text="Criar Usuário" textFill="#071c35" />
+                        <Button fx:id="btnCriarUsuario" layoutX="948.0" layoutY="65.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="110.0" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" text="Criar Usuário" textFill="#071c35">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                         <GridPane layoutX="50.0" layoutY="146.0" prefHeight="575.0" prefWidth="686.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" />

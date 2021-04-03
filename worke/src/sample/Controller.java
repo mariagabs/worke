@@ -167,6 +167,14 @@ public class Controller implements Initializable {
             }
         });
 
+        btnIniciar.setPickOnBounds(true);
+        btnIniciar.setOnMouseClicked((MouseEvent e) -> {
+            configScreen.setVisible(false);
+            exerciseScreen.setVisible(true);
+            homeGrayScreen.setVisible(false);
+            homeWhiteScreen.setVisible(false);
+        });
+
     }
 
 

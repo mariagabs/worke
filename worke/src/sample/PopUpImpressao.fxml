@@ -26,7 +26,10 @@
             <ImageView fx:id="btnSair" fitHeight="22.0" fitWidth="22.0" layoutX="336.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/img/sair.png" />
-               </image></ImageView>
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
             <Button layoutX="54.0" layoutY="189.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="293.0" style="-fx-background-color: #f5986d; -fx-background-radius: 20; -fx-font-family: Nunito; -fx-font-weight: bOLD;" text="RELATÓRIO GERAL 1 ANO" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
