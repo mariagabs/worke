@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 public abstract class MySQLDAO <E extends Entidade> {
-    final String STRING_CONEXAO = "";
+    final String STRING_CONEXAO = "jdbc:mysql://localhost/worke?useTimezone=true&serverTimezone=UTC";
     final String USUARIO = "root";
     final String SENHA = "";
     private String tabela;
