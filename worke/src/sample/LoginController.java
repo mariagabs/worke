@@ -1,19 +1,14 @@
 package sample;
 
-import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import DAO.auditoria.AuditoriaTest;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -46,6 +41,8 @@ public class LoginController implements Initializable {
         public void handle(ActionEvent e)
         {
             try {
+                AuditoriaTest.getInstance().StartThread("Login");
+
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("criarSenha.fxml")));
                 Stage stage = new Stage();
                 stage.initStyle(StageStyle.UNDECORATED);
@@ -54,9 +51,10 @@ public class LoginController implements Initializable {
 
                 stage = (Stage) sair.getScene().getWindow();
                 stage.close();
-            } catch (IOException ioException) {
+            } catch (IOException | InterruptedException ioException) {
                 ioException.printStackTrace();
             }
         }
     };
+
 }

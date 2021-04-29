@@ -1,5 +1,6 @@
 package sample;
 
+import DAO.auditoria.AuditoriaTest;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
@@ -33,6 +34,12 @@ public class CriarSenhaController implements Initializable {
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene);
             stage.show();
+
+            try {
+                AuditoriaTest.getInstance().StartThread("New Password");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
 
             stage = (Stage) entrar.getScene().getWindow();
             stage.close();

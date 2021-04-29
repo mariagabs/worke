@@ -1,5 +1,6 @@
 package sample;
 
+import DAO.auditoria.AuditoriaTest;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -71,15 +72,21 @@ public class DashboardEmpresaController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
 
+                AuditoriaTest.getInstance().StartThread("Logout");
                 stage = (Stage) logout.getScene().getWindow();
                 stage.close();
-            } catch (IOException ioException) {
+            } catch (IOException | InterruptedException ioException) {
                 ioException.printStackTrace();
             }
         });
 
         btnUsuarios.setPickOnBounds(true);
         btnUsuarios.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                AuditoriaTest.getInstance().StartThread("Users");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             UserPane.setVisible(true);
             PremioPane.setVisible(false);
             DashboardPane.setVisible(false);
@@ -88,6 +95,11 @@ public class DashboardEmpresaController implements Initializable {
 
         btnHistorico.setPickOnBounds(true);
         btnHistorico.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                AuditoriaTest.getInstance().StartThread("History");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             UserPane.setVisible(false);
             PremioPane.setVisible(true);
             DashboardPane.setVisible(false);
@@ -96,6 +108,11 @@ public class DashboardEmpresaController implements Initializable {
 
         home.setPickOnBounds(true);
         home.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                AuditoriaTest.getInstance().StartThread("Home");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             UserPane.setVisible(false);
             PremioPane.setVisible(false);
             DashboardPane.setVisible(true);
@@ -104,6 +121,11 @@ public class DashboardEmpresaController implements Initializable {
 
         historico.setPickOnBounds(true);
         historico.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                AuditoriaTest.getInstance().StartThread("History");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             UserPane.setVisible(false);
             PremioPane.setVisible(true);
             DashboardPane.setVisible(false);
@@ -112,6 +134,11 @@ public class DashboardEmpresaController implements Initializable {
 
         usuarios.setPickOnBounds(true);
         usuarios.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                AuditoriaTest.getInstance().StartThread("Users");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             UserPane.setVisible(true);
             PremioPane.setVisible(false);
             DashboardPane.setVisible(false);
@@ -120,6 +147,11 @@ public class DashboardEmpresaController implements Initializable {
 
         config.setPickOnBounds(true);
         config.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                AuditoriaTest.getInstance().StartThread("Settings");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             UserPane.setVisible(false);
             PremioPane.setVisible(false);
             DashboardPane.setVisible(false);
@@ -134,6 +166,11 @@ public class DashboardEmpresaController implements Initializable {
                         PremioPane.setVisible(false);
                         DashboardPane.setVisible(true);
                         ConfigPane.setVisible(false);
+                        try {
+                            AuditoriaTest.getInstance().StartThread("Save Settings");
+                        } catch (InterruptedException interruptedException) {
+                            interruptedException.printStackTrace();
+                        }
                     }
                 }
         );
@@ -150,7 +187,9 @@ public class DashboardEmpresaController implements Initializable {
                             dialog.initModality(Modality.APPLICATION_MODAL);
                             dialog.show();
 
-                        } catch (IOException e) {
+                            AuditoriaTest.getInstance().StartThread("Open Pop-Up Printer");
+
+                        } catch (IOException | InterruptedException e) {
                             e.printStackTrace();
                         }
 
@@ -171,7 +210,10 @@ public class DashboardEmpresaController implements Initializable {
                             dialog.initModality(Modality.APPLICATION_MODAL);
                             dialog.show();
 
-                        } catch (IOException e) {
+                            AuditoriaTest auditoria = new AuditoriaTest();
+                            auditoria.StartThread("Open Pop-Up New User");
+
+                        } catch (IOException | InterruptedException e) {
                             e.printStackTrace();
                         }
 

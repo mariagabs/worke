@@ -1,5 +1,6 @@
 package sample;
 
+import DAO.auditoria.AuditoriaTest;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -99,14 +100,20 @@ public class Controller implements Initializable {
     EventHandler<ActionEvent> playPauseEvent = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e)
         {
-            if (pause) {
-                btnImagePlay = imagePlay;
-                pause = false;
-                //teste();
-            } else {
-                pause = true;
-                btnImagePlay = imagePause;
+            try {
+                if (pause) {
+                    btnImagePlay = imagePlay;
+                    pause = false;
+                    AuditoriaTest.getInstance().StartThread("Play");
 
+                    //teste();
+                } else {
+                    pause = true;
+                    btnImagePlay = imagePause;
+                    AuditoriaTest.getInstance().StartThread("Pause");
+                }
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
             }
         }
     };
@@ -118,6 +125,11 @@ public class Controller implements Initializable {
 
         Home.setPickOnBounds(true);
         Home.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                AuditoriaTest.getInstance().StartThread("Home");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             homeGrayScreen.setVisible(true);
             homeWhiteScreen.setVisible(true);
             exerciseScreen.setVisible(false);
@@ -138,6 +150,11 @@ public class Controller implements Initializable {
 
         ExerciseDetails.setPickOnBounds(true);
         ExerciseDetails.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                AuditoriaTest.getInstance().StartThread("Exercise Details");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             exerciseScreen.setVisible(true);
             homeGrayScreen.setVisible(false);
             homeWhiteScreen.setVisible(false);
@@ -145,6 +162,11 @@ public class Controller implements Initializable {
         });
         Config.setPickOnBounds(true);
         Config.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                AuditoriaTest.getInstance().StartThread("Settings");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             configScreen.setVisible(true);
             exerciseScreen.setVisible(false);
             homeGrayScreen.setVisible(false);
@@ -162,13 +184,20 @@ public class Controller implements Initializable {
 
                 stage = (Stage) Logout.getScene().getWindow();
                 stage.close();
-            } catch (IOException ioException) {
+
+                AuditoriaTest.getInstance().StartThread("Logout");
+            } catch (IOException | InterruptedException ioException) {
                 ioException.printStackTrace();
             }
         });
 
         btnIniciar.setPickOnBounds(true);
         btnIniciar.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                AuditoriaTest.getInstance().StartThread("Initialize");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             configScreen.setVisible(false);
             exerciseScreen.setVisible(true);
             homeGrayScreen.setVisible(false);
