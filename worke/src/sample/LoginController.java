@@ -1,5 +1,6 @@
 package sample;
 
+import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -19,8 +21,16 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+
     @FXML
     private ImageView sair;
+
+    @FXML
+    private TextField email;
+
+    @FXML
+    private TextField senha;
 
     @FXML
     private Button entrar;
@@ -43,6 +53,8 @@ public class LoginController implements Initializable {
             try {
                 AuditoriaTest.getInstance().StartThread("Login");
 
+                usuarioDAO.consultar(email.getText(), senha.getText());
+
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("criarSenha.fxml")));
                 Stage stage = new Stage();
                 stage.initStyle(StageStyle.UNDECORATED);
@@ -56,5 +68,7 @@ public class LoginController implements Initializable {
             }
         }
     };
+
+
 
 }

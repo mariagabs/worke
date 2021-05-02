@@ -2,25 +2,16 @@ package DAO.basis;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public abstract class  AbstractDAO<T> {
+public interface AbstractDAO<T> {
 
-    /*protected ResultSet findbyId(String tablename, Integer id){
-        ResultSet rs= null;
-        try {
-            // the following lines are not working
-            //pStmt = cn.prepareStatement("SELECT * FROM "+ tablename+ "WHERE id = ?");
-            //pStmt.setInt(1, id);
-            //rs = pStmt.executeQuery();
-            int x = 1;
+    public void inserir(T objt);
 
-        } catch (SQLException ex) {
-            System.out.println("ERROR in findbyid " +ex.getMessage() +ex.getCause());
-            ex.printStackTrace();
-        }finally{
-            return rs;
-        }
+    public void alterar(T objt);
 
-    }*/
+    public void excluir(int id);
+
+    public ArrayList<T> listar();
 
 }

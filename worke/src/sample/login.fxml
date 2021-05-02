@@ -57,7 +57,7 @@
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor></TextField>
-                        <TextField fx:id="email1" layoutX="50.0" layoutY="169.0" maxWidth="362.0" minHeight="29.5" minWidth="362.0" prefWidth="362.0" promptText="Senha" style="-fx-font-family: Nunito;" GridPane.rowIndex="2">
+                        <TextField fx:id="senha" layoutX="50.0" layoutY="169.0" maxWidth="362.0" minHeight="29.5" minWidth="362.0" prefWidth="362.0" promptText="Senha" style="-fx-font-family: Nunito;" GridPane.rowIndex="2">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -68,7 +68,7 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <Button fx:id="entrar" mnemonicParsing="false" prefHeight="54.0" prefWidth="362.0"  style="-fx-background-color: #A3D3E4; -fx-font-family: Nunito; -fx-background-radius: 10;" text="ENTRAR" textFill="WHITE" GridPane.rowIndex="3">
+                        <Button fx:id="entrar" mnemonicParsing="false" prefHeight="54.0" prefWidth="362.0" style="-fx-background-color: #A3D3E4; -fx-font-family: Nunito; -fx-background-radius: 10;" text="ENTRAR" textFill="WHITE" GridPane.rowIndex="3">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
