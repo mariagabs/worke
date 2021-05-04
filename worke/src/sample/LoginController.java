@@ -2,6 +2,7 @@ package sample;
 
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
+import comuns.acesso.Usuario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -53,7 +54,7 @@ public class LoginController implements Initializable {
             try {
                 AuditoriaTest.getInstance().StartThread("Login");
 
-                usuarioDAO.consultar(email.getText(), senha.getText());
+                Usuario user = usuarioDAO.consultar(email.getText(), senha.getText());
 
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("criarSenha.fxml")));
                 Stage stage = new Stage();
