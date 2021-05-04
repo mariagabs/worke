@@ -50,7 +50,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
 
     @Override
     public void alterar(Usuario objt) {
-        String sql = "UPDATE Usuario SET Login = ? , SET Senha = ? , SET Nome = ? , SET AdmEmpresa = ? WHERE id = ?";
+        String sql = "UPDATE Usuario SET Login = ? , Senha = ? , Nome = ? , AdmEmpresa = ? WHERE id = ?";
 
         try {
 

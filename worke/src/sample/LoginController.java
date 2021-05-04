@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
@@ -34,6 +35,9 @@ public class LoginController implements Initializable {
     private TextField senha;
 
     @FXML
+    private Label dadosIncorretos;
+
+    @FXML
     private Button entrar;
 
     @Override
@@ -56,14 +60,31 @@ public class LoginController implements Initializable {
 
                 Usuario user = usuarioDAO.consultar(email.getText(), senha.getText());
 
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("criarSenha.fxml")));
-                Stage stage = new Stage();
-                stage.initStyle(StageStyle.UNDECORATED);
-                stage.setScene(scene);
-                stage.show();
+                if(user.getId() == 0){
+                    dadosIncorretos.setVisible(true);
+                }else{
+                    dadosIncorretos.setVisible(false);
+                    Scene scene;
 
-                stage = (Stage) sair.getScene().getWindow();
-                stage.close();
+                    if(user.isAdmEmpresa()){
+                        scene = new Scene(FXMLLoader.load(getClass().getResource("dashboardEmpresa.fxml")));
+                    } else if(user.getSenha().equals("Trocar123*")){
+                        scene = new Scene(FXMLLoader.load(getClass().getResource("criarSenha.fxml")));
+                    }else{
+                        scene = new Scene(FXMLLoader.load(getClass().getResource("sample.fxml")));
+                    }
+
+                    Stage stage = new Stage();
+                    stage.setUserData(user);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.setScene(scene);
+                    stage.show();
+
+                    stage = (Stage) sair.getScene().getWindow();
+                    stage.close();
+                }
+
+
             } catch (IOException | InterruptedException ioException) {
                 ioException.printStackTrace();
             }

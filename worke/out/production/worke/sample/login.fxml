@@ -103,6 +103,11 @@
                               <Insets right="52.0" />
                            </padding>
                         </Label>
+                        <Label fx:id="dadosIncorretos" text="Usuário ou senha incorreto. Tente novamente." textFill="#d70000" visible="false" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                           <GridPane.margin>
+                              <Insets left="40.0" />
+                           </GridPane.margin>
+                        </Label>
                      </children>
                   </GridPane>
                   <Label text="Label" />
