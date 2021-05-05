@@ -6,11 +6,18 @@ import comuns.conteudo.Exercicio;
 import java.util.List;
 
 public class Usuario extends Entidade implements IUsuario{
+    private Usuario user;
     private String nome;
     private String email;
     private String senha;
     private boolean admEmpresa;
+    private final static Usuario INSTANCE = new Usuario();
 
+    public static Usuario getInstance(){
+        return INSTANCE;
+    }
+
+    public Usuario(){}
 
     public String getNome() {
         return nome;
@@ -45,4 +52,11 @@ public class Usuario extends Entidade implements IUsuario{
     }
 
 
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
 }

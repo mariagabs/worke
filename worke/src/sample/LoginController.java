@@ -40,6 +40,8 @@ public class LoginController implements Initializable {
     @FXML
     private Button entrar;
 
+    public static Usuario usuarioLogado;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sair.setPickOnBounds(true);
@@ -76,6 +78,7 @@ public class LoginController implements Initializable {
 
                     Stage stage = new Stage();
                     stage.setUserData(user);
+                    usuarioLogado = user;
                     stage.initStyle(StageStyle.UNDECORATED);
                     stage.setScene(scene);
                     stage.show();

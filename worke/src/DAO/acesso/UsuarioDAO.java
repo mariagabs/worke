@@ -114,7 +114,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 while(resultadoSentenca.next())
                 {
 
-                    Usuario usuario = new Usuario();
+                    Usuario usuario = Usuario.getInstance();
 
                     usuario.setId(resultadoSentenca.getInt("id"));
                     usuario.setNome(resultadoSentenca.getString("Nome"));
@@ -140,7 +140,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
 
     public Usuario consultar(String login, String senha) {
 
-        Usuario usuario = new Usuario();
+        Usuario usuario = Usuario.getInstance();
 
         String sql = "SELECT * FROM Usuario WHERE Login = ? AND Senha = ?";
 

@@ -65,7 +65,7 @@
                             <font>
                                 <Font size="14.0" />
                             </font></Label>
-                        <Label layoutX="49.0" layoutY="59.0" prefHeight="53.0" prefWidth="700.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Ana Carolina Machado" textFill="#071c35">
+                        <Label fx:id="nomeUsuario" layoutX="49.0" layoutY="59.0" prefHeight="53.0" prefWidth="700.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Ana Carolina Machado" textFill="#071c35">
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
