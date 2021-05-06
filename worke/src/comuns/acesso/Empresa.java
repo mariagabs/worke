@@ -15,6 +15,11 @@ public class Empresa extends Usuario implements IUsuario{
     private int qntTotalExercicios;
     private double qntHorasDiarias;
     private int qntExerciciosDiario;
+    private final static Empresa INSTANCE = new Empresa();
+
+    public static Empresa getInstance(){
+        return INSTANCE;
+    }
 
     public String getFraseMotivacional() {
         return fraseMotivacional;

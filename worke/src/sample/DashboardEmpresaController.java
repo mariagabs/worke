@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.DropShadow;
@@ -59,6 +60,10 @@ public class DashboardEmpresaController implements Initializable {
     private Pane DashboardPane;
     @FXML
     private Pane ConfigPane;
+    @FXML
+    private Label data;
+    @FXML
+    private Label hora;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -3,6 +3,8 @@ package DAO.acesso;
 import DAO.basis.AbstractDAO;
 import DAO.basis.ConnectionDAO;
 import DAO.basis.MySQLDAO;
+import comuns.acesso.Empresa;
+import comuns.acesso.Funcionario;
 import comuns.acesso.Usuario;
 import comuns.basis.Entidade;
 
@@ -138,9 +140,9 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
 
     }
 
-    public Usuario consultar(String login, String senha) {
-
-        Usuario usuario = Usuario.getInstance();
+    @Override
+    public <T> T consultar(String login, String senha) {
+        T user = null;
 
         String sql = "SELECT * FROM Usuario WHERE Login = ? AND Senha = ?";
 
@@ -155,18 +157,38 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
 
                 if(rs != null) {
                     while(rs.next()) {
-                        usuario.setId(rs.getInt("Id"));
-                        usuario.setEmail(rs.getString("Login"));
-                        usuario.setSenha(rs.getString("Senha"));
-                        usuario.setAdmEmpresa(rs.getBoolean("AdmEmpresa"));
-                        usuario.setNome(rs.getString("Nome"));
+                        boolean adm = rs.getBoolean("AdmEmpresa");
+
+                        if(adm){
+                            Empresa userEmpresa = Empresa.getInstance();
+                            userEmpresa.setId(rs.getInt("Id"));
+                            userEmpresa.setNome(rs.getString("Nome"));
+                            userEmpresa.setEmail(rs.getString("Login"));
+                            userEmpresa.setSenha(rs.getString("Senha"));
+                            userEmpresa.setFraseMotivacional(rs.getString("FraseMotivacional"));
+                            userEmpresa.setPremio(rs.getBoolean("PossuiPremio"));
+
+                            user = (T) userEmpresa;
+
+                        }else{
+                            Funcionario userFunc = Funcionario.getInstance();
+                            userFunc.setId(rs.getInt("Id"));
+                            userFunc.setNome(rs.getString("Nome"));
+                            userFunc.setEmail(rs.getString("Login"));
+                            userFunc.setSenha(rs.getString("Senha"));
+                            userFunc.setLembrete(rs.getString("Lembrete"));
+                            userFunc.setRanking(rs.getInt("Ranking"));
+
+                            user = (T) userFunc;
+
+                        }
                     }
                 }
 
                 sentenca.close();
                 this.connection.getConnection().close();
 
-                return usuario;
+                return user;
             }
 
         } catch(Exception ex) {
@@ -175,5 +197,6 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
 
         return null;
     }
+
 
 }

@@ -11,7 +11,7 @@ public class Usuario extends Entidade implements IUsuario{
     private String email;
     private String senha;
     private boolean admEmpresa;
-    private final static Usuario INSTANCE = new Usuario();
+    private final static Usuario INSTANCE = new Funcionario();
 
     public static Usuario getInstance(){
         return INSTANCE;

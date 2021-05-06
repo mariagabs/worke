@@ -1,6 +1,9 @@
 package sample;
 
+import DAO.acesso.FuncionarioDAO;
+import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
+import comuns.acesso.Funcionario;
 import comuns.acesso.Usuario;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -74,6 +77,8 @@ public class Controller implements Initializable {
     private Button btnIniciar;
     @FXML
     private Label nomeUsuario;
+    @FXML
+    private Label lembrete;
 
     Image imagePause = new Image(getClass().getResource("/resources/img/simbolo-de-pausa.png").toExternalForm());
     Image imagePlay = new Image(getClass().getResource("/resources/img/botao-play-ponta-de-seta.png").toExternalForm());
@@ -124,9 +129,12 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Usuario user = Usuario.getInstance();
+        Funcionario func = Funcionario.getInstance();
 
-        nomeUsuario.setText(user.getNome());
+
+        nomeUsuario.setText(func.getNome());
+        lembrete.setText(func.getLembrete());
+
         //playPause.setOnAction(playPauseEvent);
 
         Home.setPickOnBounds(true);

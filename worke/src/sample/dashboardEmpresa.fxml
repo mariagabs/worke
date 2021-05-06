@@ -317,7 +317,7 @@
                                     <Insets />
                                 </GridPane.margin>
                             </Label>
-                            <Label style="-fx-font-family: Nunito;" text="25/03/2021" textFill="#A3D3E4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                            <Label id="data" style="-fx-font-family: Nunito;" text="25/03/2021" textFill="#A3D3E4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                 <font>
                                     <Font name="System Bold" size="28.0" />
                                 </font>
@@ -325,7 +325,7 @@
                                     <Insets top="20.0" />
                                 </GridPane.margin>
                             </Label>
-                            <Label style="-fx-font-family: Nunito;" text="22:40" textFill="#A3D3E4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                            <Label fx:id="hora" style="-fx-font-family: Nunito;" text="22:40" textFill="#A3D3E4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                 <font>
                                     <Font name="System Bold" size="28.0" />
                                 </font>
