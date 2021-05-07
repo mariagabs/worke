@@ -1,50 +1,32 @@
-package sample;
+package sample.DashboardFuncionario;
 
-import DAO.acesso.FuncionarioDAO;
-import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
 import comuns.acesso.Funcionario;
-import comuns.acesso.Usuario;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.beans.DefaultProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PopupControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Controller implements Initializable {
 
+public class Dashboard implements Initializable{
     @FXML
     private ImageView Home;
     @FXML
@@ -190,7 +172,7 @@ public class Controller implements Initializable {
         Logout.setPickOnBounds(true);
         Logout.setOnMouseClicked((MouseEvent e) -> {
             try {
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("login.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("../Login/login.fxml")));
                 Stage stage = new Stage();
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(scene);
@@ -219,7 +201,6 @@ public class Controller implements Initializable {
         });
 
     }
-
 
 
 }

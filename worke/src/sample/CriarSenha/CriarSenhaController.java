@@ -1,4 +1,4 @@
-package sample;
+package sample.CriarSenha;
 
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
@@ -60,7 +60,7 @@ public class CriarSenhaController implements Initializable {
 
                         Scene scene = null;
                         try {
-                            scene = new Scene(FXMLLoader.load(getClass().getResource("sample.fxml")));
+                            scene = new Scene(FXMLLoader.load(getClass().getResource("../sample.fxml")));
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }

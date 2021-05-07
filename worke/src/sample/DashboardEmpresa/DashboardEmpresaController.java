@@ -82,7 +82,7 @@ public class DashboardEmpresaController implements Initializable {
         logout.setPickOnBounds(true);
         logout.setOnMouseClicked((MouseEvent e) -> {
             try {
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("login.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("Login/login.fxml")));
                 Stage stage = new Stage();
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(scene);
