@@ -8,6 +8,7 @@ public class Funcionario extends Usuario implements IUsuario{
 
     public Funcionario(){
         tipo = TipoUsuario.FUNCIONARIO;
+        setAdmEmpresa(false);
     }
     private TipoUsuario tipo;
     private List<Exercicio> exercicios;

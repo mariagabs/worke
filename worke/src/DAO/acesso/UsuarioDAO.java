@@ -116,7 +116,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 while(resultadoSentenca.next())
                 {
 
-                    Usuario usuario = Usuario.getInstance();
+                    Usuario usuario = new Usuario();
 
                     usuario.setId(resultadoSentenca.getInt("id"));
                     usuario.setNome(resultadoSentenca.getString("Nome"));

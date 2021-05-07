@@ -2,6 +2,7 @@ package comuns.acesso;
 
 import comuns.basis.Entidade;
 import comuns.conteudo.Exercicio;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.util.List;
 

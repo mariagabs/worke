@@ -4,6 +4,7 @@ public class Empresa extends Usuario implements IUsuario{
 
     public Empresa(){
         tipo = TipoUsuario.EMPRESA;
+        setAdmEmpresa(true);
     }
     private TipoUsuario tipo;
     private String fraseMotivacional;

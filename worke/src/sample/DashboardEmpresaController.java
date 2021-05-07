@@ -1,7 +1,12 @@
 package sample;
 
+import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
-import javafx.application.Platform;
+import comuns.acesso.Empresa;
+import comuns.acesso.Usuario;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -9,25 +14,19 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToolBar;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class DashboardEmpresaController implements Initializable {
@@ -64,9 +63,21 @@ public class DashboardEmpresaController implements Initializable {
     private Label data;
     @FXML
     private Label hora;
+    @FXML
+    private Label nomeEmpresa;
+    @FXML
+    private TableColumn<Users, String> nomeCol;
+    @FXML
+    private TableColumn<Users, String> emailCol;
+    @FXML
+    private TableView usuariosTable;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+        Empresa emp = Empresa.getInstance();
+        nomeEmpresa.setText(emp.getNome());
 
         logout.setPickOnBounds(true);
         logout.setOnMouseClicked((MouseEvent e) -> {
@@ -92,6 +103,21 @@ public class DashboardEmpresaController implements Initializable {
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
             }
+
+            UsuarioDAO dao = new UsuarioDAO();
+            ArrayList<Usuario> usuarios = dao.listar();
+            ArrayList<Users> users = null;
+
+            for(Usuario usuario : usuarios){
+                users.add(new Users(usuario.getNome(), usuario.getEmail()));
+            }
+
+            nomeCol.setCellValueFactory(new PropertyValueFactory<Users, String>("nome"));
+            emailCol.setCellValueFactory(new PropertyValueFactory<Users, String>("login"));
+
+            usuariosTable.setItems((ObservableList) users);
+            //usuariosTable.getColumns().addAll(nomeCol, emailCol)
+
             UserPane.setVisible(true);
             PremioPane.setVisible(false);
             DashboardPane.setVisible(false);
@@ -139,15 +165,31 @@ public class DashboardEmpresaController implements Initializable {
 
         usuarios.setPickOnBounds(true);
         usuarios.setOnMouseClicked((MouseEvent e) -> {
-            try {
-                AuditoriaTest.getInstance().StartThread("Users");
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
             UserPane.setVisible(true);
             PremioPane.setVisible(false);
             DashboardPane.setVisible(false);
             ConfigPane.setVisible(false);
+            UsuarioDAO dao = new UsuarioDAO();
+            ArrayList<Usuario> usuarios = dao.listar();
+            usuariosTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            nomeCol.setCellFactory(nomeCol.getCellFactory());
+            emailCol.setCellFactory(emailCol.getCellFactory());
+
+            usuariosTable.setEditable(true);
+
+            final ObservableList<Users> users =
+                    FXCollections.observableArrayList();
+
+            for(Usuario usuario : usuarios){
+                users.add(new Users(usuario.getNome(), usuario.getEmail()));
+            }
+
+            nomeCol.setCellValueFactory(new PropertyValueFactory<Users, String>("nome"));
+            emailCol.setCellValueFactory(new PropertyValueFactory<Users, String>("email"));
+
+            usuariosTable.setItems((ObservableList) users);
+
+
         });
 
         config.setPickOnBounds(true);
@@ -226,5 +268,30 @@ public class DashboardEmpresaController implements Initializable {
                     }
                 }
         );
+    }
+    public static class Users{
+        private final SimpleStringProperty nome;
+        private final SimpleStringProperty email;
+
+        public Users(String nome, String email){
+            this.nome = new SimpleStringProperty(nome);
+            this.email = new SimpleStringProperty(email);
+        }
+
+        public void setEmail(String email) {
+            this.nome.set(email);
+        }
+
+        public String getEmail() {
+            return email.get();
+        }
+
+        public void setNome(String nome) {
+            this.nome.set(nome);
+        }
+
+        public String getNome() {
+            return nome.get();
+        }
     }
 }
