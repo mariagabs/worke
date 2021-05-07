@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10" stylesheets="@../resources/fonts/styles.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" stylesheets="@../../resources/fonts/styles.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DashboardFuncionario.Controller">
     <children>
         <Pane maxHeight="780.0" maxWidth="1200.0" minHeight="780.0" minWidth="1200.0" prefHeight="780.0" prefWidth="1200.0" style="-fx-background-color: #A3D3E4;">
             <children>
@@ -26,7 +26,7 @@
                     <children>
                         <ImageView fx:id="Home" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
                             <image>
-                                <Image url="@../resources/img/home.png" />
+                                <Image url="@../../resources/img/home.png" />
                             </image>
                             <GridPane.margin>
                                 <Insets />
@@ -37,7 +37,7 @@
                         </ImageView>
                         <ImageView fx:id="Config" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <image>
-                                <Image url="@../resources/img/settings.png" />
+                                <Image url="@../../resources/img/settings.png" />
                             </image>
                             <GridPane.margin>
                                 <Insets />
@@ -48,7 +48,7 @@
                         </ImageView>
                         <ImageView fx:id="Logout" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                             <image>
-                                <Image url="@../resources/img/logout.png" />
+                                <Image url="@../../resources/img/logout.png" />
                             </image>
                             <GridPane.margin>
                                 <Insets />
@@ -117,7 +117,7 @@
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3eaf0" height="150.0" stroke="TRANSPARENT" strokeType="INSIDE" width="76.0" GridPane.rowIndex="2" />
                                 <ImageView fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                                     <image>
-                                        <Image url="@../resources/img/stretching-exercises.png" />
+                                        <Image url="@../../resources/img/stretching-exercises.png" />
                                     </image>
                                     <GridPane.margin>
                                         <Insets left="13.0" />
@@ -157,7 +157,7 @@
                             <children>
                                 <ImageView fitHeight="46.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="TOP">
                                     <image>
-                                        <Image url="@../resources/img/flag.png" />
+                                        <Image url="@../../resources/img/flag.png" />
                                     </image>
                                     <GridPane.margin>
                                         <Insets />
@@ -209,12 +209,12 @@
                                         <Insets left="26.0" />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/stretching-exercises.png" />
+                                        <Image url="@../../resources/img/stretching-exercises.png" />
                                     </image>
                                 </ImageView>
                                 <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <image>
-                                        <Image url="@../resources/img/right-arrow.png" />
+                                        <Image url="@../../resources/img/right-arrow.png" />
                                     </image>
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
@@ -256,12 +256,12 @@
                                         <Insets left="26.0" />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/man-jumping-with-arms-raised.png" />
+                                        <Image url="@../../resources/img/man-jumping-with-arms-raised.png" />
                                     </image>
                                 </ImageView>
                                 <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <image>
-                                        <Image url="@../resources/img/right-arrow.png" />
+                                        <Image url="@../../resources/img/right-arrow.png" />
                                     </image>
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
@@ -304,12 +304,12 @@
                                         <Insets left="26.0" />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/abdominal-exercise.png" />
+                                        <Image url="@../../resources/img/abdominal-exercise.png" />
                                     </image>
                                 </ImageView>
                                 <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <image>
-                                        <Image url="@../resources/img/right-arrow.png" />
+                                        <Image url="@../../resources/img/right-arrow.png" />
                                     </image>
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
@@ -352,12 +352,12 @@
                                         <Insets left="26.0" />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/man-exercising.png" />
+                                        <Image url="@../../resources/img/man-exercising.png" />
                                     </image>
                                 </ImageView>
                                 <ImageView fx:id="ExerciseDetails" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <image>
-                                        <Image url="@../resources/img/right-arrow.png" />
+                                        <Image url="@../../resources/img/right-arrow.png" />
                                     </image>
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
@@ -400,12 +400,12 @@
                                         <Insets left="26.0" />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/man-exercising-legs.png" />
+                                        <Image url="@../../resources/img/man-exercising-legs.png" />
                                     </image>
                                 </ImageView>
                                 <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <image>
-                                        <Image url="@../resources/img/right-arrow.png" />
+                                        <Image url="@../../resources/img/right-arrow.png" />
                                     </image>
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
@@ -448,12 +448,12 @@
                                         <Insets left="26.0" />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/man-exercising-arms.png" />
+                                        <Image url="@../../resources/img/man-exercising-arms.png" />
                                     </image>
                                 </ImageView>
                                 <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <image>
-                                        <Image url="@../resources/img/right-arrow.png" />
+                                        <Image url="@../../resources/img/right-arrow.png" />
                                     </image>
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
@@ -541,7 +541,7 @@
                                         <Insets left="19.0" top="13.0" />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/man-exercising-legs.png" />
+                                        <Image url="@../../resources/img/man-exercising-legs.png" />
                                     </image>
                                 </ImageView>
                                 <Label style="-fx-font-family: Nunito;" text="18" textFill="#071c35" GridPane.rowIndex="1">
@@ -582,7 +582,7 @@
                                         <Insets left="19.0" top="13.0" />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/stretching-exercises.png" />
+                                        <Image url="@../../resources/img/stretching-exercises.png" />
                                     </image>
                                 </ImageView>
                                 <Label style="-fx-font-family: Nunito;" text="15" textFill="#071c35" GridPane.rowIndex="1">
@@ -623,7 +623,7 @@
                                         <Insets left="19.0" top="13.0" />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/man-exercising.png" />
+                                        <Image url="@../../resources/img/man-exercising.png" />
                                     </image>
                                 </ImageView>
                                 <Label style="-fx-font-family: Nunito;" text="12" textFill="#071c35" GridPane.rowIndex="1">
@@ -664,7 +664,7 @@
                                         <Insets left="19.0" top="13.0" />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/meditation.png" />
+                                        <Image url="@../../resources/img/meditation.png" />
                                     </image>
                                 </ImageView>
                                 <Label style="-fx-font-family: Nunito;" text="10" textFill="#071c35" GridPane.rowIndex="1">
@@ -744,7 +744,7 @@
                                         <Insets left="58.0" />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/man-exercising.png" />
+                                        <Image url="@../../resources/img/man-exercising.png" />
                                     </image>
                                 </ImageView>
                                 <Label alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="117.0" prefWidth="351.0" style="-fx-font-family: Nunito;" text="Alongamento Corporal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
@@ -802,7 +802,7 @@
                                         <Insets />
                                     </GridPane.margin>
                                     <image>
-                                        <Image url="@../resources/img/botao-play-ponta-de-seta.png" />
+                                        <Image url="@../../resources/img/botao-play-ponta-de-seta.png" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -1051,7 +1051,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/stretching-exercises-blue.png" />
+                                                <Image url="@../../resources/img/stretching-exercises-blue.png" />
                                             </image>
                                         </ImageView>
                                         <Label alignment="CENTER" prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Alongamento da parte superior" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.rowIndex="1">
@@ -1075,7 +1075,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/man-exercising-legs.png" />
+                                                <Image url="@../../resources/img/man-exercising-legs.png" />
                                             </image>
                                         </ImageView>
                                         <Label alignment="CENTER" prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Alongamento da parte superior" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -1099,7 +1099,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/meditation.png" />
+                                                <Image url="@../../resources/img/meditation.png" />
                                             </image>
                                         </ImageView>
                                         <Label alignment="CENTER" prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Meditação" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -1126,7 +1126,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/abdominal-exercise-blue.png" />
+                                                <Image url="@../../resources/img/abdominal-exercise-blue.png" />
                                             </image>
                                         </ImageView>
                                         <Label alignment="CENTER" prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Sequência de Adbominal" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -1153,7 +1153,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/man-exercising-leg-on-the-flor.png" />
+                                                <Image url="@../../resources/img/man-exercising-leg-on-the-flor.png" />
                                             </image>
                                         </ImageView>
                                         <Label prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Alongamento da parte superior" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -1177,7 +1177,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/man-vending-knees-blue.png" />
+                                                <Image url="@../../resources/img/man-vending-knees-blue.png" />
                                             </image>
                                         </ImageView>
                                         <Label prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Sequência de Agachamentos" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -1201,7 +1201,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/boy-doing-pushups-blue.png" />
+                                                <Image url="@../../resources/img/boy-doing-pushups-blue.png" />
                                             </image>
                                         </ImageView>
                                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="94.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Sequência de Flexões" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -1225,7 +1225,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/man-exercising-on-the-floor-blue.png" />
+                                                <Image url="@../../resources/img/man-exercising-on-the-floor-blue.png" />
                                             </image>
                                         </ImageView>
                                         <Label prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Alongamento das pernas" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.rowIndex="1">
@@ -1249,7 +1249,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/man-exercising-blue.png" />
+                                                <Image url="@../../resources/img/man-exercising-blue.png" />
                                             </image>
                                             <cursor>
                                                 <Cursor fx:constant="HAND" />
@@ -1276,7 +1276,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/man-jumping-with-arms-raised-blue.png" />
+                                                <Image url="@../../resources/img/man-jumping-with-arms-raised-blue.png" />
                                             </image>
                                         </ImageView>
                                         <Label alignment="CENTER" prefHeight="42.0" prefWidth="83.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Polichinelo Frontal" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -1300,7 +1300,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/man-exercising-arms-blue.png" />
+                                                <Image url="@../../resources/img/man-exercising-arms-blue.png" />
                                             </image>
                                             <cursor>
                                                 <Cursor fx:constant="HAND" />
@@ -1327,7 +1327,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/man-exercising-arm-and-leg-blue.png" />
+                                                <Image url="@../../resources/img/man-exercising-arm-and-leg-blue.png" />
                                             </image>
                                         </ImageView>
                                         <Label alignment="CENTER" prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Equilíbrio e Foco" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -1351,7 +1351,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/warming-blue.png" />
+                                                <Image url="@../../resources/img/warming-blue.png" />
                                             </image>
                                         </ImageView>
                                         <Label prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Aquecimento Corporal" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -1375,7 +1375,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/gymnast-in-frontal-flexion-posture.png" />
+                                                <Image url="@../../resources/img/gymnast-in-frontal-flexion-posture.png" />
                                             </image>
                                         </ImageView>
                                         <Label prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Alongamento Corporal Sentado" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -1399,7 +1399,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/man-exercising-hips-blue.png" />
+                                                <Image url="@../../resources/img/man-exercising-hips-blue.png" />
                                             </image>
                                         </ImageView>
                                         <Label alignment="CENTER" contentDisplay="TEXT_ONLY" prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Alongamento" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -1423,7 +1423,7 @@
                                     <children>
                                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                             <image>
-                                                <Image url="@../resources/img/woman-exercising-with-chair-blue.png" />
+                                                <Image url="@../../resources/img/woman-exercising-with-chair-blue.png" />
                                             </image>
                                         </ImageView>
                                         <Label prefHeight="46.0" prefWidth="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Alongamento com apoio" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.rowIndex="1">

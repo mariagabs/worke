@@ -1,7 +1,6 @@
 package sample;
 
 import DAO.auditoria.AuditoriaTest;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -11,17 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToolBar;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -71,7 +62,7 @@ public class DashboardEmpresaController implements Initializable {
         logout.setPickOnBounds(true);
         logout.setOnMouseClicked((MouseEvent e) -> {
             try {
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("login.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("Login/login.fxml")));
                 Stage stage = new Stage();
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(scene);
