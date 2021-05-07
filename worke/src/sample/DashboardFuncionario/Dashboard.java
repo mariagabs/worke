@@ -25,8 +25,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Controller implements Initializable {
 
+public class Dashboard implements Initializable{
     @FXML
     private ImageView Home;
     @FXML
@@ -201,7 +201,6 @@ public class Controller implements Initializable {
         });
 
     }
-
 
 
 }
