@@ -227,7 +227,7 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         try {
-                            Parent root = FXMLLoader.load(getClass().getResource("PopUpImpressao.fxml"));
+                            Parent root = FXMLLoader.load(getClass().getResource("/sample/PopUpImpressao/PopUpImpressao.fxml"));
 
                             Stage dialog = new Stage();
                             dialog.setScene(new Scene(root));
@@ -250,7 +250,7 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         try {
-                            Parent root = FXMLLoader.load(getClass().getResource("PopUpCriarFuncionario.fxml"));
+                            Parent root = FXMLLoader.load(getClass().getResource("/sample/PopUpCriarFuncionarios/PopUpCriarFuncionario.fxml"));
 
                             Stage dialog = new Stage();
                             dialog.setScene(new Scene(root));

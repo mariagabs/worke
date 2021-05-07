@@ -69,11 +69,11 @@ public class LoginController implements Initializable {
                     Scene scene;
 
                     if(user.isAdmEmpresa()){
-                        scene = new Scene(FXMLLoader.load(getClass().getResource("../dashboardEmpresa.fxml")));
+                        scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/DashboardEmpresa/dashboardEmpresa.fxml")));
                     } else if(user.getSenha().equals("Trocar123*")){
-                        scene = new Scene(FXMLLoader.load(getClass().getResource("../CriarSenha/criarSenha.fxml")));
+                        scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/CriarSenha/criarSenha.fxml")));
                     }else{
-                        scene = new Scene(FXMLLoader.load(getClass().getResource("../sample.fxml")));
+                        scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/DashboardFuncionario/dashboardFuncionario.fxml")));
                     }
 
                     Stage stage = new Stage();

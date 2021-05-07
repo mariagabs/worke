@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane hgap="10.0" minHeight="780.0" style="-fx-background-color: #F6F6F6;" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
+<GridPane hgap="10.0" minHeight="780.0" style="-fx-background-color: #F6F6F6;" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Login.LoginController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="1200" prefWidth="780" />
   </columnConstraints>
@@ -21,10 +21,10 @@
                <children>
                   <ImageView fitHeight="896.0" fitWidth="1231.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/img/estampa.png" />
+                        <Image url="@../../resources/img/estampa.png" />
                      </image>
                   </ImageView>
-                  <GridPane layoutX="410.0" layoutY="-81.0" minHeight="462.0" minWidth="440.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 35; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" stylesheets="@../resources/fonts/styles.css">
+                  <GridPane layoutX="410.0" layoutY="-81.0" minHeight="462.0" minWidth="440.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 35; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" stylesheets="@../../resources/fonts/styles.css">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -115,21 +115,21 @@
             </Pane>
             <ImageView fx:id="sair" fitHeight="22.0" fitWidth="22.0" layoutX="1145.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/img/sair.png" />
+                  <Image url="@../../resources/img/sair.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
          </children></Pane>
-      <Pane maxWidth="491.0" minWidth="491.0" prefHeight="780.0" prefWidth="491.0" style="-fx-background-color: #A3D3E4; -fx-background-radius: 0 35 35 0;" stylesheets="@../resources/fonts/styles.css">
+      <Pane maxWidth="491.0" minWidth="491.0" prefHeight="780.0" prefWidth="491.0" style="-fx-background-color: #A3D3E4; -fx-background-radius: 0 35 35 0;" stylesheets="@../../resources/fonts/styles.css">
          <GridPane.margin>
             <Insets right="54.0" />
          </GridPane.margin>
          <children>
             <ImageView fitHeight="253.0" fitWidth="359.0" layoutX="66.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/img/worke_logo.png" />
+                  <Image url="@../../resources/img/worke_logo.png" />
                </image>
             </ImageView>
          </children></Pane>

@@ -18,7 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = FXMLLoader.load(getClass().getResource("Login/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml"));
         primaryStage.setTitle("worke!");
         Scene scene = new Scene(root, 1200, 780);
         scene.getStylesheets().add(getClass().getResource("/resources/fonts/styles.css").toExternalForm());

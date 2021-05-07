@@ -172,7 +172,7 @@ public class Dashboard implements Initializable{
         Logout.setPickOnBounds(true);
         Logout.setOnMouseClicked((MouseEvent e) -> {
             try {
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("../Login/login.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml")));
                 Stage stage = new Stage();
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(scene);

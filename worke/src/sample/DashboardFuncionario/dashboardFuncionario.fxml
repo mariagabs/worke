@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10" stylesheets="@../../resources/fonts/styles.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Dashboard">
+<GridPane alignment="center" hgap="10" stylesheets="@../../resources/fonts/styles.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DashboardFuncionario.Dashboard">
     <children>
         <Pane maxHeight="780.0" maxWidth="1200.0" minHeight="780.0" minWidth="1200.0" prefHeight="780.0" prefWidth="1200.0" style="-fx-background-color: #A3D3E4;">
             <children>
