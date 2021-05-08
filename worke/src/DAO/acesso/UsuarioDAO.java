@@ -26,7 +26,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
     @Override
     public void inserir(Usuario objt) {
 
-        String sql = "INSERT INTO Usuario (Login, Senha, Nome, AdmEmpresa) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO Usuario (Login, Senha, Nome, AdmEmpresa, PossuiPremio) VALUES (?,?,?,?,?)";
 
         try {
 
@@ -35,9 +35,10 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
 
                 sentenca.setString(1, objt.getEmail());
-                sentenca.setString(2, objt.getSenha());
+                sentenca.setString(2, "Trocar123*");
                 sentenca.setString(3, objt.getNome());
                 sentenca.setBoolean(4, objt.isAdmEmpresa());
+                sentenca.setInt(5, 0);
 
 
                 sentenca.execute();
@@ -52,7 +53,13 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
 
     @Override
     public void alterar(Usuario objt) {
-        String sql = "UPDATE Usuario SET Login = ? , Senha = ? , Nome = ? , AdmEmpresa = ? WHERE id = ?";
+        String sql = "";
+
+        if(objt.getSenha() != null && !objt.getSenha().isEmpty()){
+            sql = "UPDATE Usuario SET Login = ? , Nome = ?, Senha = ? WHERE id = ?";
+        }else {
+            sql= "UPDATE Usuario SET Login = ? , Nome = ? WHERE id = ?";
+        }
 
         try {
 
@@ -61,10 +68,15 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
 
                 sentenca.setString(1, objt.getEmail());
-                sentenca.setString(2, objt.getSenha());
-                sentenca.setString(3, objt.getNome());
-                sentenca.setBoolean(4, objt.isAdmEmpresa());
-                sentenca.setInt(5, objt.getId());
+                sentenca.setString(2, objt.getNome());
+
+
+                if(objt.getSenha() != null && !objt.getSenha().isEmpty()){
+                    sentenca.setString(3, objt.getSenha());
+                    sentenca.setInt(4, objt.getId());
+                }else{
+                    sentenca.setInt(3, objt.getId());
+                }
 
 
                 sentenca.execute();

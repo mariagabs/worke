@@ -91,6 +91,11 @@
                               <Insets left="40.0" top="30.0" />
                            </GridPane.margin>
                         </Label>
+                                <Label fx:id="senhaDiferente" text="As senhas não coincidem. Tente novamente." textFill="#d70000" visible="false" GridPane.rowIndex="2">
+                                    <GridPane.margin>
+                                        <Insets left="40.0" top="30.0" />
+                                    </GridPane.margin>
+                                </Label>
                             </children>
                         </GridPane>
                         <Label text="Label" />

@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10" stylesheets="@../../resources/fonts/styles.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DashboardEmpresaController">
+<GridPane alignment="center" hgap="10" stylesheets="@../../resources/fonts/styles.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DashboardEmpresa.DashboardEmpresaController">
     <children>
         <Pane maxHeight="780.0" maxWidth="1200.0" minHeight="780.0" minWidth="1200.0" prefHeight="780.0" prefWidth="1200.0" style="-fx-background-color: #A3D3E4;">
             <children>
@@ -1035,7 +1035,7 @@
                 </Pane>
                 <Pane fx:id="UserPane" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
                     <children>
-                        <GridPane layoutX="768.0" layoutY="146.0" prefHeight="43.0" prefWidth="290.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 22; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                        <GridPane layoutX="760.0" layoutY="60.0" prefHeight="43.0" prefWidth="290.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 22; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="51.2" />
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.6" minWidth="10.0" prefWidth="220.0" />
@@ -1062,11 +1062,7 @@
                                 <Font size="36.0" />
                             </font>
                         </Label>
-                        <Button fx:id="btnCriarUsuario" layoutX="948.0" layoutY="65.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="110.0" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" text="Criar Usuário" textFill="#071c35">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></Button>
-                        <GridPane layoutX="50.0" layoutY="146.0" prefHeight="575.0" prefWidth="686.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                        <GridPane layoutX="50.0" layoutY="146.0" prefHeight="575.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -1096,6 +1092,8 @@
                                                 <TextFieldTableCell fx:factory="forTableColumn" />
                                             </cellFactory>
                                         </TableColumn>
+                                        <TableColumn fx:id="editCol" prefWidth="314.0" resizable="false" style="-fx-background-color: #FFFFFF; -fx-border-color: #C7C7C7; -fx-font-family: Nunito; -fx-alignment: CENTER;" text="Ações">
+                                        </TableColumn>
                                     </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -1106,44 +1104,11 @@
                                         <Font size="20.0" />
                                     </font>
                                 </Label>
-                            </children>
-                        </GridPane>
-                        <GridPane layoutX="768.0" layoutY="212.0" prefHeight="62.0" prefWidth="290.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="28.0" minWidth="28.0" prefWidth="28.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="28.0" minWidth="28.0" prefWidth="28.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints maxHeight="35.99998474121094" minHeight="10.0" prefHeight="32.799984741210935" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="42.399984741210936" minHeight="10.0" prefHeight="28.80001525878906" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Ana Carolina Machado" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
-                                    <font>
-                                        <Font size="14.0" />
-                                    </font>
-                                </Label>
-                                <Label prefHeight="20.0" prefWidth="154.0" style="-fx-font-family: Nunito;" text="ana.machado@empresa.com" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                            </children>
-                        </GridPane>
-                        <GridPane layoutX="768.0" layoutY="294.0" prefHeight="62.0" prefWidth="290.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="28.0" minWidth="28.0" prefWidth="28.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="28.0" minWidth="28.0" prefWidth="28.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints maxHeight="35.99998474121094" minHeight="10.0" prefHeight="32.799984741210935" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="42.399984741210936" minHeight="10.0" prefHeight="28.80001525878906" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Carla Vasconcelos " textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
-                                    <font>
-                                        <Font size="14.0" />
-                                    </font>
-                                </Label>
-                                <Label prefHeight="20.0" prefWidth="154.0" style="-fx-font-family: Nunito;" text="carla.vasconcelos@empresa.com" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                              <Button fx:id="btnCriarUsuario" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="33.0" prefWidth="110.0" style="-fx-background-color: #E6E6E6; -fx-background-radius: 10; -fx-font-family: Nunito;" text="Criar Usuário" textFill="#071c35" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                             </children>
                         </GridPane>
                     </children>

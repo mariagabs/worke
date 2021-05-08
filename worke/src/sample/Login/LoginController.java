@@ -62,7 +62,7 @@ public class LoginController implements Initializable {
 
                 Usuario user = usuarioDAO.consultar(email.getText(), senha.getText());
 
-                if(user.getId() == 0){
+                if(user == null || user.getId() == 0){
                     dadosIncorretos.setVisible(true);
                 }else{
                     dadosIncorretos.setVisible(false);

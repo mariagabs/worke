@@ -1,9 +1,10 @@
-package sample;
+package sample.DashboardEmpresa;
 
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
 import comuns.acesso.Empresa;
 import comuns.acesso.Usuario;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,18 +13,24 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
+import sample.PopUpCriarFuncionarios.PopUpCriarFuncionarioController;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -70,6 +77,8 @@ public class DashboardEmpresaController implements Initializable {
     @FXML
     private TableColumn<Users, String> emailCol;
     @FXML
+    private TableColumn<Users, Void> editCol;
+    @FXML
     private TableView usuariosTable;
 
     @Override
@@ -82,7 +91,7 @@ public class DashboardEmpresaController implements Initializable {
         logout.setPickOnBounds(true);
         logout.setOnMouseClicked((MouseEvent e) -> {
             try {
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("Login/login.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml")));
                 Stage stage = new Stage();
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(scene);
@@ -104,24 +113,30 @@ public class DashboardEmpresaController implements Initializable {
                 interruptedException.printStackTrace();
             }
 
-            UsuarioDAO dao = new UsuarioDAO();
-            ArrayList<Usuario> usuarios = dao.listar();
-            ArrayList<Users> users = null;
-
-            for(Usuario usuario : usuarios){
-                users.add(new Users(usuario.getNome(), usuario.getEmail()));
-            }
-
-            nomeCol.setCellValueFactory(new PropertyValueFactory<Users, String>("nome"));
-            emailCol.setCellValueFactory(new PropertyValueFactory<Users, String>("login"));
-
-            usuariosTable.setItems((ObservableList) users);
-            //usuariosTable.getColumns().addAll(nomeCol, emailCol)
-
             UserPane.setVisible(true);
             PremioPane.setVisible(false);
             DashboardPane.setVisible(false);
             ConfigPane.setVisible(false);
+            UsuarioDAO dao = new UsuarioDAO();
+            ArrayList<Usuario> usuarios = dao.listar();
+            usuariosTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            nomeCol.setCellFactory(nomeCol.getCellFactory());
+            emailCol.setCellFactory(emailCol.getCellFactory());
+
+            usuariosTable.setEditable(true);
+
+            final ObservableList<Users> users =
+                    FXCollections.observableArrayList();
+
+            for(Usuario usuario : usuarios){
+                users.add(new Users(usuario));
+            }
+
+            nomeCol.setCellValueFactory(new PropertyValueFactory<Users, String>("nome"));
+            emailCol.setCellValueFactory(new PropertyValueFactory<Users, String>("email"));
+            addButtonToTable();
+
+            usuariosTable.setItems((ObservableList) users);
         });
 
         btnHistorico.setPickOnBounds(true);
@@ -165,31 +180,20 @@ public class DashboardEmpresaController implements Initializable {
 
         usuarios.setPickOnBounds(true);
         usuarios.setOnMouseClicked((MouseEvent e) -> {
+
+            try {
+                AuditoriaTest.getInstance().StartThread("Users");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+
             UserPane.setVisible(true);
             PremioPane.setVisible(false);
             DashboardPane.setVisible(false);
             ConfigPane.setVisible(false);
-            UsuarioDAO dao = new UsuarioDAO();
-            ArrayList<Usuario> usuarios = dao.listar();
-            usuariosTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            nomeCol.setCellFactory(nomeCol.getCellFactory());
-            emailCol.setCellFactory(emailCol.getCellFactory());
-
-            usuariosTable.setEditable(true);
-
-            final ObservableList<Users> users =
-                    FXCollections.observableArrayList();
-
-            for(Usuario usuario : usuarios){
-                users.add(new Users(usuario.getNome(), usuario.getEmail()));
-            }
-
-            nomeCol.setCellValueFactory(new PropertyValueFactory<Users, String>("nome"));
-            emailCol.setCellValueFactory(new PropertyValueFactory<Users, String>("email"));
-
-            usuariosTable.setItems((ObservableList) users);
 
 
+            loadUsuarios();
         });
 
         config.setPickOnBounds(true);
@@ -269,13 +273,119 @@ public class DashboardEmpresaController implements Initializable {
                 }
         );
     }
+
+    private void addButtonToTable() {
+
+        Callback<TableColumn<Users, Void>, TableCell<Users, Void>> cellFactory = new Callback<TableColumn<Users, Void>, TableCell<Users, Void>>() {
+            @Override
+            public TableCell<Users, Void> call(final TableColumn<Users, Void> param) {
+                final TableCell<Users, Void> cell = new TableCell<Users, Void>() {
+
+                    private final Button btnEditar = new Button();
+                    private final Button btnExcluir = new Button();
+
+                    {
+                        Image image = null;
+                        image = new Image(getClass().getResourceAsStream("/resources/img/edit.png"));
+                        btnEditar.setStyle("-fx-background-color: transparent");
+                        btnExcluir.setStyle("-fx-background-color: transparent");
+
+                        btnEditar.setGraphic(new ImageView(image));
+                        image = new Image(getClass().getResourceAsStream("/resources/img/delete.png"));
+                        btnExcluir.setGraphic(new ImageView(image));
+
+                        btnEditar.setOnAction((ActionEvent event) -> {
+                            Users data = getTableView().getItems().get(getIndex());
+                            edit(data);
+
+                        });
+
+                        btnExcluir.setOnAction((ActionEvent event) -> {
+                            Users data = getTableView().getItems().get(getIndex());
+
+                            UsuarioDAO dao = new UsuarioDAO();
+                            dao.excluir(data.id.getValue().intValue());
+                            loadUsuarios();
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            HBox pane = new HBox(btnEditar, btnExcluir);
+                            setGraphic(pane);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        editCol.setCellFactory(cellFactory);
+
+    }
+
+    public void edit(Users user){
+        Parent root = null;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/PopUpCriarFuncionarios/PopUpCriarFuncionario.fxml"));
+            root = (Parent) fxmlLoader.load();
+            PopUpCriarFuncionarioController controller = fxmlLoader.getController();
+            Usuario userEdit = new Usuario();
+            userEdit.setId(user.id.getValue().intValue());
+            userEdit.setEmail(user.getEmail());
+            userEdit.setNome(user.getNome());
+            controller.setUser(userEdit);
+            controller.initialize(null, null);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Stage dialog = new Stage();
+        dialog.setScene(new Scene(root));
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.show();
+
+        System.out.println("selectedData: " + user.id.getValue().intValue());
+    }
+
+    public void loadUsuarios(){
+        UsuarioDAO dao = new UsuarioDAO();
+        ArrayList<Usuario> usuarios = dao.listar();
+        usuariosTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        nomeCol.setCellFactory(nomeCol.getCellFactory());
+        emailCol.setCellFactory(emailCol.getCellFactory());
+
+        usuariosTable.setEditable(true);
+
+        final ObservableList<Users> users =
+                FXCollections.observableArrayList();
+
+        for(Usuario usuario : usuarios){
+            users.add(new Users(usuario));
+        }
+
+        nomeCol.setCellValueFactory(new PropertyValueFactory<Users, String>("nome"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<Users, String>("email"));
+        addButtonToTable();
+
+        usuariosTable.setItems((ObservableList) users);
+        usuariosTable.refresh();
+    }
+
     public static class Users{
         private final SimpleStringProperty nome;
         private final SimpleStringProperty email;
+        private final SimpleIntegerProperty id;
 
-        public Users(String nome, String email){
-            this.nome = new SimpleStringProperty(nome);
-            this.email = new SimpleStringProperty(email);
+        public Users(Usuario user){
+            this.nome = new SimpleStringProperty(user.getNome());
+            this.email = new SimpleStringProperty(user.getEmail());
+            this.id = new SimpleIntegerProperty(user.getId());
         }
 
         public void setEmail(String email) {
@@ -292,6 +402,14 @@ public class DashboardEmpresaController implements Initializable {
 
         public String getNome() {
             return nome.get();
+        }
+
+        public void setId(Integer id) {
+            this.id.set(id);
+        }
+
+        public int getId() {
+            return id.get();
         }
     }
 }

@@ -32,6 +32,8 @@ public class CriarSenhaController implements Initializable {
 
     @FXML
     private Label senhaIncorreta;
+    @FXML
+    private Label senhaDiferente;
 
     public Usuario usuarioLogado;
 
@@ -42,6 +44,7 @@ public class CriarSenhaController implements Initializable {
         entrar.setOnMouseClicked((MouseEvent e) -> {
 
                 if (novaSenha.getText().equals(confirmarSenha.getText())) {
+                    senhaDiferente.setVisible(false);
                     if (novaSenha.getText().equals("Trocar123*")) {
                         senhaIncorreta.setVisible(true);
                     } else {
@@ -60,7 +63,7 @@ public class CriarSenhaController implements Initializable {
 
                         Scene scene = null;
                         try {
-                            scene = new Scene(FXMLLoader.load(getClass().getResource("../sample.fxml")));
+                            scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/DashboardFuncionario/dashboardFuncionario.fxml")));
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
@@ -78,6 +81,8 @@ public class CriarSenhaController implements Initializable {
                         stage = (Stage) entrar.getScene().getWindow();
                         stage.close();
                     }
+                }else{
+                    senhaDiferente.setVisible(true);
                 }
 
 
