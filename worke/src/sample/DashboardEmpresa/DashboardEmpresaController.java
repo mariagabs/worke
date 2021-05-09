@@ -4,8 +4,11 @@ import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
 import comuns.acesso.Empresa;
 import comuns.acesso.Usuario;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -79,10 +82,22 @@ public class DashboardEmpresaController implements Initializable {
     @FXML
     private TableColumn<Users, Void> editCol;
     @FXML
-    private TableView usuariosTable;
+    public TableView usuariosTable;
+    @FXML
+    private TextField pesquisarUsuario;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        loadUsuarios(usuariosTable);
+
+        pesquisarUsuario.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+
+                loadUsuarios(usuariosTable);
+            }
+        });
 
 
         Empresa emp = Empresa.getInstance();
@@ -193,7 +208,7 @@ public class DashboardEmpresaController implements Initializable {
             ConfigPane.setVisible(false);
 
 
-            loadUsuarios();
+            loadUsuarios(usuariosTable);
         });
 
         config.setPickOnBounds(true);
@@ -254,8 +269,11 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         try {
-                            Parent root = FXMLLoader.load(getClass().getResource("/sample/PopUpCriarFuncionarios/PopUpCriarFuncionario.fxml"));
-
+                            Parent root = null;
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/PopUpCriarFuncionarios/PopUpCriarFuncionario.fxml"));
+                            root = (Parent) fxmlLoader.load();
+                            PopUpCriarFuncionarioController controller = fxmlLoader.getController();
+                            controller.tableTeste = usuariosTable;
                             Stage dialog = new Stage();
                             dialog.setScene(new Scene(root));
                             dialog.initModality(Modality.APPLICATION_MODAL);
@@ -305,7 +323,7 @@ public class DashboardEmpresaController implements Initializable {
 
                             UsuarioDAO dao = new UsuarioDAO();
                             dao.excluir(data.id.getValue().intValue());
-                            loadUsuarios();
+                            loadUsuarios(usuariosTable);
                         });
                     }
 
@@ -339,6 +357,7 @@ public class DashboardEmpresaController implements Initializable {
             userEdit.setEmail(user.getEmail());
             userEdit.setNome(user.getNome());
             controller.setUser(userEdit);
+            controller.tableTeste = usuariosTable;
             controller.initialize(null, null);
 
         } catch (IOException e) {
@@ -353,14 +372,22 @@ public class DashboardEmpresaController implements Initializable {
         System.out.println("selectedData: " + user.id.getValue().intValue());
     }
 
-    public void loadUsuarios(){
+    public void loadUsuarios(TableView table){
+        table.getItems().clear();
         UsuarioDAO dao = new UsuarioDAO();
-        ArrayList<Usuario> usuarios = dao.listar();
-        usuariosTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+
+        if(pesquisarUsuario.getText() == null || pesquisarUsuario.getText().isEmpty()){
+            usuarios = dao.listar();
+        }else{
+            usuarios = dao.listarFiltro(pesquisarUsuario.getText());
+        }
+
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         nomeCol.setCellFactory(nomeCol.getCellFactory());
         emailCol.setCellFactory(emailCol.getCellFactory());
 
-        usuariosTable.setEditable(true);
+        table.setEditable(false);
 
         final ObservableList<Users> users =
                 FXCollections.observableArrayList();
@@ -373,8 +400,10 @@ public class DashboardEmpresaController implements Initializable {
         emailCol.setCellValueFactory(new PropertyValueFactory<Users, String>("email"));
         addButtonToTable();
 
-        usuariosTable.setItems((ObservableList) users);
-        usuariosTable.refresh();
+        table.getItems().clear();
+        table.setItems(users);
+        table.refresh();
+
     }
 
     public static class Users{

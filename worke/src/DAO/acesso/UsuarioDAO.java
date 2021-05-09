@@ -7,6 +7,8 @@ import comuns.acesso.Empresa;
 import comuns.acesso.Funcionario;
 import comuns.acesso.Usuario;
 import comuns.basis.Entidade;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -88,6 +90,31 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
         }
     }
 
+    public void alterarFuncionario(Funcionario objt) {
+        String sql = "UPDATE Usuario SET Login = ? , Nome = ?, Lembrete = ? WHERE id = ?";
+
+        try {
+
+            if (this.connection.connection()) {
+
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+
+                sentenca.setString(1, objt.getEmail());
+                sentenca.setString(2, objt.getNome());
+                sentenca.setString(3, objt.getLembrete());
+                sentenca.setInt(4, objt.getId());
+
+
+                sentenca.execute();
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
     @Override
     public void excluir(int id) {
 
@@ -111,11 +138,49 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
         }
     }
 
+    public ArrayList<Usuario> listarFiltro(String nome) {
+        ArrayList<Usuario> listaUsuario = new ArrayList<Usuario>();
+        String sql = "SELECT Id, Nome, Login FROM Usuario WHERE Nome LIKE ? AND AdmEmpresa = 0 ORDER BY Nome";
+
+        try
+        {
+            if(this.connection.connection())
+            {
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+                sentenca.setString(1, nome + '%');
+
+                ResultSet resultadoSentenca = sentenca.executeQuery();
+
+                while(resultadoSentenca.next())
+                {
+
+                    Usuario usuario = new Usuario();
+
+                    usuario.setId(resultadoSentenca.getInt("Id"));
+                    usuario.setNome(resultadoSentenca.getString("Nome"));
+                    usuario.setEmail(resultadoSentenca.getString("Login"));
+
+                    listaUsuario.add(usuario);
+                }
+
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+
+            return listaUsuario;
+        }
+        catch(SQLException ex)
+        {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
     @Override
     public ArrayList<Usuario> listar() {
         ArrayList<Usuario> listaUsuario = new ArrayList<Usuario>();
 
-        String sql = "SELECT * FROM Usuario ORDER BY id";
+        String sql = "SELECT * FROM Usuario WHERE AdmEmpresa = 0 ORDER BY Nome";
 
         try
         {

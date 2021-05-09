@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -48,6 +49,9 @@ public class PopUpCriarFuncionarioController implements Initializable {
         return usuario;
     }
 
+    public TableView tableTeste;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -79,14 +83,16 @@ public class PopUpCriarFuncionarioController implements Initializable {
                     dao.inserir(user);
                 }
 
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/DashboardEmpresa/dashboardEmpresa.fxml"));
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/DashboardEmpresa/dashboardEmpresa.fxml"));
                 try {
                     Parent root = (Parent) fxmlLoader.load();
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
                 DashboardEmpresaController controller = fxmlLoader.getController();
-                controller.loadUsuarios();
+                    controller.loadUsuarios(tableTeste);
+
 
                 Stage stage = (Stage) btnSalvar.getScene().getWindow();
                 stage.close();
@@ -98,6 +104,8 @@ public class PopUpCriarFuncionarioController implements Initializable {
             System.out.println(getUser());
             Stage stage = (Stage) btnSalvar.getScene().getWindow();
             stage.close();
+
+
         });
     }
 }

@@ -1,7 +1,10 @@
 package sample.DashboardFuncionario;
 
+import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
 import comuns.acesso.Funcionario;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,8 +13,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -61,6 +67,8 @@ public class Dashboard implements Initializable{
     private Label nomeUsuario;
     @FXML
     private Label lembrete;
+    @FXML
+    private TextArea lembreteEdit;
 
     Image imagePause = new Image(getClass().getResource("/resources/img/simbolo-de-pausa.png").toExternalForm());
     Image imagePlay = new Image(getClass().getResource("/resources/img/botao-play-ponta-de-seta.png").toExternalForm());
@@ -115,9 +123,36 @@ public class Dashboard implements Initializable{
 
 
         nomeUsuario.setText(func.getNome());
-        lembrete.setText(func.getLembrete());
+
+        if(func.getLembrete() == null || func.getLembrete().isEmpty()){
+            lembrete.setText("Clique aqui para adicionar um lembrete!");
+        }else {
+            lembreteEdit.setVisible(false);
+            lembrete.setVisible(true);
+            lembrete.setText(func.getLembrete());
+        }
+
+        lembreteEdit.setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getEventType() == KeyEvent.KEY_PRESSED){
+                if(keyEvent.getCode().equals(KeyCode.ENTER)){
+                    UsuarioDAO dao = new UsuarioDAO();
+                    func.setLembrete(lembreteEdit.getText());
+                    dao.alterarFuncionario(func);
+                    lembrete.setText(func.getLembrete());
+                    lembreteEdit.setVisible(false);
+                    lembrete.setVisible(true);
+                }
+            }
+        });
 
         //playPause.setOnAction(playPauseEvent);
+
+        lembrete.setPickOnBounds(true);
+        lembrete.setOnMouseClicked((MouseEvent e) -> {
+            lembreteEdit.setText(func.getLembrete());
+            lembreteEdit.setVisible(true);
+            lembrete.setVisible(false);
+        });
 
         Home.setPickOnBounds(true);
         Home.setOnMouseClicked((MouseEvent e) -> {

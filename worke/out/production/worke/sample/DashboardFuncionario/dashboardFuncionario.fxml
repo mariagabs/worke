@@ -703,6 +703,10 @@
                                         <Font size="18.0" />
                                     </font>
                                 </Label>
+                        <TextArea fx:id="lembreteEdit" focusTraversable="false" maxHeight="119.0" maxWidth="200.0" prefHeight="119.0" prefWidth="200.0" style="-fx-font-family: Nunito; -fx-background-color: #E6F2F6;" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="Nunito Regular" size="18.0" />
+                           </font></TextArea>
                             </children>
                         </GridPane>
                     </children>

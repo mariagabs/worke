@@ -46,27 +46,28 @@
                                         <Insets top="20.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <TextField fx:id="novaSenha" maxWidth="362.0" minHeight="29.5" minWidth="362.0" prefWidth="362.0" promptText="Nova senha" style="-fx-font-family: Nunito;" GridPane.rowIndex="1">
+                                <PasswordField fx:id="novaSenha" maxWidth="362.0" minHeight="29.5" minWidth="362.0" prefWidth="362.0" promptText="Nova senha" style="-fx-font-family: Nunito;" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets left="40.0" top="30.0" />
                                     </GridPane.margin>
                                     <font>
                                         <Font size="14.0" />
                                     </font>
-                           <cursor>
-                              <Cursor fx:constant="TEXT" />
-                           </cursor></TextField>
-                                <TextField fx:id="confirmarSenha" layoutX="50.0" layoutY="169.0" maxWidth="362.0" minHeight="29.5" minWidth="362.0" prefWidth="362.0" promptText="Confirmar nova senha" style="-fx-font-family: Nunito;" GridPane.rowIndex="2">
+                                    <cursor>
+                                        <Cursor fx:constant="TEXT" />
+                                    </cursor>
+                                </PasswordField>
+                                <PasswordField fx:id="confirmarSenha" layoutX="50.0" layoutY="169.0" maxWidth="362.0" minHeight="29.5" minWidth="362.0" prefWidth="362.0" promptText="Confirmar nova senha" style="-fx-font-family: Nunito;" GridPane.rowIndex="2">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
                                     <GridPane.margin>
                                         <Insets bottom="30.0" left="40.0" />
                                     </GridPane.margin>
-                           <cursor>
-                              <Cursor fx:constant="TEXT" />
-                           </cursor>
-                                </TextField>
+                                    <cursor>
+                                        <Cursor fx:constant="TEXT" />
+                                    </cursor>
+                                </PasswordField>
                                 <Button fx:id="entrar" mnemonicParsing="false" prefHeight="54.0" prefWidth="362.0" style="-fx-background-color: #A3D3E4; -fx-font-family: Nunito; -fx-background-radius: 10;" text="SALVAR SENHA" textFill="WHITE" GridPane.rowIndex="3">
                                     <font>
                                         <Font name="System Bold" size="16.0" />
