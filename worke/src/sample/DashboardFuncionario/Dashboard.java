@@ -26,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sample.Main;
 
 import java.io.IOException;
 import java.net.URL;
@@ -151,7 +152,7 @@ public class Dashboard implements Initializable{
         lembreteEdit.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getEventType() == KeyEvent.KEY_PRESSED){
                 if(keyEvent.getCode().equals(KeyCode.ENTER)){
-                    func.setLembrete(lembreteEdit.getText());
+                    func.setLembrete(lembreteEdit.getText().trim());
                     dao.alterarFuncionario(func);
                     lembrete.setText(func.getLembrete());
                     lembreteEdit.setVisible(false);
@@ -224,6 +225,7 @@ public class Dashboard implements Initializable{
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml")));
                 Stage stage = new Stage();
+                stage.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(scene);
                 stage.show();

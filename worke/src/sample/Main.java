@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -26,6 +27,7 @@ public class Main extends Application {
         /* código que tira o foco dos textfields ao carregar a tela (antes focava e nao aparecia a placeholder */
         Platform.runLater( () -> root.requestFocus() );
 
+        primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
         primaryStage.show();

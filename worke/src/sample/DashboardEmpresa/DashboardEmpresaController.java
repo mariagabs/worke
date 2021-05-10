@@ -34,6 +34,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import sample.Main;
 import sample.PopUpCriarFuncionarios.PopUpCriarFuncionarioController;
 
 import java.io.FileInputStream;
@@ -125,6 +126,8 @@ public class DashboardEmpresaController implements Initializable {
 
         setDateTime();
         loadUsuarios(usuariosTable);
+        fraseMotivacional.setTextFormatter(new TextFormatter<String>(change ->
+                change.getControlNewText().length() <= 45 ? change : null));
 
         pesquisarUsuario.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -150,6 +153,7 @@ public class DashboardEmpresaController implements Initializable {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml")));
                 Stage stage = new Stage();
+                stage.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(scene);
                 stage.show();
@@ -300,6 +304,7 @@ public class DashboardEmpresaController implements Initializable {
                             Parent root = FXMLLoader.load(getClass().getResource("/sample/PopUpImpressao/PopUpImpressao.fxml"));
 
                             Stage dialog = new Stage();
+                            dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
                             dialog.setScene(new Scene(root));
                             dialog.initModality(Modality.APPLICATION_MODAL);
                             dialog.show();
@@ -326,6 +331,7 @@ public class DashboardEmpresaController implements Initializable {
                             PopUpCriarFuncionarioController controller = fxmlLoader.getController();
                             controller.tableTeste = usuariosTable;
                             Stage dialog = new Stage();
+                            dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
                             dialog.setScene(new Scene(root));
                             dialog.initModality(Modality.APPLICATION_MODAL);
                             dialog.show();
