@@ -2,7 +2,9 @@ package sample.DashboardFuncionario;
 
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
+import comuns.acesso.Empresa;
 import comuns.acesso.Funcionario;
+import comuns.acesso.Usuario;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -14,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -69,6 +72,12 @@ public class Dashboard implements Initializable{
     private Label lembrete;
     @FXML
     private TextArea lembreteEdit;
+    @FXML
+    private Label fraseMotivacional;
+    @FXML
+    private TextField horaInicial;
+    @FXML
+    private TextField horaFinal;
 
     Image imagePause = new Image(getClass().getResource("/resources/img/simbolo-de-pausa.png").toExternalForm());
     Image imagePlay = new Image(getClass().getResource("/resources/img/botao-play-ponta-de-seta.png").toExternalForm());
@@ -120,7 +129,8 @@ public class Dashboard implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Funcionario func = Funcionario.getInstance();
-
+        UsuarioDAO dao = new UsuarioDAO();
+        Empresa empresa = dao.listarDadosEmpresa();
 
         nomeUsuario.setText(func.getNome());
 
@@ -132,10 +142,15 @@ public class Dashboard implements Initializable{
             lembrete.setText(func.getLembrete());
         }
 
+        if(empresa.getFraseMotivacional() == null || empresa.getFraseMotivacional().isEmpty()){
+            lembrete.setText("O seu maior projeto deve ser você!");
+        }else {
+            fraseMotivacional.setText(empresa.getFraseMotivacional());
+        }
+
         lembreteEdit.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getEventType() == KeyEvent.KEY_PRESSED){
                 if(keyEvent.getCode().equals(KeyCode.ENTER)){
-                    UsuarioDAO dao = new UsuarioDAO();
                     func.setLembrete(lembreteEdit.getText());
                     dao.alterarFuncionario(func);
                     lembrete.setText(func.getLembrete());

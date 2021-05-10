@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -51,6 +53,14 @@ public class LoginController implements Initializable {
         });
 
         entrar.setOnAction(entrarEvent);
+
+        senha.setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getEventType() == KeyEvent.KEY_PRESSED){
+                if(keyEvent.getCode().equals(KeyCode.ENTER)){
+                    entrar.fire();
+                }
+            }
+        });
 
     }
 

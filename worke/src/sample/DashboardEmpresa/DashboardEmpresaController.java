@@ -4,6 +4,9 @@ import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
 import comuns.acesso.Empresa;
 import comuns.acesso.Usuario;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,13 +33,19 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import sample.PopUpCriarFuncionarios.PopUpCriarFuncionarioController;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class DashboardEmpresaController implements Initializable {
@@ -85,10 +94,36 @@ public class DashboardEmpresaController implements Initializable {
     public TableView usuariosTable;
     @FXML
     private TextField pesquisarUsuario;
+    @FXML
+    private TextArea fraseMotivacional;
+    @FXML
+    private TextArea premio;
+    @FXML
+    private CheckBox possuiPremio;
+
+    @FXML
+    public void setDateTime(){
+
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        data.setText(simpleDateFormat.format(new Date()));
+
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+            String currentTime = LocalTime.now().format(dtf);
+            hora.setText(currentTime);
+
+        }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        setDateTime();
         loadUsuarios(usuariosTable);
 
         pesquisarUsuario.textProperty().addListener(new ChangeListener<String>() {
@@ -96,6 +131,13 @@ public class DashboardEmpresaController implements Initializable {
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
 
                 loadUsuarios(usuariosTable);
+            }
+        });
+
+        possuiPremio.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
+                premio.setDisable(possuiPremio.isSelected());
             }
         });
 
@@ -213,6 +255,8 @@ public class DashboardEmpresaController implements Initializable {
 
         config.setPickOnBounds(true);
         config.setOnMouseClicked((MouseEvent e) -> {
+
+            loadConfig();
             try {
                 AuditoriaTest.getInstance().StartThread("Settings");
             } catch (InterruptedException interruptedException) {
@@ -228,10 +272,17 @@ public class DashboardEmpresaController implements Initializable {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
+
+                        UsuarioDAO dao = new UsuarioDAO();
+                        Empresa emp = Empresa.getInstance();
+                        emp.setFraseMotivacional(fraseMotivacional.getText() == null ? "" : fraseMotivacional.getText());
+                        dao.alterarEmpresa(emp);
+
                         UserPane.setVisible(false);
                         PremioPane.setVisible(false);
                         DashboardPane.setVisible(true);
                         ConfigPane.setVisible(false);
+
                         try {
                             AuditoriaTest.getInstance().StartThread("Save Settings");
                         } catch (InterruptedException interruptedException) {
@@ -290,6 +341,12 @@ public class DashboardEmpresaController implements Initializable {
                     }
                 }
         );
+    }
+
+
+    private void loadConfig(){
+        Empresa emp = Empresa.getInstance();
+        fraseMotivacional.setText(emp.getFraseMotivacional());
     }
 
     private void addButtonToTable() {

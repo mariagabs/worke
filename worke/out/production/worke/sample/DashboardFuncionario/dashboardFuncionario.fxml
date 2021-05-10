@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
+<?import mask.*?>
 
 <GridPane alignment="center" hgap="10" stylesheets="@../../resources/fonts/styles.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DashboardFuncionario.Dashboard">
     <children>
@@ -59,7 +60,7 @@
                         </ImageView>
                     </children>
                 </GridPane>
-                <Pane fx:id="homeGrayScreen" layoutX="92.0" prefHeight="780.0" prefWidth="791.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
+                <Pane fx:id="homeGrayScreen" layoutX="92.0" prefHeight="780.0" prefWidth="791.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">
                     <children>
                         <Label layoutX="49.0" layoutY="48.0" style="-fx-font-family: Nunito;" text="Bem-vindo(a)" textFill="#707070">
                             <font>
@@ -137,7 +138,7 @@
                             </rowConstraints>
                             <children>
                                 <Label style="-fx-font-family: Nunito;" text="MOTIVAÇÃO DA EMPRESA" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                                <Label alignment="CENTER" contentDisplay="TEXT_ONLY" prefHeight="64.0" prefWidth="248.0" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="O seu maior projeto deve ser você! " textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                <Label fx:id="fraseMotivacional" alignment="CENTER" contentDisplay="TEXT_ONLY" prefHeight="64.0" prefWidth="248.0" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="O seu maior projeto deve ser você! " textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                     <font>
                                         <Font name="System Bold" size="22.0" />
                                     </font>
@@ -703,7 +704,7 @@
                                         <Font size="18.0" />
                                     </font>
                                 </Label>
-                        <TextArea fx:id="lembreteEdit" focusTraversable="false" maxHeight="119.0" maxWidth="200.0" prefHeight="119.0" prefWidth="200.0" style="-fx-font-family: Nunito; -fx-background-color: #E6F2F6;" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <TextArea fx:id="lembreteEdit" maxHeight="119.0" maxWidth="200.0" prefHeight="119.0" prefWidth="200.0" style="-fx-font-family: Nunito; -fx-background-color: #E6F2F6;" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Nunito Regular" size="18.0" />
                            </font></TextArea>
@@ -812,7 +813,7 @@
                             </children>
                         </GridPane>
                     </children></Pane>
-                <Pane fx:id="configScreen" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">
+                <Pane fx:id="configScreen" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
                     <children>
                         <Label layoutX="50.0" layoutY="54.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Configurações" textFill="#071c35">
                             <font>
@@ -847,30 +848,28 @@
                                         <Font size="10.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="horaInicial" maxWidth="362.0" minHeight="29.5" minWidth="82.0" prefHeight="65.0" prefWidth="107.0" promptText="INÍCIO" style="-fx-font-family: Nunito; -fx-alignment: Center; -fx-background-color: #F6F6F6;" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                <MaskField fx:id="horaInicial" mask="DD:DD" maxWidth="362.0" minHeight="29.5" minWidth="82.0" placeholder="00000" plainText="INÍCIO" prefHeight="65.0" prefWidth="107.0" promptText="INÍCIO" style="-fx-font-family: Nunito; -fx-alignment: Center; -fx-background-color: #F6F6F6;" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                     <GridPane.margin>
                                         <Insets left="18.0" right="10.0" />
                                     </GridPane.margin>
                                     <font>
-                                        <Font size="14.0" />
-                                    </font>
-                                    <cursor>
-                                        <Cursor fx:constant="TEXT" />
-                                    </cursor></TextField>
-                                <TextField fx:id="horaFinal" maxWidth="362.0" minHeight="29.5" minWidth="82.0" prefHeight="65.0" prefWidth="107.0" promptText="TÉRMINO" style="-fx-font-family: Nunito; -fx-alignment: Center; -fx-background-color: #F6F6F6;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                    <font>
-                                        <Font size="14.0" />
+                                        <Font name="Nunito Regular" size="18.0" />
                                     </font>
                                     <cursor>
                                         <Cursor fx:constant="TEXT" />
                                     </cursor>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
+                                </MaskField>
+                                <MaskField fx:id="horaFinal" mask="DD:DD" maxWidth="362.0" minHeight="29.5" minWidth="82.0" placeholder="00000" plainText="TÉRMINO" prefHeight="65.0" prefWidth="107.0" promptText="TÉRMINO" style="-fx-font-family: Nunito; -fx-alignment: Center; -fx-background-color: #F6F6F6;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                     <GridPane.margin>
                                         <Insets left="10.0" right="18.0" />
                                     </GridPane.margin>
-                                </TextField>
+                                    <font>
+                                        <Font name="Nunito Regular" size="18.0" />
+                                    </font>
+                                    <cursor>
+                                        <Cursor fx:constant="TEXT" />
+                                    </cursor>
+                                </MaskField>
                                 <Label style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="até" textFill="#071c35" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                             </children>
                         </GridPane>

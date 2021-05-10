@@ -318,7 +318,7 @@
                                     <Insets />
                                 </GridPane.margin>
                             </Label>
-                            <Label id="data" style="-fx-font-family: Nunito;" text="25/03/2021" textFill="#A3D3E4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                            <Label fx:id="data" style="-fx-font-family: Nunito;" text="25/03/2021" textFill="#A3D3E4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                 <font>
                                     <Font name="System Bold" size="28.0" />
                                 </font>
@@ -1143,7 +1143,7 @@
                                         <Font size="10.0" />
                                     </font>
                                 </Label>
-                                <TextArea prefHeight="114.0" prefWidth="448.0" style="-fx-font-family: Nunito; -fx-background-color: #F6F6F6;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <TextArea fx:id="fraseMotivacional" prefHeight="114.0" prefWidth="448.0" style="-fx-font-family: Nunito; -fx-background-color: #F6F6F6;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
@@ -1177,7 +1177,7 @@
                                         <Font size="10.0" />
                                     </font>
                                 </Label>
-                                <TextArea prefHeight="114.0" prefWidth="448.0" style="-fx-font-family: Nunito; -fx-background-color: #F6F6F6;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <TextArea fx:id="premio" prefHeight="114.0" prefWidth="448.0" style="-fx-font-family: Nunito; -fx-background-color: #F6F6F6;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
@@ -1185,7 +1185,7 @@
                                         <Cursor fx:constant="TEXT" />
                                     </cursor>
                                 </TextArea>
-                                <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                <CheckBox fx:id="possuiPremio" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
                                     </cursor>

@@ -3,7 +3,9 @@ module worke {
     requires javafx.controls;
     requires java.sql;
     requires javafx.graphics;
+
     exports sample;
+    exports mask;
 
     opens sample to javafx.fxml;
     opens sample.Login to javafx.fxml;

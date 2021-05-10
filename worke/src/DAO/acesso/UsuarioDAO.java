@@ -21,7 +21,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
 
     private MySQLDAO connection;
 
-    public UsuarioDAO()  {
+    public UsuarioDAO() {
         this.connection = new MySQLDAO();
     }
 
@@ -57,10 +57,10 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
     public void alterar(Usuario objt) {
         String sql = "";
 
-        if(objt.getSenha() != null && !objt.getSenha().isEmpty()){
+        if (objt.getSenha() != null && !objt.getSenha().isEmpty()) {
             sql = "UPDATE Usuario SET Login = ? , Nome = ?, Senha = ? WHERE id = ?";
-        }else {
-            sql= "UPDATE Usuario SET Login = ? , Nome = ? WHERE id = ?";
+        } else {
+            sql = "UPDATE Usuario SET Login = ? , Nome = ? WHERE id = ?";
         }
 
         try {
@@ -73,10 +73,10 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 sentenca.setString(2, objt.getNome());
 
 
-                if(objt.getSenha() != null && !objt.getSenha().isEmpty()){
+                if (objt.getSenha() != null && !objt.getSenha().isEmpty()) {
                     sentenca.setString(3, objt.getSenha());
                     sentenca.setInt(4, objt.getId());
-                }else{
+                } else {
                     sentenca.setInt(3, objt.getId());
                 }
 
@@ -104,6 +104,29 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 sentenca.setString(3, objt.getLembrete());
                 sentenca.setInt(4, objt.getId());
 
+
+                sentenca.execute();
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void alterarEmpresa(Empresa objt) {
+        String sql = "UPDATE Usuario SET Login = ? , Nome = ?, FraseMotivacional = ? WHERE id = ?";
+
+        try {
+
+            if (this.connection.connection()) {
+
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+
+                sentenca.setString(1, objt.getEmail());
+                sentenca.setString(2, objt.getNome());
+                sentenca.setString(3, objt.getFraseMotivacional());
+                sentenca.setInt(4, objt.getId());
 
                 sentenca.execute();
                 sentenca.close();
@@ -142,17 +165,14 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
         ArrayList<Usuario> listaUsuario = new ArrayList<Usuario>();
         String sql = "SELECT Id, Nome, Login FROM Usuario WHERE Nome LIKE ? AND AdmEmpresa = 0 ORDER BY Nome";
 
-        try
-        {
-            if(this.connection.connection())
-            {
+        try {
+            if (this.connection.connection()) {
                 PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
                 sentenca.setString(1, nome + '%');
 
                 ResultSet resultadoSentenca = sentenca.executeQuery();
 
-                while(resultadoSentenca.next())
-                {
+                while (resultadoSentenca.next()) {
 
                     Usuario usuario = new Usuario();
 
@@ -168,9 +188,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
             }
 
             return listaUsuario;
-        }
-        catch(SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
 
@@ -182,16 +200,13 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
 
         String sql = "SELECT * FROM Usuario WHERE AdmEmpresa = 0 ORDER BY Nome";
 
-        try
-        {
-            if(this.connection.connection())
-            {
+        try {
+            if (this.connection.connection()) {
                 PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
 
                 ResultSet resultadoSentenca = sentenca.executeQuery();
 
-                while(resultadoSentenca.next())
-                {
+                while (resultadoSentenca.next()) {
 
                     Usuario usuario = new Usuario();
 
@@ -209,12 +224,44 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
             }
 
             return listaUsuario;
-        }
-        catch(SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
 
+    }
+
+    public Empresa listarDadosEmpresa() {
+
+        Empresa userEmpresa = Empresa.getInstance();
+        String sql = "SELECT * FROM Usuario WHERE AdmEmpresa = 1";
+
+        try {
+            if (this.connection.connection()) {
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+                ResultSet rs = sentenca.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+
+                        userEmpresa.setId(rs.getInt("Id"));
+                        userEmpresa.setNome(rs.getString("Nome"));
+                        userEmpresa.setFraseMotivacional(rs.getString("FraseMotivacional"));
+                        userEmpresa.setPremio(rs.getBoolean("PossuiPremio"));
+
+                    }
+                }
+
+                sentenca.close();
+                this.connection.getConnection().close();
+
+                return userEmpresa;
+            }
+
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return null;
     }
 
     @Override
@@ -224,7 +271,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
         String sql = "SELECT * FROM Usuario WHERE Login = ? AND Senha = ?";
 
         try {
-            if(this.connection.connection()) {
+            if (this.connection.connection()) {
                 PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
 
                 sentenca.setString(1, login);
@@ -232,11 +279,11 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
 
                 ResultSet rs = sentenca.executeQuery();
 
-                if(rs != null) {
-                    while(rs.next()) {
+                if (rs != null) {
+                    while (rs.next()) {
                         boolean adm = rs.getBoolean("AdmEmpresa");
 
-                        if(adm){
+                        if (adm) {
                             Empresa userEmpresa = Empresa.getInstance();
                             userEmpresa.setId(rs.getInt("Id"));
                             userEmpresa.setNome(rs.getString("Nome"));
@@ -247,7 +294,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
 
                             user = (T) userEmpresa;
 
-                        }else{
+                        } else {
                             Funcionario userFunc = Funcionario.getInstance();
                             userFunc.setId(rs.getInt("Id"));
                             userFunc.setNome(rs.getString("Nome"));
@@ -268,7 +315,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 return user;
             }
 
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
