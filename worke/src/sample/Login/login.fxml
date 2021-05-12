@@ -57,7 +57,7 @@
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor></TextField>
-                        <PasswordField fx:id="senha" layoutX="50.0" layoutY="169.0" maxWidth="362.0" minHeight="29.5" minWidth="362.0" prefWidth="362.0" promptText="Senha" style="-fx-font-family: Nunito;" GridPane.rowIndex="2" >
+                        <PasswordField fx:id="senha" layoutX="50.0" layoutY="169.0" maxWidth="362.0" minHeight="29.5" minWidth="362.0" prefWidth="362.0" promptText="Senha" style="-fx-font-family: Nunito;" GridPane.rowIndex="2">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -68,7 +68,7 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </PasswordField>
-                        <Button fx:id="entrar" mnemonicParsing="false" prefHeight="54.0" prefWidth="362.0" style="-fx-background-color: #A3D3E4; -fx-font-family: Nunito; -fx-background-radius: 10;" text="ENTRAR" textFill="WHITE" GridPane.rowIndex="3">
+                        <Button fx:id="entrar" mnemonicParsing="false" prefHeight="54.0" prefWidth="362.0" style="-fx-background-color: #A3D3E4; -fx-font-family: Nunito; -fx-background-radius: 10;" text="ENTRAR" textFill="WHITE" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="NEVER">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -103,25 +103,20 @@
                               <Insets right="52.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="dadosIncorretos" text="Usuário ou senha incorreto. Tente novamente." textFill="#d70000" visible="false" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                        <Label fx:id="dadosIncorretos" style="-fx-font-family: Nunito;" text="Usuário ou senha incorreto. Tente novamente." textFill="#d70000" visible="false" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                            <GridPane.margin>
                               <Insets left="40.0" />
                            </GridPane.margin>
+                           <font>
+                              <Font name="Nunito Regular" size="12.0" />
+                           </font>
                         </Label>
 
                      </children>
                   </GridPane>
-                  <Label text="Label" />
                </children>
             </Pane>
-            <ImageView fx:id="sair" fitHeight="22.0" fitWidth="22.0" layoutX="1145.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../resources/img/sair.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
+
          </children></Pane>
       <Pane maxWidth="491.0" minWidth="491.0" prefHeight="780.0" prefWidth="491.0" style="-fx-background-color: #A3D3E4; -fx-background-radius: 0 35 35 0;" stylesheets="@../../resources/fonts/styles.css">
          <GridPane.margin>

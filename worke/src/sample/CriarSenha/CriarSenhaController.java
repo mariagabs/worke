@@ -78,6 +78,7 @@ public class CriarSenhaController implements Initializable {
                         }
 
                         stage = (Stage) entrar.getScene().getWindow();
+                        stage.setResizable(false);
                         stage.close();
                     }
                 }else{

@@ -28,9 +28,6 @@ public class PopUpCriarFuncionarioController implements Initializable {
     private Button btnSalvar;
 
     @FXML
-    private ImageView btnSair;
-
-    @FXML
     private TextField nomeCompleto;
 
     @FXML
@@ -97,15 +94,6 @@ public class PopUpCriarFuncionarioController implements Initializable {
                 Stage stage = (Stage) btnSalvar.getScene().getWindow();
                 stage.close();
             }
-        });
-
-        btnSair.setPickOnBounds(true);
-        btnSair.setOnMouseClicked((MouseEvent e) -> {
-            System.out.println(getUser());
-            Stage stage = (Stage) btnSalvar.getScene().getWindow();
-            stage.close();
-
-
         });
     }
 }

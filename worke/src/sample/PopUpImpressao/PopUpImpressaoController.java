@@ -10,16 +10,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PopUpImpressaoController implements Initializable {
-    @FXML
-    private ImageView btnSair;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        btnSair.setPickOnBounds(true);
-        btnSair.setOnMouseClicked((MouseEvent e) -> {
-            Stage stage = (Stage) btnSair.getScene().getWindow();
-            stage.close();
-        });
     }
 }

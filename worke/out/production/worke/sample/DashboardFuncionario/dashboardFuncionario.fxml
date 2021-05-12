@@ -1570,18 +1570,20 @@
                                 </GridPane>
                             </children>
                         </GridPane>
-                  <Button layoutX="905.0" layoutY="695.0" mnemonicParsing="false" prefWidth="145.0" style="-fx-background-color: #ffd46a; -fx-background-radius: 30; -fx-font-family: Nunito; -fx-font-weight: Bold;" text="INICIAR" textFill="WHITE">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                  </Button>
-                  <GridPane fx:id="testeIniciar" layoutX="768.0" layoutY="703.0" style="-fx-background-color: #ffd46a;">
+                  <GridPane fx:id="testeIniciar" layoutX="905.0" layoutY="697.0" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #ffd46a; -fx-background-radius: 75;">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
+                     <children>
+                        <Label text="INICIAR" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="Nunito Black" size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
                   </GridPane>
                     </children></Pane>
             </children>

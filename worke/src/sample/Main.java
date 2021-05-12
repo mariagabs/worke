@@ -20,7 +20,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Parent root = FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml"));
-        primaryStage.setTitle("worke!");
+        //primaryStage.setTitle("worke!");
         Scene scene = new Scene(root, 1200, 780);
         scene.getStylesheets().add(getClass().getResource("/resources/fonts/styles.css").toExternalForm());
 
@@ -28,7 +28,8 @@ public class Main extends Application {
         Platform.runLater( () -> root.requestFocus() );
 
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        //primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
 

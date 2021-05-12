@@ -50,11 +50,11 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-        sair.setPickOnBounds(true);
-        sair.setOnMouseClicked((MouseEvent e) -> {
-            Stage stage = (Stage) sair.getScene().getWindow();
-            stage.close();
-        });
+        //sair.setPickOnBounds(true);
+        //sair.setOnMouseClicked((MouseEvent e) -> {
+        //    Stage stage = (Stage) sair.getScene().getWindow();
+        //    stage.close();
+        //});
 
         entrar.setOnAction(entrarEvent);
 
@@ -94,7 +94,8 @@ public class LoginController implements Initializable {
                     stage.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
                     stage.setUserData(user);
                     usuarioLogado = user;
-                    stage.initStyle(StageStyle.UNDECORATED);
+                    //stage.initStyle(StageStyle.UNDECORATED);
+                    stage.setResizable(false);
                     stage.setScene(scene);
                     stage.show();
 

@@ -403,7 +403,8 @@ public class Dashboard implements Initializable {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml")));
                 Stage stage = new Stage();
                 stage.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
-                stage.initStyle(StageStyle.UNDECORATED);
+                //stage.initStyle(StageStyle.UNDECORATED);
+                stage.setResizable(false);
                 stage.setScene(scene);
                 stage.show();
 

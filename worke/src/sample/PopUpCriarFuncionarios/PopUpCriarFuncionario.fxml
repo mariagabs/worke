@@ -19,11 +19,6 @@
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor></Button>
-                <ImageView fx:id="btnSair" fitHeight="22.0" fitWidth="22.0" layoutX="336.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../resources/img/sair.png" />
-                    </image>
-                </ImageView>
                 <TextField fx:id="nomeCompleto" layoutX="34.0" layoutY="140.0" maxWidth="332.0" minHeight="29.5" minWidth="332.0" prefWidth="332.0" promptText="Nome Completo" style="-fx-font-family: Nunito;" GridPane.rowIndex="2">
                     <font>
                         <Font size="14.0" />
