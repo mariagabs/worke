@@ -10,6 +10,7 @@ public class Empresa extends Usuario implements IUsuario{
     private String fraseMotivacional;
     private boolean premio;
     private String nomePremio;
+    private int premioId;
     private int qntFuncionarios;
     private int qntPremios;
     private double totalHorasExercicios;
@@ -94,4 +95,11 @@ public class Empresa extends Usuario implements IUsuario{
         this.qntExerciciosDiario = qntExerciciosDiario;
     }
 
+    public int getPremioId() {
+        return premioId;
+    }
+
+    public void setPremioId(int premioId) {
+        this.premioId = premioId;
+    }
 }

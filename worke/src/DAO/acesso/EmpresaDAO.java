@@ -8,6 +8,7 @@ import comuns.acesso.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class EmpresaDAO implements AbstractDAO<Empresa> {
