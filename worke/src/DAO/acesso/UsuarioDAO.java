@@ -6,6 +6,7 @@ import DAO.basis.MySQLDAO;
 import comuns.acesso.Empresa;
 import comuns.acesso.Funcionario;
 import comuns.acesso.Usuario;
+import comuns.acesso.Premio;
 import comuns.basis.Entidade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -115,7 +116,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
     }
 
     public void alterarEmpresa(Empresa objt) {
-        String sql = "UPDATE Usuario SET Login = ? , Nome = ?, FraseMotivacional = ? WHERE id = ?";
+        String sql = "UPDATE Usuario SET Login = ? , Nome = ?, FraseMotivacional = ?, PossuiPremio = ?, PremioId = ? WHERE id = ?";
 
         try {
 
@@ -126,7 +127,9 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 sentenca.setString(1, objt.getEmail());
                 sentenca.setString(2, objt.getNome());
                 sentenca.setString(3, objt.getFraseMotivacional());
-                sentenca.setInt(4, objt.getId());
+                sentenca.setBoolean(4, objt.isPremio());
+                sentenca.setInt(5, objt.getPremioId());
+                sentenca.setInt(6, objt.getId());
 
                 sentenca.execute();
                 sentenca.close();
@@ -284,6 +287,8 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                         boolean adm = rs.getBoolean("AdmEmpresa");
 
                         if (adm) {
+                            PremioDAO premioDAO = new PremioDAO();
+                            Premio premio = premioDAO.consultar(rs.getInt("PremioId"));
                             Empresa userEmpresa = Empresa.getInstance();
                             userEmpresa.setId(rs.getInt("Id"));
                             userEmpresa.setNome(rs.getString("Nome"));
@@ -291,6 +296,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                             userEmpresa.setSenha(rs.getString("Senha"));
                             userEmpresa.setFraseMotivacional(rs.getString("FraseMotivacional"));
                             userEmpresa.setPremio(rs.getBoolean("PossuiPremio"));
+                            userEmpresa.setNomePremio(premio.getDescricao());
 
                             user = (T) userEmpresa;
 

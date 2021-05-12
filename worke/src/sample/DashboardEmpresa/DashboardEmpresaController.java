@@ -1,9 +1,12 @@
 package sample.DashboardEmpresa;
 
+import DAO.acesso.EmpresaDAO;
+import DAO.acesso.PremioDAO;
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
 import comuns.acesso.Empresa;
 import comuns.acesso.Usuario;
+import comuns.acesso.Premio;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -136,6 +139,7 @@ public class DashboardEmpresaController implements Initializable {
                 loadUsuarios(usuariosTable);
             }
         });
+
 
         possuiPremio.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -279,7 +283,15 @@ public class DashboardEmpresaController implements Initializable {
 
                         UsuarioDAO dao = new UsuarioDAO();
                         Empresa emp = Empresa.getInstance();
+                        EmpresaDAO empDAO = new EmpresaDAO();
+                        PremioDAO premioDAO = new PremioDAO();
+
                         emp.setFraseMotivacional(fraseMotivacional.getText() == null ? "" : fraseMotivacional.getText());
+                        if (!possuiPremio.isSelected() && premio.getText().length() > 0){
+                            emp.setNomePremio(premio.getText());
+                            emp.setPremioId(premioDAO.inserirPremio(premio.getText()));
+                            emp.setPremio(true);
+                        }
                         dao.alterarEmpresa(emp);
 
                         UserPane.setVisible(false);
@@ -352,7 +364,10 @@ public class DashboardEmpresaController implements Initializable {
 
     private void loadConfig(){
         Empresa emp = Empresa.getInstance();
+        Premio prem = Premio.getInstance();
         fraseMotivacional.setText(emp.getFraseMotivacional());
+        possuiPremio.setSelected(!emp.isPremio());
+        premio.setText(prem.getDescricao());
     }
 
     private void addButtonToTable() {
