@@ -90,7 +90,7 @@
                 <fx:define>
                     <Image fx:id="btnPrint" url="@../../resources/img/printer.png" />
                 </fx:define>
-                <Pane fx:id="DashboardPane" layoutX="92.0" prefHeight="780.0" prefWidth="1109.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
+                <Pane fx:id="DashboardPane" layoutX="92.0" prefHeight="780.0" prefWidth="1109.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">
                     <children>
                         <Label fx:id="nomeEmpresa" layoutX="52.0" layoutY="54.0" prefHeight="53.0" prefWidth="209.0" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="Empresa" textFill="#071c35">
                             <opaqueInsets>
@@ -1113,7 +1113,7 @@
                         </GridPane>
                     </children>
                 </Pane>
-                <Pane fx:id="ConfigPane" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">
+                <Pane fx:id="ConfigPane" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
                     <children>
                         <Label layoutX="50.0" layoutY="55.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Configurações" textFill="#071c35">
                             <font>

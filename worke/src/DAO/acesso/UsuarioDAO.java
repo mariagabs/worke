@@ -91,7 +91,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
     }
 
     public void alterarFuncionario(Funcionario objt) {
-        String sql = "UPDATE Usuario SET Login = ? , Nome = ?, Lembrete = ? WHERE id = ?";
+        String sql = "UPDATE Usuario SET Login = ? , Nome = ?, Lembrete = ?, DuracaoExercicio = ?, IntervaloExercicio = ? WHERE id = ?";
 
         try {
 
@@ -102,7 +102,9 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 sentenca.setString(1, objt.getEmail());
                 sentenca.setString(2, objt.getNome());
                 sentenca.setString(3, objt.getLembrete());
-                sentenca.setInt(4, objt.getId());
+                sentenca.setDouble(4, objt.getDuracaoExercicios());
+                sentenca.setDouble(5, objt.getIntervaloExercicios());
+                sentenca.setInt(6, objt.getId());
 
 
                 sentenca.execute();
@@ -302,6 +304,8 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                             userFunc.setSenha(rs.getString("Senha"));
                             userFunc.setLembrete(rs.getString("Lembrete"));
                             userFunc.setRanking(rs.getInt("Ranking"));
+                            userFunc.setDuracaoExercicios(rs.getDouble("DuracaoExercicio"));
+                            userFunc.setIntervaloExercicios(rs.getDouble("IntervaloExercicio"));
 
                             user = (T) userFunc;
 
