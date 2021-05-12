@@ -298,7 +298,9 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                             userEmpresa.setSenha(rs.getString("Senha"));
                             userEmpresa.setFraseMotivacional(rs.getString("FraseMotivacional"));
                             userEmpresa.setPremio(rs.getBoolean("PossuiPremio"));
-                            userEmpresa.setNomePremio(premio.getDescricao());
+
+                            if(premio != null)
+                                userEmpresa.setNomePremio(premio.getDescricao());
 
                             user = (T) userEmpresa;
 
