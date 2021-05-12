@@ -68,3 +68,8 @@
 .check-box:indeterminate  > .box > .mark {
     -fx-background-color: mark-color;
 }
+
+#entrar:hover{
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}

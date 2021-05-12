@@ -1092,7 +1092,7 @@
                                                 <TextFieldTableCell fx:factory="forTableColumn" />
                                             </cellFactory>
                                         </TableColumn>
-                                        <TableColumn fx:id="editCol" prefWidth="314.0" resizable="false" style="-fx-background-color: #FFFFFF; -fx-border-color: #C7C7C7; -fx-font-family: Nunito; -fx-alignment: CENTER;" text="Ações">
+                                        <TableColumn fx:id="editCol" prefWidth="314.0" resizable="false" style="-fx-background-color: #FFFFFF; -fx-border-color: #C7C7C7; -fx-font-family: Nunito;" text="Ações">
                                         </TableColumn>
                                     </columns>
                            <columnResizePolicy>

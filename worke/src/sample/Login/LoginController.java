@@ -99,7 +99,7 @@ public class LoginController implements Initializable {
                     stage.setScene(scene);
                     stage.show();
 
-                    stage = (Stage) sair.getScene().getWindow();
+                    stage = (Stage) entrar.getScene().getWindow();
                     stage.close();
                 }
 

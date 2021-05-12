@@ -704,10 +704,13 @@
                                         <Font size="18.0" />
                                     </font>
                                 </Label>
-                        <TextArea fx:id="lembreteEdit" maxHeight="119.0" maxWidth="200.0" prefHeight="119.0" prefWidth="200.0" style="-fx-font-family: Nunito; -fx-background-color: #E6F2F6;" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <TextArea fx:id="lembreteEdit" maxHeight="119.0" maxWidth="200.0" prefHeight="119.0" prefWidth="200.0" style="-fx-font-family: Nunito; -fx-background-color: #E6F2F6; -fx-font-size: 20; -fx-alignment: center;" visible="false" wrapText="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Nunito Regular" size="18.0" />
-                           </font></TextArea>
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor></TextArea>
                             </children>
                         </GridPane>
                     </children>

@@ -22,6 +22,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -384,8 +385,8 @@ public class DashboardEmpresaController implements Initializable {
                     {
                         Image image = null;
                         image = new Image(getClass().getResourceAsStream("/resources/img/edit.png"));
-                        btnEditar.setStyle("-fx-background-color: transparent");
-                        btnExcluir.setStyle("-fx-background-color: transparent");
+                        btnEditar.setStyle("-fx-background-color: transparent; -fx-cursor: hand");
+                        btnExcluir.setStyle("-fx-background-color: transparent; -fx-cursor: hand");
 
                         btnEditar.setGraphic(new ImageView(image));
                         image = new Image(getClass().getResourceAsStream("/resources/img/delete.png"));
@@ -417,6 +418,7 @@ public class DashboardEmpresaController implements Initializable {
                         }
                     }
                 };
+                cell.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #C7C7C7; -fx-padding: 0 0 0 125");
                 return cell;
             }
         };
