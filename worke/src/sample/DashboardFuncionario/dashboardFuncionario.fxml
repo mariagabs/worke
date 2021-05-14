@@ -60,7 +60,7 @@
                         </ImageView>
                     </children>
                 </GridPane>
-                <Pane fx:id="homeGrayScreen" layoutX="92.0" prefHeight="780.0" prefWidth="791.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
+                <Pane fx:id="homeGrayScreen" layoutX="92.0" minHeight="300.0" prefHeight="780.0" prefWidth="791.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
                     <children>
                         <Label layoutX="49.0" layoutY="48.0" style="-fx-font-family: Nunito;" text="Bem-vindo(a)" textFill="#707070">
                             <font>
@@ -190,276 +190,757 @@
                                 <Font name="System Bold" size="26.0" />
                             </font>
                         </Label>
-                        <GridPane layoutX="49.0" layoutY="538.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#ffd46a" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="15.0" />
-                                    </GridPane.margin>
-                                </Rectangle>
-                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="26.0" />
-                                    </GridPane.margin>
-                                </ImageView>
-                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                    <image>
-                                        <Image url="@../../resources/img/right-arrow.png" />
-                                    </image>
-                                    <cursor>
-                                        <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                </ImageView>
-                                <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento da parte superior" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font>
-                                </Label>
-                                <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                                    <GridPane.margin>
-                                        <Insets top="10.0" />
-                                    </GridPane.margin>
-                                    <font>
-                                        <Font name="System Bold" size="10.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                        </GridPane>
-                        <GridPane layoutX="286.0" layoutY="538.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f7753d" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="15.0" />
-                                    </GridPane.margin>
-                                </Rectangle>
-                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="26.0" />
-                                    </GridPane.margin>
-                                </ImageView>
-                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                    <image>
-                                        <Image url="@../../resources/img/right-arrow.png" />
-                                    </image>
-                                    <cursor>
-                                        <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                </ImageView>
-                                <Label layoutY="286.0" prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Polichinelo Frontal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font>
-                                </Label>
-                                <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                                    <GridPane.margin>
-                                        <Insets top="10.0" />
-                                    </GridPane.margin>
-                                    <font>
-                                        <Font name="System Bold" size="10.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                        </GridPane>
-                        <GridPane layoutX="520.0" layoutY="538.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#a3d3e4" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="15.0" />
-                                    </GridPane.margin>
-                                </Rectangle>
-                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="26.0" />
-                                    </GridPane.margin>
-                                </ImageView>
-                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                    <image>
-                                        <Image url="@../../resources/img/right-arrow.png" />
-                                    </image>
-                                    <cursor>
-                                        <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                </ImageView>
-                                <Label layoutY="286.0" prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Sequência de Abdominal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font>
-                                </Label>
-                                <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                                    <GridPane.margin>
-                                        <Insets top="10.0" />
-                                    </GridPane.margin>
-                                    <font>
-                                        <Font name="System Bold" size="10.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                        </GridPane>
-                        <GridPane layoutX="49.0" layoutY="638.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#a3d3e4" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="15.0" />
-                                    </GridPane.margin>
-                                </Rectangle>
-                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="26.0" />
-                                    </GridPane.margin>
-                                </ImageView>
-                                <ImageView fx:id="ExerciseDetails" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                    <image>
-                                        <Image url="@../../resources/img/right-arrow.png" />
-                                    </image>
-                                    <cursor>
-                                        <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                </ImageView>
-                                <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento Corporal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font>
-                                </Label>
-                                <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                                    <GridPane.margin>
-                                        <Insets top="10.0" />
-                                    </GridPane.margin>
-                                    <font>
-                                        <Font name="System Bold" size="10.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                        </GridPane>
-                        <GridPane layoutX="286.0" layoutY="638.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#ffd46a" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="15.0" />
-                                    </GridPane.margin>
-                                </Rectangle>
-                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="26.0" />
-                                    </GridPane.margin>
-                                </ImageView>
-                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                    <image>
-                                        <Image url="@../../resources/img/right-arrow.png" />
-                                    </image>
-                                    <cursor>
-                                        <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                </ImageView>
-                                <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento da parte inferior" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font>
-                                </Label>
-                                <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                                    <GridPane.margin>
-                                        <Insets top="10.0" />
-                                    </GridPane.margin>
-                                    <font>
-                                        <Font name="System Bold" size="10.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                        </GridPane>
-                        <GridPane layoutX="520.0" layoutY="638.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f7753d" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="15.0" />
-                                    </GridPane.margin>
-                                </Rectangle>
-                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                        <Insets left="26.0" />
-                                    </GridPane.margin>
-                                </ImageView>
-                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                    <image>
-                                        <Image url="@../../resources/img/right-arrow.png" />
-                                    </image>
-                                    <cursor>
-                                        <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                </ImageView>
-                                <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Equilíbrio e Meditação" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font>
-                                </Label>
-                                <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                                    <GridPane.margin>
-                                        <Insets top="10.0" />
-                                    </GridPane.margin>
-                                    <font>
-                                        <Font name="System Bold" size="10.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                        </GridPane>
+                  <ScrollPane fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" hmax="609.0" layoutX="27.0" layoutY="525.0" prefHeight="215.0" prefWidth="742.0" style="-fx-border-color: none; -fx-background-color: #F6F6F6;">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="719.0" style="-fx-background-color: #F6F6F6;">
+                           <children>
+                              <GridPane layoutX="14.0" layoutY="14.0" prefHeight="100.0" prefWidth="700.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="215.0" prefWidth="215.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="20.0" prefWidth="20.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="215.0" prefWidth="215.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="20.0" prefWidth="20.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="215.0" prefWidth="215.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="79.0" prefHeight="215.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="79.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="20.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="79.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="79.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="79.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="79.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                          <GridPane prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                                              <columnConstraints>
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                              </columnConstraints>
+                                              <rowConstraints>
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              </rowConstraints>
+                                              <children>
+                                                  <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#ffd46a" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="15.0" />
+                                                      </GridPane.margin>
+                                                  </Rectangle>
+                                                  <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="26.0" />
+                                                      </GridPane.margin>
+                                                  </ImageView>
+                                                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                      <image>
+                                                          <Image url="@../../resources/img/right-arrow.png" />
+                                                      </image>
+                                                      <cursor>
+                                                          <Cursor fx:constant="HAND" />
+                                                      </cursor>
+                                                  </ImageView>
+                                                  <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento da parte superior" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                                      <font>
+                                                          <Font name="System Bold" size="12.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                                      <GridPane.margin>
+                                                          <Insets top="10.0" />
+                                                      </GridPane.margin>
+                                                      <font>
+                                                          <Font name="System Bold" size="10.0" />
+                                                      </font>
+                                                  </Label>
+                                              </children>
+                                          </GridPane>
+                                          <GridPane prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.rowIndex="2">
+                                              <columnConstraints>
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                              </columnConstraints>
+                                              <rowConstraints>
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              </rowConstraints>
+                                              <children>
+                                                  <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#a3d3e4" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="15.0" />
+                                                      </GridPane.margin>
+                                                  </Rectangle>
+                                                  <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="26.0" />
+                                                      </GridPane.margin>
+                                                  </ImageView>
+                                                  <ImageView fx:id="ExerciseDetails" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                      <image>
+                                                          <Image url="@../../resources/img/right-arrow.png" />
+                                                      </image>
+                                                      <cursor>
+                                                          <Cursor fx:constant="HAND" />
+                                                      </cursor>
+                                                  </ImageView>
+                                                  <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento Corporal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                                      <font>
+                                                          <Font name="System Bold" size="12.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                                      <GridPane.margin>
+                                                          <Insets top="10.0" />
+                                                      </GridPane.margin>
+                                                      <font>
+                                                          <Font name="System Bold" size="10.0" />
+                                                      </font>
+                                                  </Label>
+                                              </children>
+                                          </GridPane>
+                                          <GridPane prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="2">
+                                              <columnConstraints>
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                              </columnConstraints>
+                                              <rowConstraints>
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              </rowConstraints>
+                                              <children>
+                                                  <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f7753d" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="15.0" />
+                                                      </GridPane.margin>
+                                                  </Rectangle>
+                                                  <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="26.0" />
+                                                      </GridPane.margin>
+                                                  </ImageView>
+                                                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                      <image>
+                                                          <Image url="@../../resources/img/right-arrow.png" />
+                                                      </image>
+                                                      <cursor>
+                                                          <Cursor fx:constant="HAND" />
+                                                      </cursor>
+                                                  </ImageView>
+                                                  <Label layoutY="286.0" prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Polichinelo Frontal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                                      <font>
+                                                          <Font name="System Bold" size="12.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                                      <GridPane.margin>
+                                                          <Insets top="10.0" />
+                                                      </GridPane.margin>
+                                                      <font>
+                                                          <Font name="System Bold" size="10.0" />
+                                                      </font>
+                                                  </Label>
+                                              </children>
+                                          </GridPane>
+                                          <GridPane prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                              <columnConstraints>
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                              </columnConstraints>
+                                              <rowConstraints>
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              </rowConstraints>
+                                              <children>
+                                                  <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#ffd46a" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="15.0" />
+                                                      </GridPane.margin>
+                                                  </Rectangle>
+                                                  <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="26.0" />
+                                                      </GridPane.margin>
+                                                  </ImageView>
+                                                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                      <image>
+                                                          <Image url="@../../resources/img/right-arrow.png" />
+                                                      </image>
+                                                      <cursor>
+                                                          <Cursor fx:constant="HAND" />
+                                                      </cursor>
+                                                  </ImageView>
+                                                  <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento da parte inferior" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                                      <font>
+                                                          <Font name="System Bold" size="12.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                                      <GridPane.margin>
+                                                          <Insets top="10.0" />
+                                                      </GridPane.margin>
+                                                      <font>
+                                                          <Font name="System Bold" size="10.0" />
+                                                      </font>
+                                                  </Label>
+                                              </children>
+                                          </GridPane>
+                                          <GridPane prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="4">
+                                              <columnConstraints>
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                              </columnConstraints>
+                                              <rowConstraints>
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              </rowConstraints>
+                                              <children>
+                                                  <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#a3d3e4" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="15.0" />
+                                                      </GridPane.margin>
+                                                  </Rectangle>
+                                                  <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="26.0" />
+                                                      </GridPane.margin>
+                                                  </ImageView>
+                                                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                      <image>
+                                                          <Image url="@../../resources/img/right-arrow.png" />
+                                                      </image>
+                                                      <cursor>
+                                                          <Cursor fx:constant="HAND" />
+                                                      </cursor>
+                                                  </ImageView>
+                                                  <Label layoutY="286.0" prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Sequência de Abdominal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                                      <font>
+                                                          <Font name="System Bold" size="12.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                                      <GridPane.margin>
+                                                          <Insets top="10.0" />
+                                                      </GridPane.margin>
+                                                      <font>
+                                                          <Font name="System Bold" size="10.0" />
+                                                      </font>
+                                                  </Label>
+                                              </children>
+                                          </GridPane>
+                                          <GridPane prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                              <columnConstraints>
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                              </columnConstraints>
+                                              <rowConstraints>
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              </rowConstraints>
+                                              <children>
+                                                  <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f7753d" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="15.0" />
+                                                      </GridPane.margin>
+                                                  </Rectangle>
+                                                  <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                                      <GridPane.margin>
+                                                          <Insets left="26.0" />
+                                                      </GridPane.margin>
+                                                  </ImageView>
+                                                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                      <image>
+                                                          <Image url="@../../resources/img/right-arrow.png" />
+                                                      </image>
+                                                      <cursor>
+                                                          <Cursor fx:constant="HAND" />
+                                                      </cursor>
+                                                  </ImageView>
+                                                  <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Equilíbrio e Meditação" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                                      <font>
+                                                          <Font name="System Bold" size="12.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                                      <GridPane.margin>
+                                                          <Insets top="10.0" />
+                                                      </GridPane.margin>
+                                                      <font>
+                                                          <Font name="System Bold" size="10.0" />
+                                                      </font>
+                                                  </Label>
+                                              </children>
+                                          </GridPane>
+                                    <GridPane prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.rowIndex="4">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f7753d" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="15.0" />
+                                             </GridPane.margin>
+                                          </Rectangle>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="26.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../resources/img/right-arrow.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                          <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento da parte superior" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <GridPane.margin>
+                                                <Insets top="10.0" />
+                                             </GridPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#a3d3e4" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="15.0" />
+                                             </GridPane.margin>
+                                          </Rectangle>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="26.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../resources/img/right-arrow.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                          <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento da parte superior" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <GridPane.margin>
+                                                <Insets top="10.0" />
+                                             </GridPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane layoutX="252.0" layoutY="209.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#ffd46a" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="15.0" />
+                                             </GridPane.margin>
+                                          </Rectangle>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="26.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../resources/img/right-arrow.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                          <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento da parte superior" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <GridPane.margin>
+                                                <Insets top="10.0" />
+                                             </GridPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane layoutX="252.0" layoutY="209.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#a3d3e4" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="15.0" />
+                                             </GridPane.margin>
+                                          </Rectangle>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="26.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../resources/img/right-arrow.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                          <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento da parte superior" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <GridPane.margin>
+                                                <Insets top="10.0" />
+                                             </GridPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane layoutX="252.0" layoutY="10.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f7753d" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="15.0" />
+                                             </GridPane.margin>
+                                          </Rectangle>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="26.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../resources/img/right-arrow.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                          <Label layoutY="286.0" prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Polichinelo Frontal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <GridPane.margin>
+                                                <Insets top="10.0" />
+                                             </GridPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane layoutX="10.0" layoutY="10.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.rowIndex="6">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#ffd46a" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="15.0" />
+                                             </GridPane.margin>
+                                          </Rectangle>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="26.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../resources/img/right-arrow.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                          <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento da parte superior" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <GridPane.margin>
+                                                <Insets top="10.0" />
+                                             </GridPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane layoutX="10.0" layoutY="308.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#ffd46a" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="15.0" />
+                                             </GridPane.margin>
+                                          </Rectangle>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="26.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../resources/img/right-arrow.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                          <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento da parte superior" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <GridPane.margin>
+                                                <Insets top="10.0" />
+                                             </GridPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane layoutX="252.0" layoutY="308.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.columnIndex="4" GridPane.rowIndex="8">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f7753d" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="15.0" />
+                                             </GridPane.margin>
+                                          </Rectangle>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="26.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../resources/img/right-arrow.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                          <Label layoutY="286.0" prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Polichinelo Frontal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <GridPane.margin>
+                                                <Insets top="10.0" />
+                                             </GridPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane layoutX="492.0" layoutY="308.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.rowIndex="8">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#a3d3e4" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="15.0" />
+                                             </GridPane.margin>
+                                          </Rectangle>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="26.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../resources/img/right-arrow.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                          <Label prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento da parte superior" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <GridPane.margin>
+                                                <Insets top="10.0" />
+                                             </GridPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane layoutX="492.0" layoutY="407.0" prefHeight="79.0" prefWidth="215.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" GridPane.rowIndex="10">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="72.4" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.6" minWidth="10.0" prefWidth="103.00000000000001" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.19999999999999" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#f7753d" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="15.0" />
+                                             </GridPane.margin>
+                                          </Rectangle>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="26.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../resources/img/right-arrow.png" />
+                                             </image>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ImageView>
+                                          <Label layoutY="286.0" prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Polichinelo Frontal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label style="-fx-font-family: Nunito;" text="3 min" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <GridPane.margin>
+                                                <Insets top="10.0" />
+                                             </GridPane.margin>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                           </children></AnchorPane>
+                    </content>
+                  </ScrollPane>
                     </children>
                 </Pane>
                 <Pane fx:id="homeWhiteScreen" layoutX="883.0" prefHeight="780.0" prefWidth="318.0" style="-fx-background-color: #FFFFFF;">
@@ -1532,14 +2013,17 @@
                                 </Label>
                             </children>
                         </GridPane>
-                  <Label fx:id="aviso" layoutX="71.0" layoutY="684.0" text="Selecione no mínimo um exercício!" textFill="RED" visible="false" />
-                  <Label fx:id="avisoDuracao" layoutX="418.0" layoutY="361.0" prefHeight="13.0" prefWidth="270.0" text="Informe a duração dos seus exercícios!" textFill="RED" visible="false" wrapText="true">
+                  <Label fx:id="aviso" layoutX="71.0" layoutY="684.0" style="-fx-font-family: Nunito;" text="Selecione no mínimo um exercício!" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Nunito Regular" size="12.0" />
+                     </font></Label>
+                  <Label fx:id="avisoDuracao" layoutX="418.0" layoutY="361.0" prefHeight="13.0" prefWidth="270.0" style="-fx-font-family: Nunito;" text="Informe a duração dos seus exercícios!" textFill="RED" visible="false" wrapText="true">
                      <font>
                         <Font name="Nunito Regular" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="avisoIntervalo" layoutX="767.0" layoutY="361.0" text="Informe o intervalo entre seus exercícios!" textFill="RED" visible="false" />
-                  <Label fx:id="avisoHorario" layoutX="71.0" layoutY="361.0" text="Informe seu horário de trabalho!" textFill="RED" visible="false">
+                  <Label fx:id="avisoIntervalo" layoutX="767.0" layoutY="361.0" style="-fx-font-family: Nunito;" text="Informe o intervalo entre seus exercícios!" textFill="RED" visible="false" />
+                  <Label fx:id="avisoHorario" layoutX="71.0" layoutY="361.0" style="-fx-font-family: Nunito;" text="Informe seu horário de trabalho!" textFill="RED" visible="false">
                      <font>
                         <Font name="Nunito Regular" size="12.0" />
                      </font>
