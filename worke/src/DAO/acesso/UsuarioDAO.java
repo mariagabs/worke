@@ -91,32 +91,6 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
         }
     }
 
-    public void alterarFuncionario(Funcionario objt) {
-        String sql = "UPDATE Usuario SET Login = ? , Nome = ?, Lembrete = ?, DuracaoExercicio = ?, IntervaloExercicio = ? WHERE id = ?";
-
-        try {
-
-            if (this.connection.connection()) {
-
-                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
-
-                sentenca.setString(1, objt.getEmail());
-                sentenca.setString(2, objt.getNome());
-                sentenca.setString(3, objt.getLembrete());
-                sentenca.setDouble(4, objt.getDuracaoExercicios());
-                sentenca.setDouble(5, objt.getIntervaloExercicios());
-                sentenca.setInt(6, objt.getId());
-
-
-                sentenca.execute();
-                sentenca.close();
-                this.connection.getConnection().close();
-            }
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
     public void alterarEmpresa(Empresa objt) {
         String sql = "UPDATE Usuario SET Login = ? , Nome = ?, FraseMotivacional = ?, PossuiPremio = ?, PremioId = ? WHERE id = ?";
 
@@ -141,7 +115,6 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
             throw new RuntimeException(ex);
         }
     }
-
 
     @Override
     public void excluir(int id) {

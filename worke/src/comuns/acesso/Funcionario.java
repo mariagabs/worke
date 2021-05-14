@@ -2,6 +2,7 @@ package comuns.acesso;
 
 import comuns.conteudo.Exercicio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Funcionario extends Usuario implements IUsuario{
@@ -11,7 +12,7 @@ public class Funcionario extends Usuario implements IUsuario{
         setAdmEmpresa(false);
     }
     private TipoUsuario tipo;
-    private List<Exercicio> exercicios;
+    private List<Exercicio> exercicios = new ArrayList<Exercicio>();
     private String lembrete;
     private int ranking;
     private int qntTotalExercicios;
@@ -20,6 +21,8 @@ public class Funcionario extends Usuario implements IUsuario{
     private double intervaloExercicios;
     private final static Funcionario INSTANCE = new Funcionario();
     private Funcionario funcionario;
+    private double horaInicio;
+    private double horaTermino;
 
     public static Funcionario getInstance() {
         return INSTANCE;
@@ -87,5 +90,21 @@ public class Funcionario extends Usuario implements IUsuario{
 
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+
+    public double getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(double horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public double getHoraTermino() {
+        return horaTermino;
+    }
+
+    public void setHoraTermino(double horaTermino) {
+        this.horaTermino = horaTermino;
     }
 }

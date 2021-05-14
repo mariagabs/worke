@@ -8,7 +8,7 @@ public class Exercicio extends Entidade {
     private String nome;
     private String descricao;
     private List<String> instrucoes;
-    private int imagem;
+    private String imagem;
 
     public String getNome() {
         return nome;
@@ -35,11 +35,11 @@ public class Exercicio extends Entidade {
     }
 
 
-    public int getImagem() {
+    public String getImagem() {
         return imagem;
     }
 
-    public void setImagem(int imagem) {
+    public void setImagem(String imagem) {
         this.imagem = imagem;
     }
 }
