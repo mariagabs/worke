@@ -493,6 +493,9 @@ public class Dashboard implements Initializable {
 
         int aux = 0;
         for (Node pane : exerciciosDoDia.getChildren()) {
+            if (pane instanceof GridPane) {
+                ((GridPane) pane).setVisible(false);
+            }
             if (aux < exercicios.size()) {
 
                 if (pane instanceof GridPane) {
@@ -765,9 +768,9 @@ public class Dashboard implements Initializable {
                     interruptedException.printStackTrace();
                 }
                 configScreen.setVisible(false);
-                exerciseScreen.setVisible(true);
-                homeGrayScreen.setVisible(false);
-                homeWhiteScreen.setVisible(false);
+                exerciseScreen.setVisible(false);
+                homeGrayScreen.setVisible(true);
+                homeWhiteScreen.setVisible(true);
             }
         });
 
@@ -826,9 +829,9 @@ public class Dashboard implements Initializable {
                     interruptedException.printStackTrace();
                 }
                 configScreen.setVisible(false);
-                exerciseScreen.setVisible(true);
-                homeGrayScreen.setVisible(false);
-                homeWhiteScreen.setVisible(false);
+                exerciseScreen.setVisible(false);
+                homeGrayScreen.setVisible(true);
+                homeWhiteScreen.setVisible(true);
             }
         });
 
