@@ -88,11 +88,11 @@ public class ExercicioDAO {
 
         int rotinaId = 0;
 
-        LocalTime horaInicio = LocalTime.parse(objt.getHoraInicio());
+        /*LocalTime horaInicio = LocalTime.parse(objt.getHoraInicio());
         LocalTime horaFinal = LocalTime.parse(objt.getHoraTermino());
         double teste = (double) ((objt.getIntervaloExercicios().getHours() * 60) + objt.getIntervaloExercicios().getMinutes()) / 60;
 
-        int quantidade = Math.round((int) ((int) (((Duration.between(horaInicio, horaFinal).toHours()) - 1)) / teste));
+        int quantidade = Math.round((int) ((int) (((Duration.between(horaInicio, horaFinal).toHours()) - 1)) / teste));*/
 
         try {
 
