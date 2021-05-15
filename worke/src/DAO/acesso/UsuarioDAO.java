@@ -3,10 +3,7 @@ package DAO.acesso;
 import DAO.basis.AbstractDAO;
 import DAO.basis.ConnectionDAO;
 import DAO.basis.MySQLDAO;
-import comuns.acesso.Empresa;
-import comuns.acesso.Funcionario;
-import comuns.acesso.Usuario;
-import comuns.acesso.Premio;
+import comuns.acesso.*;
 import comuns.basis.Entidade;
 import comuns.conteudo.Exercicio;
 import javafx.fxml.FXML;
@@ -19,6 +16,7 @@ import java.sql.Statement;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -119,25 +117,96 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
             throw new RuntimeException(ex);
         }
     }
+    public void excluirExercicios(List<Integer> idList) {
 
+        String sql = "SELECT Id FROM exercicio_escolhido WHERE RotinaId = ?";
+        String sqlDeleteExercicios = "DELETE FROM exercicio_escolhido WHERE id = ?";
+        ArrayList<Integer> exercicioIdList = new ArrayList<Integer>();
+
+        try {
+
+            if (this.connection.connection()) {
+
+                for (Integer id : idList) {
+
+                    PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+                    sentenca.setInt(1, id);
+
+                    ResultSet resultadoSentenca = sentenca.executeQuery();
+
+                    while (resultadoSentenca.next()) {
+
+                        exercicioIdList.add(resultadoSentenca.getInt("Id"));
+                    }
+                    sentenca.close();
+                }
+                for (Integer id : exercicioIdList) {
+
+                    PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sqlDeleteExercicios);
+                    sentenca.setInt(1, id);
+                    sentenca.execute();
+                    sentenca.close();
+                }
+            }
+            this.connection.getConnection().close();
+
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
     @Override
     public void excluir(int id) {
+
+        String sqlRotina = "SELECT * FROM rotina_exercicios WHERE UsuarioId = ?";
+        ArrayList<Integer> rotinaIdList = new ArrayList<Integer>();
 
         String sql = "DELETE FROM Usuario WHERE id = ?";
 
         try {
 
             if (this.connection.connection()) {
-
-                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
-
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sqlRotina);
                 sentenca.setInt(1, id);
 
+                ResultSet resultadoSentenca = sentenca.executeQuery();
 
-                sentenca.execute();
+                while (resultadoSentenca.next()) {
+
+                    rotinaIdList.add(resultadoSentenca.getInt("Id"));
+                }
                 sentenca.close();
-                this.connection.getConnection().close();
             }
+            excluirExercicios(rotinaIdList);
+            excluirRotinas(rotinaIdList);
+            if (this.connection.connection()) {
+
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+                sentenca.setInt(1, id);
+                sentenca.execute();
+            }
+            this.connection.getConnection().close();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private void excluirRotinas(ArrayList<Integer> rotinaIdList) {
+        String sqlDeleteExercicios = "DELETE FROM rotina_exercicios WHERE id = ?";
+
+        try {
+
+            if (this.connection.connection()) {
+
+                for (Integer id : rotinaIdList) {
+
+                    PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sqlDeleteExercicios);
+                    sentenca.setInt(1, id);
+                    sentenca.execute();
+                    sentenca.close();
+                }
+            }
+            this.connection.getConnection().close();
+
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

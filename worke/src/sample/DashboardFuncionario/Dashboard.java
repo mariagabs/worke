@@ -391,7 +391,7 @@ public class Dashboard implements Initializable {
         String newIntervalo = newSelectedPane.getId().split("_")[1];
         Label lblSelected;
 
-        if (!oldIntervalo.equals("0")) {
+        if (func.getIntervaloExercicios() != null) {
             GridPane botao = (GridPane) intervaloPane.lookup("#intervalo_" + oldIntervalo);
             lblSelected = (Label) botao.lookup("#lblIntervalo_" + oldIntervalo);
 
