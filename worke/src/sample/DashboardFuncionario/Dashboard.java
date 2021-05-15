@@ -469,16 +469,17 @@ public class Dashboard implements Initializable {
     }
 
     public void getHorario() {
+
         if (func.getHoraInicio() == null) {
             horaInicial.setText("00:00");
         } else {
-            horaInicial.setText(String.valueOf(func.getHoraInicio()).replace(".", ""));
+            horaInicial.setText(String.valueOf(func.getHoraInicio()));
         }
 
         if (func.getHoraTermino() == null) {
             horaFinal.setText("00:00");
         } else {
-            horaFinal.setText(String.valueOf(func.getHoraTermino()).replace(".", ""));
+            horaFinal.setText(String.valueOf(func.getHoraTermino()));
         }
     }
 
@@ -820,6 +821,9 @@ public class Dashboard implements Initializable {
             if (horaInicial.getText().equals("00:00") || horaFinal.getText().equals("00:00")) {
                 valid = false;
                 avisoHorario.setVisible(true);
+            } else {
+                func.setHoraInicio(horaInicial.getText());
+                func.setHoraTermino(horaFinal.getText());
             }
 
             if (valid) {
