@@ -8,12 +8,16 @@ import comuns.acesso.Funcionario;
 import comuns.acesso.Usuario;
 import comuns.acesso.Premio;
 import comuns.basis.Entidade;
+import comuns.conteudo.Exercicio;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -225,6 +229,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                         userEmpresa.setNome(rs.getString("Nome"));
                         userEmpresa.setFraseMotivacional(rs.getString("FraseMotivacional"));
                         userEmpresa.setPremio(rs.getBoolean("PossuiPremio"));
+                        userEmpresa.setPremioId(rs.getInt("PremioId"));
 
                     }
                 }
@@ -262,8 +267,11 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                         boolean adm = rs.getBoolean("AdmEmpresa");
 
                         if (adm) {
+
                             PremioDAO premioDAO = new PremioDAO();
-                            Premio premio = premioDAO.consultar(rs.getInt("PremioId"));
+                            Premio premio;
+                            premio = premioDAO.consultar(rs.getInt("PremioId"));
+
                             Empresa userEmpresa = Empresa.getInstance();
                             userEmpresa.setId(rs.getInt("Id"));
                             userEmpresa.setNome(rs.getString("Nome"));
@@ -274,6 +282,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
 
                             if(premio != null)
                                 userEmpresa.setNomePremio(premio.getDescricao());
+                            userEmpresa.setPremioId(rs.getInt("PremioId"));
 
                             user = (T) userEmpresa;
 
@@ -286,7 +295,9 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                             userFunc.setLembrete(rs.getString("Lembrete"));
                             userFunc.setRanking(rs.getInt("Ranking"));
                             userFunc.setDuracaoExercicios(rs.getDouble("DuracaoExercicio"));
-                            userFunc.setIntervaloExercicios(rs.getDouble("IntervaloExercicio"));
+                            userFunc.setIntervaloExercicios(rs.getTime("IntervaloExercicio"));
+                            userFunc.setHoraInicio(rs.getString("HorarioInicio"));
+                            userFunc.setHoraTermino(rs.getString("HorarioTermino"));
 
                             user = (T) userFunc;
 
@@ -305,6 +316,75 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
         }
 
         return null;
+    }
+
+    public ArrayList<Exercicio> consultarExerciciosEscolhidos(int rotinaId) {
+        ArrayList<Exercicio> listaExercicios = new ArrayList<Exercicio>();
+
+        String sql = "SELECT exercicio_escolhido.ExercicioId, ex.Imagem AS Imagem, ex.Nome AS Nome FROM Exercicio_Escolhido \n" +
+                "INNER JOIN exercicio AS ex ON ex.Id = exercicio_escolhido.ExercicioId WHERE exercicio_escolhido.RotinaId = ?";
+
+        try {
+            if (this.connection.connection()) {
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+
+                sentenca.setInt(1, rotinaId);
+
+                ResultSet resultadoSentenca = sentenca.executeQuery();
+
+                while (resultadoSentenca.next()) {
+
+                    Exercicio exercicio = new Exercicio();
+
+                    exercicio.setId(resultadoSentenca.getInt("ExercicioId"));
+                    exercicio.setNome(resultadoSentenca.getString("Nome"));
+                    exercicio.setImagem(resultadoSentenca.getString("Imagem"));
+
+                    listaExercicios.add(exercicio);
+                }
+
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+
+            return listaExercicios;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+    public Integer getLastRotina(Funcionario objt) {
+        String sql = "SELECT Id FROM Rotina_Exercicios WHERE UsuarioId = ? ORDER BY DataCriacao DESC LIMIT 1";
+
+        int rotinaId = 0;
+
+        try {
+
+            if (this.connection.connection()) {
+
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+                sentenca.setInt(1, objt.getId());
+
+                ResultSet rs = sentenca.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        rotinaId = rs.getInt("Id");
+                    }
+                }
+
+
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+
+            return rotinaId;
+        } catch (
+                SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 

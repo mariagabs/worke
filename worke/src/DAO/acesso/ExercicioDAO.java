@@ -5,11 +5,13 @@ import comuns.acesso.Funcionario;
 import comuns.acesso.Usuario;
 import comuns.conteudo.Exercicio;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ExercicioDAO {
 
@@ -82,11 +84,15 @@ public class ExercicioDAO {
     }
 
     public Integer createRotina(Funcionario objt) {
-        String sql = "INSERT INTO rotina_exercicios (QuantidadeExercicios, Intervalo, UsuarioId) VALUES (?,?,?)";
+        String sql = "INSERT INTO rotina_exercicios (QuantidadeExercicios, UsuarioId, DataCriacao) VALUES (?,?,?)";
 
         int rotinaId = 0;
 
-        int quantidade = (int) (((objt.getHoraTermino() - objt.getHoraInicio()) - 1) / objt.getIntervaloExercicios());
+        LocalTime horaInicio = LocalTime.parse(objt.getHoraInicio());
+        LocalTime horaFinal = LocalTime.parse(objt.getHoraTermino());
+        double teste = (double) ((objt.getIntervaloExercicios().getHours() * 60) + objt.getIntervaloExercicios().getMinutes()) / 60;
+
+        int quantidade = Math.round((int) ((int) (((Duration.between(horaInicio, horaFinal).toHours()) - 1)) / teste));
 
         try {
 
@@ -94,9 +100,12 @@ public class ExercicioDAO {
 
                 PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
+                java.util.Date data = new java.util.Date();
+                java.sql.Timestamp date = new java.sql.Timestamp(data.getTime());
+
                 sentenca.setInt(1, objt.getExercicios().size());
-                sentenca.setDouble(2, objt.getIntervaloExercicios());
-                sentenca.setInt(3, objt.getId());
+                sentenca.setInt(2, objt.getId());
+                sentenca.setTimestamp(3, date);
 
                 int affectedRows = sentenca.executeUpdate();
 
@@ -112,10 +121,8 @@ public class ExercicioDAO {
                     }
                 }
 
-                sentenca.execute();
                 sentenca.close();
                 this.connection.getConnection().close();
-
 
             }
 

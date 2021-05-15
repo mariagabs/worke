@@ -31,9 +31,9 @@ public class FuncionarioDAO {
                 sentenca.setString(2, objt.getNome());
                 sentenca.setString(3, objt.getLembrete());
                 sentenca.setDouble(4, objt.getDuracaoExercicios());
-                sentenca.setDouble(5, objt.getIntervaloExercicios());
-                sentenca.setString(6, String.valueOf(objt.getHoraInicio()));
-                sentenca.setString(7, String.valueOf(objt.getHoraTermino()));
+                sentenca.setTime(5, objt.getIntervaloExercicios());
+                sentenca.setString(6, objt.getHoraInicio());
+                sentenca.setString(7, objt.getHoraTermino());
                 sentenca.setInt(8, objt.getId());
 
 

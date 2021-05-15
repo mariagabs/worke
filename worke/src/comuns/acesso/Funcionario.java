@@ -2,6 +2,7 @@ package comuns.acesso;
 
 import comuns.conteudo.Exercicio;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +19,11 @@ public class Funcionario extends Usuario implements IUsuario{
     private int qntTotalExercicios;
     private double qntHorasTotais;
     private double duracaoExercicios;
-    private double intervaloExercicios;
+    private Time intervaloExercicios;
     private final static Funcionario INSTANCE = new Funcionario();
     private Funcionario funcionario;
-    private double horaInicio;
-    private double horaTermino;
+    private String horaInicio;
+    private String horaTermino;
 
     public static Funcionario getInstance() {
         return INSTANCE;
@@ -76,11 +77,11 @@ public class Funcionario extends Usuario implements IUsuario{
         this.duracaoExercicios = duracaoExercicios;
     }
 
-    public double getIntervaloExercicios() {
+    public Time getIntervaloExercicios() {
         return intervaloExercicios;
     }
 
-    public void setIntervaloExercicios(double intervaloExercicios) {
+    public void setIntervaloExercicios(Time intervaloExercicios) {
         this.intervaloExercicios = intervaloExercicios;
     }
 
@@ -92,19 +93,19 @@ public class Funcionario extends Usuario implements IUsuario{
         this.funcionario = funcionario;
     }
 
-    public double getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(double horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public double getHoraTermino() {
+    public String getHoraTermino() {
         return horaTermino;
     }
 
-    public void setHoraTermino(double horaTermino) {
+    public void setHoraTermino(String horaTermino) {
         this.horaTermino = horaTermino;
     }
 }

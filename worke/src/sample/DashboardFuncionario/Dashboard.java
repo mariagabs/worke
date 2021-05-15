@@ -2,10 +2,12 @@ package sample.DashboardFuncionario;
 
 import DAO.acesso.ExercicioDAO;
 import DAO.acesso.FuncionarioDAO;
+import DAO.acesso.PremioDAO;
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
 import comuns.acesso.Empresa;
 import comuns.acesso.Funcionario;
+import comuns.acesso.Premio;
 import comuns.acesso.Usuario;
 import comuns.conteudo.Exercicio;
 import javafx.beans.value.ChangeListener;
@@ -34,8 +36,10 @@ import sample.Main;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
@@ -99,17 +103,17 @@ public class Dashboard implements Initializable {
     @FXML
     private GridPane duracao_6;
     @FXML
-    private GridPane intervalo_30;
+    private GridPane intervalo_3000;
     @FXML
-    private GridPane intervalo_1;
+    private GridPane intervalo_10000;
     @FXML
-    private GridPane intervalo_13;
+    private GridPane intervalo_13000;
     @FXML
-    private GridPane intervalo_2;
+    private GridPane intervalo_20000;
     @FXML
-    private GridPane intervalo_23;
+    private GridPane intervalo_23000;
     @FXML
-    private GridPane intervalo_3;
+    private GridPane intervalo_30000;
     @FXML
     private GridPane duracaoPane;
     @FXML
@@ -125,23 +129,23 @@ public class Dashboard implements Initializable {
     @FXML
     private Label lblDuracao6;
     @FXML
-    private Label lblIntervalo_1;
+    private Label lblIntervalo_10000;
     @FXML
-    private Label lblIntervalo_2;
+    private Label lblIntervalo_20000;
     @FXML
-    private Label lblIntervalo_3;
+    private Label lblIntervalo_30000;
     @FXML
-    private Label lblIntervalo_13;
+    private Label lblIntervalo_13000;
     @FXML
-    private Label lblIntervalo_23;
+    private Label lblIntervalo_23000;
     @FXML
-    private Label lblIntervalo_30;
+    private Label lblIntervalo_3000;
     @FXML
     private GridPane testeIniciar;
     @FXML
     private GridPane intervaloPane;
     @FXML
-    private GridPane exerciciosDoDia;
+    private GridPane exercicios;
     @FXML
     private GridPane exercicio1;
     @FXML
@@ -182,11 +186,21 @@ public class Dashboard implements Initializable {
     private Label avisoDuracao;
     @FXML
     private Label avisoHorario;
+    @FXML
+    private Label premio;
+    @FXML
+    private GridPane exerciciosDoDia;
+    @FXML
+    private Label proxExercicio;
+    @FXML
+    private ImageView imgProxEx;
 
 
     private Funcionario func = Funcionario.getInstance();
     ExercicioDAO exercicioDAO = new ExercicioDAO();
     List<Exercicio> exercicioList = exercicioDAO.listar();
+    UsuarioDAO dao = new UsuarioDAO();
+    Empresa empresa = dao.listarDadosEmpresa();
 
     DecimalFormat df = new DecimalFormat("#");
 
@@ -250,23 +264,42 @@ public class Dashboard implements Initializable {
 
             int aux = 0;
 
-            for (Node pane : exerciciosDoDia.getChildren()) {
+            HashMap<Integer, Exercicio> exercicioHashMap = new HashMap<>();
+            for (Exercicio exercicio : func.getExercicios()) {
+                exercicioHashMap.put(exercicio.getId(), exercicio);
+            }
+
+            for (Node pane : exercicios.getChildren()) {
                 if (aux < 16) {
 
                     if (pane instanceof GridPane) {
                         Exercicio ex = exercicioList.get(aux);
 
                         ((GridPane) pane).setId(pane.getId() + "_" + String.valueOf(ex.getId()));
-
+                        Boolean exists = false;
                         for (Node child : ((GridPane) pane).getChildren()) {
+
                             if (child instanceof ImageView) {
-                                Image img = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "Dark.png").toExternalForm());
+                                Image img = null;
+                                if (exercicioHashMap.containsKey(ex.getId())) {
+                                    exists = true;
+                                    ((GridPane) pane).setStyle("-fx-background-color: #A3D3E4");
+                                    img = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
+                                } else {
+                                    img = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "Dark.png").toExternalForm());
+                                }
+
                                 ((ImageView) child).setImage(img);
                             }
                             if (child instanceof Label) {
+                                if (exists) {
+                                    ((Label) child).setTextFill(Color.WHITE);
+                                } else {
+                                    ((Label) child).setTextFill(Paint.valueOf("#0B1F38"));
+                                }
+
                                 ((Label) child).setText(ex.getNome());
                             }
-
                         }
                         aux++;
                     }
@@ -319,19 +352,31 @@ public class Dashboard implements Initializable {
     };
 
     public void getIntervaloExercicios() {
-        String selectedInterval = String.valueOf(func.getIntervaloExercicios()).replace(".0", "");
+        String selectedInterval = String.valueOf(func.getIntervaloExercicios()).replace(":", "");
+        if(selectedInterval.equals("003000")){
+            selectedInterval = selectedInterval.substring(2);
+        }else{
+            selectedInterval = selectedInterval.substring(1);
+        }
 
         if (!selectedInterval.equals("0")) {
             GridPane botao = (GridPane) intervaloPane.lookup("#intervalo_" + selectedInterval);
-            Label lblBotao = (Label) botao.lookup("#lblIntervalo_" + selectedInterval);
+            String teste = "#lblIntervalo_" + selectedInterval;
+            Label lblBotao = (Label) botao.lookup(teste);
 
             //Muda para o estilo de botão selecionado
             changeSelectStyle(true, lblBotao, botao);
+
         }
     }
 
     public void setIntervaloExercicios(GridPane newSelectedPane) {
-        String oldIntervalo = String.valueOf(func.getIntervaloExercicios()).replace(".0", "");
+        String oldIntervalo = String.valueOf(func.getIntervaloExercicios()).replace(":", "");
+        if(oldIntervalo.equals("003000")){
+            oldIntervalo = oldIntervalo.substring(2);
+        }else{
+            oldIntervalo = oldIntervalo.substring(1);
+        }
         String newIntervalo = newSelectedPane.getId().split("_")[1];
         Label lblSelected;
 
@@ -348,8 +393,16 @@ public class Dashboard implements Initializable {
         //Muda para o estilo de botão selecionado
         changeSelectStyle(true, lblSelected, newSelectedPane);
 
-        Double selectedIntervalo = Double.valueOf(newIntervalo);
+        if(!newIntervalo.equals("3000")){
+            newIntervalo = "0" + newIntervalo;
+        }else{
+            newIntervalo = "00" + newIntervalo;
+        }
+        newIntervalo = newIntervalo.substring(0, 2) + ":" + newIntervalo.substring(2, 4) + ":00";
+        Time selectedIntervalo = Time.valueOf(newIntervalo);
         func.setIntervaloExercicios(selectedIntervalo);
+
+
     }
 
     public void getDuracaoExercicios() {
@@ -399,24 +452,97 @@ public class Dashboard implements Initializable {
         }
     }
 
-    public void getHorario(){
-        horaInicial.setText(String.valueOf(func.getHoraInicio()).replace(".",""));
-        horaFinal.setText(String.valueOf(func.getHoraTermino()).replace(".",""));
+    public void getExerciciosEscolhidos() {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        func.setExercicios(usuarioDAO.consultarExerciciosEscolhidos(usuarioDAO.getLastRotina(func)));
+    }
+
+    public void getHorario() {
+        if (func.getHoraInicio() == null) {
+            horaInicial.setText("00:00");
+        } else {
+            horaInicial.setText(String.valueOf(func.getHoraInicio()).replace(".", ""));
+        }
+
+        if (func.getHoraTermino() == null) {
+            horaFinal.setText("00:00");
+        } else {
+            horaFinal.setText(String.valueOf(func.getHoraTermino()).replace(".", ""));
+        }
+    }
+
+    public void getPremio() {
+        PremioDAO premioDAO = new PremioDAO();
+        Premio nomePremio = premioDAO.consultar(empresa.getPremioId());
+        premio.setText(nomePremio.getDescricao());
+
+    }
+
+    public void getExerciciosDoDia() {
+
+        List<Exercicio> exercicios = func.getExercicios();
+
+        if (func.getExercicios().size() > 0) {
+            Exercicio exercicio = func.getExercicios().get(0);
+
+            proxExercicio.setText(exercicio.getNome());
+            Image img = new Image(getClass().getResource("/resources/img/" + exercicio.getImagem() + "White.png").toExternalForm());
+            imgProxEx.setImage(img);
+        }
+
+
+        int aux = 0;
+        for (Node pane : exerciciosDoDia.getChildren()) {
+            if (aux < exercicios.size()) {
+
+                if (pane instanceof GridPane) {
+                    Exercicio ex = exercicios.get(aux);
+
+                    ((GridPane) pane).setId(pane.getId() + "_" + String.valueOf(ex.getId()));
+                    ((GridPane) pane).setVisible(true);
+                    for (Node child : ((GridPane) pane).getChildren()) {
+
+                        if (child instanceof ImageView) {
+
+                            if (((ImageView) child).getId() != null && ((ImageView) child).getId().contains("exDia")) {
+                                Image img = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
+                                ((ImageView) child).setImage(img);
+                            }
+                        }
+                        if (child instanceof Label) {
+
+                            if (((Label) child).getId() != null && ((Label) child).getId().contains("nome")) {
+                                ((Label) child).setText(ex.getNome());
+                            } else {
+                                ((Label) child).setText(String.valueOf(func.getDuracaoExercicios()).replace(".0", "") + " min");
+                            }
+                        }
+                    }
+                    aux++;
+                }
+            }
+        }
+    }
+
+    public void loadConfig() {
+        getDuracaoExercicios();
+        getIntervaloExercicios();
+        getExerciciosEscolhidos();
+        listExerciciosDoDia();
+        getHorario();
+        getPremio();
+        getExerciciosDoDia();
+
+
+        nomeUsuario.setText(func.getNome());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        UsuarioDAO dao = new UsuarioDAO();
+        loadConfig();
+
         FuncionarioDAO daoFunc = new FuncionarioDAO();
-        Empresa empresa = dao.listarDadosEmpresa();
-        getDuracaoExercicios();
-        getIntervaloExercicios();
-        listExerciciosDoDia();
-        getHorario();
-
-        nomeUsuario.setText(func.getNome());
-
         exercicio1.setOnMouseClicked((MouseEvent e) -> {
             getExercicioEscolhido(exercicio1);
         });
@@ -485,23 +611,23 @@ public class Dashboard implements Initializable {
             setDuracaoExercicios(duracao_6);
         });
 
-        intervalo_1.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_1);
+        intervalo_10000.setOnMouseClicked((MouseEvent e) -> {
+            setIntervaloExercicios(intervalo_10000);
         });
-        intervalo_2.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_2);
+        intervalo_20000.setOnMouseClicked((MouseEvent e) -> {
+            setIntervaloExercicios(intervalo_20000);
         });
-        intervalo_3.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_3);
+        intervalo_30000.setOnMouseClicked((MouseEvent e) -> {
+            setIntervaloExercicios(intervalo_30000);
         });
-        intervalo_13.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_13);
+        intervalo_13000.setOnMouseClicked((MouseEvent e) -> {
+            setIntervaloExercicios(intervalo_13000);
         });
-        intervalo_23.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_23);
+        intervalo_23000.setOnMouseClicked((MouseEvent e) -> {
+            setIntervaloExercicios(intervalo_23000);
         });
-        intervalo_30.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_30);
+        intervalo_3000.setOnMouseClicked((MouseEvent e) -> {
+            setIntervaloExercicios(intervalo_3000);
         });
 
         if (func.getLembrete() == null || func.getLembrete().isEmpty()) {
@@ -541,6 +667,9 @@ public class Dashboard implements Initializable {
 
         Home.setPickOnBounds(true);
         Home.setOnMouseClicked((MouseEvent e) -> {
+
+            loadConfig();
+
             try {
                 AuditoriaTest.getInstance().StartThread("Home");
             } catch (InterruptedException interruptedException) {
@@ -614,11 +743,11 @@ public class Dashboard implements Initializable {
 
             if (func.getExercicios().size() == 0) {
                 aviso.setVisible(true);
-            } else if (func.getIntervaloExercicios() == 0) {
+            } /*else if (func.getIntervaloExercicios() == 0) {
                 avisoIntervalo.setVisible(true);
-            } else if (func.getDuracaoExercicios() == 0) {
+            }*/ else if (func.getDuracaoExercicios() == 0) {
                 avisoDuracao.setVisible(true);
-            } else if (func.getHoraInicio() == 0 || func.getHoraTermino() == 0) {
+            } else if (func.getHoraInicio().isEmpty() || func.getHoraTermino().isEmpty()) {
                 avisoHorario.setVisible(true);
             } else {
 
@@ -662,30 +791,33 @@ public class Dashboard implements Initializable {
         testeIniciar.setPickOnBounds(true);
         testeIniciar.setOnMouseClicked((MouseEvent e) -> {
 
+            Boolean valid = true;
             aviso.setVisible(false);
             avisoDuracao.setVisible(false);
             avisoIntervalo.setVisible(false);
             avisoHorario.setVisible(false);
 
             if (func.getExercicios().size() == 0) {
+                valid = false;
                 aviso.setVisible(true);
             }
-            if (func.getIntervaloExercicios() == 0) {
+            /*if (func.getIntervaloExercicios() == 0) {
+                valid = false;
                 avisoIntervalo.setVisible(true);
-            }
+            }*/
             if (func.getDuracaoExercicios() == 0) {
+                valid = false;
                 avisoDuracao.setVisible(true);
             }
-             else {
 
-
-                func.setHoraInicio(Double.valueOf(horaInicial.getText().replace(":","")));
-                func.setHoraTermino(Double.valueOf(horaFinal.getText().replace(":","")));
-                if (func.getHoraInicio() == 0 || func.getHoraTermino() == 0) {
+            if (valid) {
+                func.setHoraInicio(horaInicial.getText());
+                func.setHoraTermino(horaFinal.getText());
+                if (func.getHoraInicio().isEmpty() || func.getHoraTermino().isEmpty()) {
                     avisoHorario.setVisible(true);
                 }
 
-                //exercicioDAO.escolherExercicio(func);
+                exercicioDAO.escolherExercicio(func);
                 daoFunc.alterarFuncionario(func);
 
                 try {
