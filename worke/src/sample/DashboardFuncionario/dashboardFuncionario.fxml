@@ -190,9 +190,9 @@
                                 <Font name="System Bold" size="26.0" />
                             </font>
                         </Label>
-                  <ScrollPane fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" hmax="609.0" layoutX="34.0" layoutY="521.0" prefHeight="215.0" prefWidth="742.0" style="-fx-border-color: none; -fx-background-color: #F6F6F6;">
+                  <ScrollPane fx:id="scrollExercicios" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" hmax="609.0" layoutX="34.0" layoutY="521.0" prefHeight="215.0" prefWidth="742.0" style="-fx-border-color: none; -fx-background-color: #F6F6F6;">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="719.0" style="-fx-background-color: #F6F6F6;">
+                      <AnchorPane fx:id="anchorExercicios" minHeight="0.0" minWidth="0.0" prefWidth="719.0" style="-fx-background-color: #F6F6F6;">
                            <children>
                               <GridPane fx:id="exerciciosDoDia" layoutX="14.0" layoutY="14.0" prefHeight="398.0" prefWidth="700.0">
                                 <columnConstraints>
@@ -1237,7 +1237,7 @@
                                 </Label>
                             </children>
                         </GridPane>
-                        <GridPane layoutX="782.0" layoutY="614.0" prefHeight="76.0" prefWidth="270.0" style="-fx-background-color: #f7753d; -fx-background-radius: 20;">
+                        <GridPane fx:id="btnCancelar" layoutX="782.0" layoutY="614.0" prefHeight="76.0" prefWidth="270.0" style="-fx-background-color: #f7753d; -fx-background-radius: 20;">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
@@ -1272,7 +1272,7 @@
                         </GridPane>
                     </children>
                 </Pane>
-                <Pane fx:id="configScreen" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
+                <Pane fx:id="configScreen" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">
                     <children>
                         <Label layoutX="50.0" layoutY="54.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Configurações" textFill="#071c35">
                             <font>
