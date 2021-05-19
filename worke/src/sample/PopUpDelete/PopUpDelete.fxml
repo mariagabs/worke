@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane prefHeight="325.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PopUpDelete.popUpDeleteController">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <GridPane prefHeight="325.0" prefWidth="260.0" style="-fx-background-color: #FFF;">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" prefWidth="71.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="122.40000000000002" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="122.40000000000002" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" prefWidth="71.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="54.400000000000006" minHeight="10.0" prefHeight="46.400000000000006" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="73.4" minHeight="10.0" prefHeight="68.6" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="39.39999999999998" minHeight="10.0" prefHeight="36.39999999999998" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <GridPane GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Circle fill="#f7753d" radius="44.0" stroke="#ffffff00" strokeType="INSIDE" GridPane.columnIndex="1" />
+                        <ImageView fitHeight="50.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                            <image>
+                                <Image url="@../../resources/img/alert.png" />
+                            </image>
+                            <GridPane.margin>
+                                <Insets bottom="3.0" />
+                            </GridPane.margin>
+                        </ImageView>
+                    </children>
+                </GridPane>
+                <Label style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="Atenção!" textFill="#071c35" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+                <Label prefHeight="40.0" prefWidth="188.0" text="Você realmente deseja deletar esse item?" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                <GridPane prefHeight="3.0" prefWidth="87.0" style="-fx-background-color: f7753d; -fx-background-radius: 25;" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Rectangle arcHeight="40.0" arcWidth="40.0" height="38.0" stroke="#ffffff00" strokeType="INSIDE" visible="false" width="122.0">
+                            <fill>
+                                <LinearGradient endX="1.0" endY="1.0" startX="0.32347329336268316" startY="0.6183206106870229">
+                                    <stops>
+                                        <Stop>
+                                            <color>
+                                                <Color red="0.6392157077789307" green="0.8274509906768799" blue="0.8941176533699036" />
+                                            </color>
+                                        </Stop>
+                                        <Stop offset="1.0">
+                                            <color>
+                                                <Color red="0.9686274528503418" green="0.4588235318660736" blue="0.239215686917305" />
+                                            </color>
+                                        </Stop>
+                                    </stops>
+                                </LinearGradient>
+                            </fill>
+                        </Rectangle>
+                        <Label style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="SIM" textFill="WHITE" GridPane.halignment="CENTER">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </GridPane>
+            <GridPane layoutX="145.0" layoutY="266.0" prefHeight="3.0" prefWidth="87.0" style="-fx-background-color: C7C7C7; -fx-background-radius: 25;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Rectangle arcHeight="40.0" arcWidth="40.0" height="38.0" stroke="#ffffff00" strokeType="INSIDE" visible="false" width="122.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startX="0.32347329336268316" startY="0.6183206106870229">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.6392157077789307" green="0.8274509906768799" blue="0.8941176533699036" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9686274528503418" green="0.4588235318660736" blue="0.239215686917305" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Rectangle>
+                  <Label style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="NÃO" textFill="WHITE" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </GridPane>
+            </children>
+        </GridPane>
+    </children>
+</GridPane>
