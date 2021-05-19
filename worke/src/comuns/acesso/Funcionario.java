@@ -18,7 +18,7 @@ public class Funcionario extends Usuario implements IUsuario{
     private int ranking;
     private int qntTotalExercicios;
     private double qntHorasTotais;
-    private double duracaoExercicios;
+    private int duracaoExercicios;
     private Time intervaloExercicios;
     private final static Funcionario INSTANCE = new Funcionario();
     private Funcionario funcionario;
@@ -69,11 +69,11 @@ public class Funcionario extends Usuario implements IUsuario{
         this.qntHorasTotais = qntHorasTotais;
     }
 
-    public double getDuracaoExercicios() {
+    public int getDuracaoExercicios() {
         return duracaoExercicios;
     }
 
-    public void setDuracaoExercicios(double duracaoExercicios) {
+    public void setDuracaoExercicios(int duracaoExercicios) {
         this.duracaoExercicios = duracaoExercicios;
     }
 

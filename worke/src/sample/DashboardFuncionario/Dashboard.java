@@ -5,14 +5,15 @@ import DAO.acesso.FuncionarioDAO;
 import DAO.acesso.PremioDAO;
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
-import comuns.acesso.Empresa;
-import comuns.acesso.Funcionario;
-import comuns.acesso.Premio;
-import comuns.acesso.Usuario;
+import comuns.acesso.*;
 import comuns.conteudo.Exercicio;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,13 +32,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import sample.Main;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,7 +80,7 @@ public class Dashboard implements Initializable {
     @FXML
     private Label timer;
     @FXML
-    private Image btnImagePlay;
+    private ImageView btnImagePlay;
     @FXML
     private Button btnIniciar;
     @FXML
@@ -204,6 +209,8 @@ public class Dashboard implements Initializable {
     private Label timerDetails;
     @FXML
     private Label instrucaoDetails;
+    @FXML
+    private GridPane btnCancelar;
 
 
     private Funcionario func = Funcionario.getInstance();
@@ -219,10 +226,19 @@ public class Dashboard implements Initializable {
 
     static boolean pause;
 
+    private Timeline timeline;
+    private static int timeSeconds;
+
+    private static int qntExerciciosDisponivel;
+
+    private static Exercicio exercicioExecutado;
+
+    private static List<Exercicio> novosExerciciosEscolhidos = new ArrayList<>();
+
     public void getExercicioEscolhido(GridPane selectedPane) {
 
         Exercicio exercicio = new Exercicio();
-        List<Exercicio> exercicioList = func.getExercicios();
+        List<Exercicio> exercicioList = novosExerciciosEscolhidos;
         int id = Integer.parseInt(selectedPane.getId().split("_")[1]);
         Boolean selected = false;
 
@@ -265,8 +281,7 @@ public class Dashboard implements Initializable {
             selectedPane.setStyle("-fx-background-color: #F6F6F6");
         }
 
-
-        func.setExercicios(exercicioList);
+        novosExerciciosEscolhidos = exercicioList;
     }
 
     public void listExerciciosDoDia() {
@@ -321,45 +336,60 @@ public class Dashboard implements Initializable {
 
     }
 
-    private void teste() {
-        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+    private void setTimerExercicio() {
 
-        final int[] secondsToWait = {180};
-        Runnable task = new Runnable() {
-            @Override
-            public void run() {
-                secondsToWait[0]--;
-                timer.setText(secondsToWait[0] + "");
-                if (secondsToWait[0] == 0) {
-                    exec.shutdown();
-                }
-            }
-        };
+        if (timeline != null) {
+            timeline.stop();
+        }
 
-        timer.setText(secondsToWait[0] + "");
-        exec.scheduleAtFixedRate(task, 1, 1, TimeUnit.SECONDS);
+        // update timerLabel
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(1),
+                        new EventHandler() {
+                            @Override
+                            public void handle(Event event) {
+                                timeSeconds--;
+                                // update timerLabel
+                                timerDetails.setText(secondsToString(timeSeconds));
+                                if (timeSeconds <= 0) {
+                                    timeline.stop();
+                                    qntExerciciosDisponivel--;
+                                    setDoneEx();
+                                    goToHome();
+                                }
+                            }
+
+
+                        }));
+        timeline.playFromStart();
 
     }
 
-    EventHandler<ActionEvent> playPauseEvent = new EventHandler<ActionEvent>() {
-        public void handle(ActionEvent e) {
-            try {
-                if (pause) {
-                    btnImagePlay = imagePlay;
-                    pause = false;
-                    AuditoriaTest.getInstance().StartThread("Play");
+    private void setDoneEx() {
 
-                    //teste();
-                } else {
-                    pause = true;
-                    btnImagePlay = imagePause;
-                    AuditoriaTest.getInstance().StartThread("Pause");
-                }
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
+        exercicioDAO.exercicioFeito(exercicioExecutado);
+        exercicioExecutado = null;
+        btnImagePlay.setImage(imagePlay);
+    }
+
+    private void goToHome() {
+        try {
+            AuditoriaTest.getInstance().StartThread("Home");
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
         }
-    };
+
+        homeGrayScreen.setVisible(true);
+        homeWhiteScreen.setVisible(true);
+        exerciseScreen.setVisible(false);
+        configScreen.setVisible(false);
+    }
+
+    private String secondsToString(int pTime) {
+        return String.format("%1d:%02d", pTime / 60, pTime % 60);
+    }
 
     public void getIntervaloExercicios() {
 
@@ -448,7 +478,7 @@ public class Dashboard implements Initializable {
         //Muda para o estilo de botão selecionado
         changeSelectStyle(true, lblSelected, newSelectedPane);
 
-        Double selectedDuracao = Double.valueOf(newDuracao);
+        int selectedDuracao = Integer.valueOf(newDuracao);
         func.setDuracaoExercicios(selectedDuracao);
     }
 
@@ -505,10 +535,11 @@ public class Dashboard implements Initializable {
             btnIniciar.setOnMouseClicked((MouseEvent e) -> {
 
                 nomeDetails.setText(exercicio.getNome());
-                tempoDetails.setText(String.valueOf(func.getDuracaoExercicios()).replace(".0", "") + " min");
+                tempoDetails.setText(func.getDuracaoExercicios() + " min");
                 Image imgEx = new Image(getClass().getResource("/resources/img/" + exercicio.getImagem() + "White.png").toExternalForm());
                 imgDetails.setImage(imgEx);
-                timerDetails.setText(String.valueOf(func.getDuracaoExercicios()).replace(".0", ":00"));
+                timerDetails.setText(func.getDuracaoExercicios() + ":00");
+                exercicioExecutado = exercicio;
 
                 try {
                     AuditoriaTest.getInstance().StartThread("Initialize");
@@ -519,6 +550,7 @@ public class Dashboard implements Initializable {
                 exerciseScreen.setVisible(true);
                 homeGrayScreen.setVisible(false);
                 homeWhiteScreen.setVisible(false);
+
             });
         }
 
@@ -548,10 +580,11 @@ public class Dashboard implements Initializable {
                                 child.setOnMouseClicked((MouseEvent e) -> {
 
                                     nomeDetails.setText(ex.getNome());
-                                    tempoDetails.setText(String.valueOf(func.getDuracaoExercicios()).replace(".0", "") + " min");
-                                    Image img = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
-                                    imgDetails.setImage(img);
-                                    timerDetails.setText(String.valueOf(func.getDuracaoExercicios()).replace(".0", ":00"));
+                                    tempoDetails.setText(func.getDuracaoExercicios() + " min");
+                                    Image imgEx = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
+                                    imgDetails.setImage(imgEx);
+                                    timerDetails.setText(func.getDuracaoExercicios() + ":00");
+                                    exercicioExecutado = ex;
 
                                     try {
                                         AuditoriaTest.getInstance().StartThread("Exercise Details");
@@ -580,6 +613,12 @@ public class Dashboard implements Initializable {
         }
     }
 
+    public void checkAvailableEx() {
+        if (qntExerciciosDisponivel < 0) {
+            //pane que bloqueia acessar os exercicios
+        }
+    }
+
     public void loadConfig() {
         getDuracaoExercicios();
         getIntervaloExercicios();
@@ -588,17 +627,54 @@ public class Dashboard implements Initializable {
         getHorario();
         getPremio();
         getExerciciosDoDia();
+        checkAvailableEx();
 
-
+        timeSeconds = func.getDuracaoExercicios() * 60;
         nomeUsuario.setText(func.getNome());
+
+
+
+        LocalTime horaInicio = LocalTime.parse(func.getHoraInicio());
+        LocalTime horaFinal = LocalTime.parse(func.getHoraTermino());
+        double horas = (double) ((func.getIntervaloExercicios().getHours() * 60) + func.getIntervaloExercicios().getMinutes()) / 60;
+
+        qntExerciciosDisponivel = Math.round((int) ((int) (((java.time.Duration.between(horaInicio, horaFinal).toHours()) - 1)) / horas));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         loadConfig();
+        for (Exercicio exercicio : func.getExercicios()) {
+            novosExerciciosEscolhidos.add(exercicio);
+        }
 
         FuncionarioDAO daoFunc = new FuncionarioDAO();
+
+        playGrid.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                if (pause) {
+                    btnImagePlay.setImage(imagePlay);
+                    pause = false;
+                    timeline.pause();
+                    AuditoriaTest.getInstance().StartThread("Play");
+
+
+                } else {
+                    pause = true;
+                    setTimerExercicio();
+                    btnImagePlay.setImage(imagePause);
+                    AuditoriaTest.getInstance().StartThread("Pause");
+                }
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+        });
+
+        btnCancelar.setOnMouseClicked((MouseEvent e) -> {
+
+            goToHome();
+        });
 
         exercicio1.setOnMouseClicked((MouseEvent e) -> {
             getExercicioEscolhido(exercicio1);
@@ -827,8 +903,14 @@ public class Dashboard implements Initializable {
             }
 
             if (valid) {
+                boolean equalLists = func.getExercicios().size() == novosExerciciosEscolhidos.size() && func.getExercicios().containsAll(novosExerciciosEscolhidos) && novosExerciciosEscolhidos.containsAll(func.getExercicios());
 
-                exercicioDAO.escolherExercicio(func);
+                if(!equalLists) {
+                    func.setExercicios(novosExerciciosEscolhidos);
+                    exercicioDAO.escolherExercicio(func);
+
+                }
+
                 daoFunc.alterarFuncionario(func);
                 loadConfig();
                 try {

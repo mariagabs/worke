@@ -363,12 +363,14 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                             userFunc.setSenha(rs.getString("Senha"));
                             userFunc.setLembrete(rs.getString("Lembrete"));
                             userFunc.setRanking(rs.getInt("Ranking"));
-                            userFunc.setDuracaoExercicios(rs.getDouble("DuracaoExercicio"));
+                            userFunc.setDuracaoExercicios(rs.getInt("DuracaoExercicio"));
                             userFunc.setIntervaloExercicios(rs.getTime("IntervaloExercicio"));
                             userFunc.setHoraInicio(rs.getString("HorarioInicio"));
                             userFunc.setHoraTermino(rs.getString("HorarioTermino"));
 
                             user = (T) userFunc;
+
+                            getLastRotina(userFunc);
 
                         }
                     }
@@ -441,6 +443,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 if (rs != null) {
                     while (rs.next()) {
                         rotinaId = rs.getInt("Id");
+                        Rotina.getInstance().setId(rotinaId);
                     }
                 }
 

@@ -2,6 +2,7 @@ package DAO.acesso;
 
 import DAO.basis.MySQLDAO;
 import comuns.acesso.Funcionario;
+import comuns.acesso.Rotina;
 import comuns.acesso.Usuario;
 import comuns.conteudo.Exercicio;
 
@@ -84,15 +85,9 @@ public class ExercicioDAO {
     }
 
     public Integer createRotina(Funcionario objt) {
-        String sql = "INSERT INTO rotina_exercicios (QuantidadeExercicios, UsuarioId, DataCriacao) VALUES (?,?,?)";
+        String sql = "INSERT INTO rotina_exercicios (QuantidadeExercicios, UsuarioId, DataCriacao, DuracaoTotalExercicios) VALUES (?,?,?,0)";
 
         int rotinaId = 0;
-
-        /*LocalTime horaInicio = LocalTime.parse(objt.getHoraInicio());
-        LocalTime horaFinal = LocalTime.parse(objt.getHoraTermino());
-        double teste = (double) ((objt.getIntervaloExercicios().getHours() * 60) + objt.getIntervaloExercicios().getMinutes()) / 60;
-
-        int quantidade = Math.round((int) ((int) (((Duration.between(horaInicio, horaFinal).toHours()) - 1)) / teste));*/
 
         try {
 
@@ -116,6 +111,8 @@ public class ExercicioDAO {
                 try (ResultSet generatedKeys = sentenca.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         rotinaId = generatedKeys.getInt(1);
+                        Rotina rotina = Rotina.getInstance();
+                        rotina.setId(rotinaId);
                     } else {
                         throw new SQLException("Creating reward failed, no ID obtained.");
                     }
@@ -130,6 +127,50 @@ public class ExercicioDAO {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public void updateRotina() {
+        String sql = "UPDATE rotina_exercicios SET DuracaoTotalExercicios = DuracaoTotalExercicios + ? WHERE Id = ?";
+
+        try {
+
+            if (this.connection.connection()) {
+
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+
+                sentenca.setInt(1, Funcionario.getInstance().getDuracaoExercicios());
+                sentenca.setInt(2, Rotina.getInstance().getId());
+
+                sentenca.execute();
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void exercicioFeito(Exercicio exercicio){
+        String sql = "UPDATE exercicio_escolhido SET DataExecucao = CURRENT_DATE, QntRealizado = QntRealizado + 1 WHERE ExercicioId = ? AND RotinaId = ?";
+
+        try {
+
+            if (this.connection.connection()) {
+
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+
+                sentenca.setInt(1, exercicio.getId());
+                sentenca.setInt(2, Rotina.getInstance().getId());
+
+                sentenca.execute();
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        updateRotina();
     }
 
 }

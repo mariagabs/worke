@@ -1210,7 +1210,7 @@
                                     </GridPane.margin>
 
                                 </ImageView>
-                                <Label fx:id="nomeDetails" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="117.0" prefWidth="351.0" style="-fx-font-family: Nunito;" text="Alongamento Corporal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+                                <Label fx:id="nomeDetails" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="117.0" prefWidth="351.0" style="-fx-font-family: Nunito;" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
                                     <font>
                                         <Font name="System Bold" size="40.0" />
                                     </font>
@@ -1230,7 +1230,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label fx:id="timerDetails" style="-fx-font-family: Nunito;" text="3:00" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <Label fx:id="timerDetails" style="-fx-font-family: Nunito;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="77.0" />
                                     </font>
@@ -1260,7 +1260,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <ImageView fx:id="btnImagePlay" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <GridPane.margin>
                                         <Insets />
                                     </GridPane.margin>
