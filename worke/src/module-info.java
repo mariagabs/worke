@@ -14,4 +14,6 @@ module worke {
     opens sample.DashboardFuncionario to javafx.fxml;
     opens sample.PopUpCriarFuncionarios to javafx.fxml;
     opens sample.PopUpImpressao to javafx.fxml;
+    opens sample.PopUpSucesso to javafx.fxml;
+    opens sample.PopUpDelete to javafx.fxml;
 }

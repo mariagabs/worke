@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ExercicioDAO {
 
@@ -171,6 +172,35 @@ public class ExercicioDAO {
         }
 
         updateRotina();
+    }
+
+    public List<String> listarInstrucoes(int id){
+        ArrayList<String> listaInstrucoes = new ArrayList<String>();
+
+        String sql = "SELECT Descricao FROM instrucao WHERE ExercicioId = ? ORDER BY Sequencia";
+
+        try {
+            if (this.connection.connection()) {
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+
+                sentenca.setInt(1, id);
+
+                ResultSet resultadoSentenca = sentenca.executeQuery();
+
+                while (resultadoSentenca.next()) {
+
+                    listaInstrucoes.add(resultadoSentenca.getString("Descricao"));
+                }
+
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+
+            return listaInstrucoes;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
     }
 
 }

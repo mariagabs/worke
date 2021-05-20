@@ -157,6 +157,7 @@ public class DashboardEmpresaController implements Initializable {
         logout.setOnMouseClicked((MouseEvent e) -> {
             try {
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml")));
+
                 Stage stage = new Stage();
                 stage.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
                 //stage.initStyle(StageStyle.UNDECORATED);
@@ -315,7 +316,8 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         try {
-                            Parent root = FXMLLoader.load(getClass().getResource("/sample/PopUpImpressao/PopUpImpressao.fxml"));
+                            //Parent root = FXMLLoader.load(getClass().getResource("/sample/PopUpImpressao/PopUpImpressao.fxml"));
+                            Parent root = FXMLLoader.load(getClass().getResource("/sample/PopUpSucesso/PopUpSucesso.fxml"));
 
                             Stage dialog = new Stage();
                             dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));

@@ -283,7 +283,7 @@
                                                           <Insets left="26.0" />
                                                       </GridPane.margin>
                                                   </ImageView>
-                                                  <ImageView fx:id="ExerciseDetails" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                                       <image>
                                                           <Image url="@../../resources/img/right-arrow.png" />
                                                       </image>
@@ -291,7 +291,7 @@
                                                           <Cursor fx:constant="HAND" />
                                                       </cursor>
                                                   </ImageView>
-                                                  <Label fx:id="nomeEx_16" prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="Alongamento Corporal" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                                                  <Label fx:id="nomeEx_16" prefHeight="39.0" prefWidth="102.0" style="-fx-font-family: Nunito;" text="testelabel" textFill="#071c35" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                                                       <font>
                                                           <Font name="System Bold" size="12.0" />
                                                       </font>
@@ -1182,9 +1182,9 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label fx:id="instrucaoDetails" style="-fx-font-family: Nunito;" text="... Inspire ..." textFill="#071c35" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <Label fx:id="instrucaoDetails" style="-fx-font-family: Nunito;" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <font>
-                                        <Font name="System Bold" size="67.0" />
+                                        <Font name="System Bold" size="54.0" />
                                     </font>
                                 </Label>
                             </children>
