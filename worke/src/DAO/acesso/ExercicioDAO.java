@@ -100,7 +100,7 @@ public class ExercicioDAO {
 
     }
 
-    public ArrayList<ExercicioEscolhido> listarExerciciosUsuario(ArrayList<Rotina> rotinaList ,ArrayList<ExercicioEscolhido> listaExercicio) {
+    public ArrayList<ExercicioEscolhido> listarExerciciosUsuario(ArrayList<Rotina> rotinaList, ArrayList<ExercicioEscolhido> listaExercicio) {
         String sql = "SELECT * FROM exercicio_escolhido WHERE RotinaId = ?";
         try {
             if (this.connection.connection()) {
@@ -229,7 +229,7 @@ public class ExercicioDAO {
         }
     }
 
-    public void exercicioFeito(Exercicio exercicio){
+    public void exercicioFeito(Exercicio exercicio) {
         String sql = "UPDATE exercicio_escolhido SET DataExecucao = CURRENT_DATE, QntRealizado = QntRealizado + 1 WHERE ExercicioId = ? AND RotinaId = ?";
 
         try {
@@ -252,7 +252,7 @@ public class ExercicioDAO {
         updateRotina();
     }
 
-    public List<String> listarInstrucoes(int id){
+    public List<String> listarInstrucoes(int id) {
         ArrayList<String> listaInstrucoes = new ArrayList<String>();
 
         String sql = "SELECT Descricao FROM instrucao WHERE ExercicioId = ? ORDER BY Sequencia";

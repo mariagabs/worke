@@ -56,13 +56,13 @@
                         </ImageView>
                     </children>
                 </GridPane>
-                <Label style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="Atenção!" textFill="#071c35" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                <Label fx:id="title" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="Atenção!" textFill="#071c35" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Label prefHeight="40.0" prefWidth="188.0" text="Você realmente deseja deletar esse item?" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                <GridPane prefHeight="3.0" prefWidth="87.0" style="-fx-background-color: f7753d; -fx-background-radius: 25;" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                <Label fx:id="message" prefHeight="63.0" prefWidth="188.0" style="-fx-alignment: center;" text="Ao cancelar o exercício, todo o progresso será perdido. Deseja realmente cancelar?" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                <GridPane fx:id="btnSim" prefHeight="3.0" prefWidth="87.0" style="-fx-background-color: f7753d; -fx-background-radius: 25;" GridPane.columnIndex="3" GridPane.rowIndex="5">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -98,7 +98,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                 </GridPane>
-            <GridPane layoutX="145.0" layoutY="266.0" prefHeight="3.0" prefWidth="87.0" style="-fx-background-color: C7C7C7; -fx-background-radius: 25;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <GridPane fx:id="btnNao" layoutX="145.0" layoutY="266.0" prefHeight="3.0" prefWidth="87.0" style="-fx-background-color: C7C7C7; -fx-background-radius: 25;" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>

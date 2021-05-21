@@ -33,8 +33,6 @@ public class popUpSucessoController implements Initializable {
 
     public String titulo;
 
-    public Boolean confirmation;
-
     private void setLabels() {
         title.setText(titulo);
         message.setText(mensagem);

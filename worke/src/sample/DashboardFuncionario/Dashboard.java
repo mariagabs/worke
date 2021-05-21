@@ -37,6 +37,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import sample.Main;
 import sample.PopUpCriarFuncionarios.PopUpCriarFuncionarioController;
+import sample.PopUpDelete.popUpDeleteController;
 import sample.PopUpSucesso.popUpSucessoController;
 
 import java.io.File;
@@ -212,6 +213,8 @@ public class Dashboard implements Initializable {
     private Label instrucaoDetails;
     @FXML
     private GridPane btnCancelar;
+    @FXML
+    private GridPane favoritos;
 
 
     private Funcionario func = Funcionario.getInstance();
@@ -239,6 +242,12 @@ public class Dashboard implements Initializable {
     public static List<String> instrucoes;
 
     private static List<Exercicio> novosExerciciosEscolhidos = new ArrayList<>();
+
+    public void getFavoritos(){
+        for (Node node: favoritos.getChildren()) {
+
+        }
+    }
 
     public void getExercicioEscolhido(GridPane selectedPane) {
 
@@ -351,6 +360,7 @@ public class Dashboard implements Initializable {
             popUpController.controller = this;
             popUpController.titulo = "Parabéns!";
             popUpController.mensagem = "Você completou um exercício.";
+            popUpController.initialize(null, null);
             Stage dialog = new Stage();
             dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
             dialog.setScene(new Scene(root));
@@ -367,13 +377,13 @@ public class Dashboard implements Initializable {
         playPause(false);
 
         Parent root;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/PopUpSucesso/PopUpSucesso.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/PopUpDelete/PopUpDelete.fxml"));
         root = fxmlLoader.load();
-        popUpSucessoController popUpController = fxmlLoader.getController();
+        popUpDeleteController popUpController = fxmlLoader.getController();
         popUpController.controller = this;
         popUpController.titulo = "Atenção!";
         popUpController.mensagem = "Ao cancelar o exercício, todo o progresso será perdido. Deseja realmente cancelar?";
-        popUpController.confirmation = true;
+        popUpController.initialize(null, null);
         Stage dialog = new Stage();
         dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
         dialog.setScene(new Scene(root));
