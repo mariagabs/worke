@@ -101,7 +101,7 @@ public class ExercicioDAO {
     }
 
     public ArrayList<ExercicioEscolhido> listarExerciciosUsuario(ArrayList<Rotina> rotinaList, ArrayList<ExercicioEscolhido> listaExercicio) {
-        String sql = "SELECT * FROM exercicio_escolhido WHERE RotinaId = ?";
+        String sql = "SELECT * FROM exercicio_escolhido WHERE RotinaId = ? ORDER BY QntRealizado DESC";
         try {
             if (this.connection.connection()) {
                 for (Rotina rotina : rotinaList) {
@@ -116,7 +116,7 @@ public class ExercicioDAO {
 
                         exercicioEscolhido.setId(resultadoSentenca.getInt("id"));
                         exercicioEscolhido.setExercicioId(resultadoSentenca.getInt("ExercicioId"));
-                        exercicioEscolhido.setQntRealizado(resultadoSentenca.getInt("QntRealizado"));
+                            exercicioEscolhido.setQntRealizado(resultadoSentenca.getInt("QntRealizado"));
                         exercicioEscolhido.setDuracao(resultadoSentenca.getInt("Duracao"));
                         exercicioEscolhido.setDataExecucao(resultadoSentenca.getDate("DataExecucao"));
 

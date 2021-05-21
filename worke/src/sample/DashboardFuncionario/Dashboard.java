@@ -52,6 +52,7 @@ import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 
 public class Dashboard implements Initializable {
@@ -243,7 +244,60 @@ public class Dashboard implements Initializable {
 
     private static List<Exercicio> novosExerciciosEscolhidos = new ArrayList<>();
 
+    public LinkedHashMap<Integer, Integer> sortHashMapByValues(
+            HashMap<Integer, Integer> passedMap) {
+        List<Integer> mapKeys = new ArrayList<>(passedMap.keySet());
+        List<Integer> mapValues = new ArrayList<>(passedMap.values());
+        Collections.sort(mapValues);
+        Collections.sort(mapKeys);
+
+        LinkedHashMap<Integer, Integer> sortedMap =
+                new LinkedHashMap<>();
+
+        Iterator<Integer> valueIt = mapValues.iterator();
+        while (valueIt.hasNext()) {
+            Integer val = valueIt.next();
+            Iterator<Integer> keyIt = mapKeys.iterator();
+
+            while (keyIt.hasNext()) {
+                Integer key = keyIt.next();
+                Integer comp1 = passedMap.get(key);
+                Integer comp2 = val;
+
+                if (comp1.equals(comp2)) {
+                    keyIt.remove();
+                    sortedMap.put(key, val);
+                    break;
+                }
+            }
+        }
+        return sortedMap;
+    }
+
     public void getFavoritos(){
+        ExercicioDAO exercicioDAO = new ExercicioDAO();
+        ArrayList<ExercicioEscolhido> exercicioEscolhidosList = exercicioDAO.listarTotalExercicios();
+        HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = new HashMap<Integer, ArrayList<ExercicioEscolhido>>();
+        HashMap<Integer, Integer> mapExercicioIdQnt = new HashMap<Integer, Integer>();
+
+        for (ExercicioEscolhido exercicioEscolhido : exercicioEscolhidosList) {
+            if (!mapExercicioId.containsKey(exercicioEscolhido.getId())){
+                mapExercicioId.put(exercicioEscolhido.getId(), new ArrayList<ExercicioEscolhido>());
+            }
+            mapExercicioId.get(exercicioEscolhido.getId()).add(exercicioEscolhido);
+        }
+        for (Integer i = 1; i <= 17; i++){
+            if (!mapExercicioId.containsKey(i)){
+                Integer qtd = 0;
+                for (ExercicioEscolhido exercicioEscolhido : mapExercicioId.get(i)){
+                    qtd += exercicioEscolhido.getQntRealizado();
+                    mapExercicioIdQnt.put(i, qtd);
+                }
+            }
+        }
+        LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = sortHashMapByValues(mapExercicioIdQnt);
+        
+
         for (Node node: favoritos.getChildren()) {
 
         }
