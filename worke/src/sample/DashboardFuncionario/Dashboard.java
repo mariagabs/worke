@@ -43,6 +43,7 @@ import sample.PopUpSucesso.popUpSucessoController;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Array;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -244,6 +245,7 @@ public class Dashboard implements Initializable {
 
     private static List<Exercicio> novosExerciciosEscolhidos = new ArrayList<>();
 
+
     public LinkedHashMap<Integer, Integer> sortHashMapByValues(
             HashMap<Integer, Integer> passedMap) {
         List<Integer> mapKeys = new ArrayList<>(passedMap.keySet());
@@ -281,13 +283,13 @@ public class Dashboard implements Initializable {
         HashMap<Integer, Integer> mapExercicioIdQnt = new HashMap<Integer, Integer>();
 
         for (ExercicioEscolhido exercicioEscolhido : exercicioEscolhidosList) {
-            if (!mapExercicioId.containsKey(exercicioEscolhido.getId())){
-                mapExercicioId.put(exercicioEscolhido.getId(), new ArrayList<ExercicioEscolhido>());
+            if (!mapExercicioId.containsKey(exercicioEscolhido.getExercicioId())){
+                mapExercicioId.put(exercicioEscolhido.getExercicioId(), new ArrayList<ExercicioEscolhido>());
             }
-            mapExercicioId.get(exercicioEscolhido.getId()).add(exercicioEscolhido);
+            mapExercicioId.get(exercicioEscolhido.getExercicioId()).add(exercicioEscolhido);
         }
         for (Integer i = 1; i <= 17; i++){
-            if (!mapExercicioId.containsKey(i)){
+            if (mapExercicioId.containsKey(i)){
                 Integer qtd = 0;
                 for (ExercicioEscolhido exercicioEscolhido : mapExercicioId.get(i)){
                     qtd += exercicioEscolhido.getQntRealizado();
@@ -296,7 +298,12 @@ public class Dashboard implements Initializable {
             }
         }
         LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = sortHashMapByValues(mapExercicioIdQnt);
-        
+
+        ArrayList<Integer> exerciciosRealizadosChaves = new ArrayList<>();
+        for (Integer i : mapExercicioQtdOrdenado.keySet()){
+            exerciciosRealizadosChaves.add(i);
+        }
+//        Integer it = mapExercicioQtdOrdenado.get(mapExercicioQtdOrdenado.size()-1);
 
         for (Node node: favoritos.getChildren()) {
 
@@ -787,6 +794,7 @@ public class Dashboard implements Initializable {
         getPremio();
         getExerciciosDoDia();
         checkAvailableEx();
+        getFavoritos();
 
         timeSeconds = func.getDuracaoExercicios() * 60;
         nomeUsuario.setText(func.getNome());

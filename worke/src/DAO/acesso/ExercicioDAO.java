@@ -74,7 +74,7 @@ public class ExercicioDAO {
         try {
             if (this.connection.connection()) {
                 PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
-                sentenca.setInt(1, Usuario.getInstance().getId());
+                sentenca.setInt(1, Funcionario.getInstance().getId());
 
                 ResultSet resultadoSentenca = sentenca.executeQuery();
 
@@ -116,7 +116,7 @@ public class ExercicioDAO {
 
                         exercicioEscolhido.setId(resultadoSentenca.getInt("id"));
                         exercicioEscolhido.setExercicioId(resultadoSentenca.getInt("ExercicioId"));
-                            exercicioEscolhido.setQntRealizado(resultadoSentenca.getInt("QntRealizado"));
+                        exercicioEscolhido.setQntRealizado(resultadoSentenca.getInt("QntRealizado"));
                         exercicioEscolhido.setDuracao(resultadoSentenca.getInt("Duracao"));
                         exercicioEscolhido.setDataExecucao(resultadoSentenca.getDate("DataExecucao"));
 
