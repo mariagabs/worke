@@ -1,6 +1,7 @@
 package DAO.acesso;
 
 import DAO.basis.MySQLDAO;
+import comuns.acesso.ExercicioEscolhido;
 import comuns.acesso.Funcionario;
 import comuns.acesso.Rotina;
 import comuns.acesso.Usuario;
@@ -55,6 +56,83 @@ public class ExercicioDAO {
             throw new RuntimeException(ex);
         }
 
+    }
+
+    public ArrayList<ExercicioEscolhido> listarTotalExercicios() {
+        ArrayList<Rotina> rotinaList = new ArrayList<Rotina>();
+        ArrayList<ExercicioEscolhido> listaExercicio = new ArrayList<ExercicioEscolhido>();
+
+        listarRotinaUsuario(rotinaList);
+        listarExerciciosUsuario(rotinaList, listaExercicio);
+
+        return listaExercicio;
+    }
+
+    public void listarRotinaUsuario(ArrayList<Rotina> rotinaList) {
+        String sql = "SELECT * FROM rotina_exercicios WHERE UsuarioId = ?";
+
+        try {
+            if (this.connection.connection()) {
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+                sentenca.setInt(1, Usuario.getInstance().getId());
+
+                ResultSet resultadoSentenca = sentenca.executeQuery();
+
+                while (resultadoSentenca.next()) {
+
+                    Rotina rotina = new Rotina();
+
+                    rotina.setId(resultadoSentenca.getInt("id"));
+                    rotina.setUsuarioId(resultadoSentenca.getInt("UsuarioId"));
+                    rotina.setQuantidadeExercicios(resultadoSentenca.getInt("QuantidadeExercicios"));
+                    rotina.setDuracaoExercicios(resultadoSentenca.getDouble("DuracaoTotalExercicios"));
+                    rotina.setDataCriacao(resultadoSentenca.getDate("DataCriacao"));
+
+                    rotinaList.add(rotina);
+                }
+
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    public ArrayList<ExercicioEscolhido> listarExerciciosUsuario(ArrayList<Rotina> rotinaList ,ArrayList<ExercicioEscolhido> listaExercicio) {
+        String sql = "SELECT * FROM exercicio_escolhido WHERE RotinaId = ?";
+        try {
+            if (this.connection.connection()) {
+                for (Rotina rotina : rotinaList) {
+                    PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+                    sentenca.setInt(1, rotina.getId());
+
+                    ResultSet resultadoSentenca = sentenca.executeQuery();
+
+                    while (resultadoSentenca.next()) {
+
+                        ExercicioEscolhido exercicioEscolhido = new ExercicioEscolhido();
+
+                        exercicioEscolhido.setId(resultadoSentenca.getInt("id"));
+                        exercicioEscolhido.setExercicioId(resultadoSentenca.getInt("ExercicioId"));
+                        exercicioEscolhido.setQntRealizado(resultadoSentenca.getInt("QntRealizado"));
+                        exercicioEscolhido.setDuracao(resultadoSentenca.getInt("Duracao"));
+                        exercicioEscolhido.setDataExecucao(resultadoSentenca.getDate("DataExecucao"));
+
+                        listaExercicio.add(exercicioEscolhido);
+                    }
+
+                    sentenca.close();
+                }
+
+                this.connection.getConnection().close();
+            }
+            return listaExercicio;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
     }
 
     public void escolherExercicio(Funcionario objt) {

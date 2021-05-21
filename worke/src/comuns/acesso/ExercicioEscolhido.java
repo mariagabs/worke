@@ -9,6 +9,8 @@ public class ExercicioEscolhido extends Entidade {
     private Integer exercicioId;
     private Integer rotinaId;
     private Integer duracao;
+    private Integer qntRealizado;
+    private String imagem;
     private Date dataExecucao;
     private final static ExercicioEscolhido INSTANCE = new ExercicioEscolhido();
     public static ExercicioEscolhido getInstance(){
@@ -47,5 +49,21 @@ public class ExercicioEscolhido extends Entidade {
 
     public void setDataExecucao(Date dataExecucao) {
         this.dataExecucao = dataExecucao;
+    }
+
+    public Integer getQntRealizado() {
+        return qntRealizado;
+    }
+
+    public void setQntRealizado(Integer qntRealizado) {
+        this.qntRealizado = qntRealizado;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }
