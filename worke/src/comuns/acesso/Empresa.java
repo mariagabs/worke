@@ -8,7 +8,7 @@ public class Empresa extends Usuario implements IUsuario{
     }
     private TipoUsuario tipo;
     private String fraseMotivacional;
-    private boolean premio;
+    private boolean possuiPremio;
     private String nomePremio;
     private int premioId;
     private int qntFuncionarios;
@@ -31,12 +31,12 @@ public class Empresa extends Usuario implements IUsuario{
         this.fraseMotivacional = fraseMotivacional;
     }
 
-    public boolean isPremio() {
-        return premio;
+    public boolean isPossuiPremio() {
+        return possuiPremio;
     }
 
-    public void setPremio(boolean premio) {
-        this.premio = premio;
+    public void setPossuiPremio(boolean premio) {
+        this.possuiPremio = premio;
     }
 
     public String getNomePremio() {

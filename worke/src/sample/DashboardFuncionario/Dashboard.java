@@ -50,8 +50,10 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -230,6 +232,16 @@ public class Dashboard implements Initializable {
     private Rectangle bloqExDoDia;
     @FXML
     private Pane bloqParabens;
+    @FXML
+    private GridPane semPremio;
+    @FXML
+    private Pane semMotivacao;
+    @FXML
+    private Pane semFavoritos;
+    @FXML
+    private Pane semExercicios;
+    @FXML
+    private Button btnConfigure;
 
 
     private Funcionario func = Funcionario.getInstance();
@@ -392,6 +404,7 @@ public class Dashboard implements Initializable {
 
         qntExercicios.setText(String.valueOf(totalExerciciosRealizados));
         minutosTotal.setText(String.valueOf(exercicioDAO.consultarDuracaoTotalUsuario()));
+        semFavoritos.setVisible(totalExerciciosRealizados == 0);
 
         if (exerciciosRealizadosChaves.size() > 0) {
             int aux = 0;
@@ -403,15 +416,23 @@ public class Dashboard implements Initializable {
                         int finalAux = aux;
 
                         List<Exercicio> exercicio = exercicioList.stream().filter(ex -> ex.getId() == exerciciosRealizadosChaves.get(finalAux)).collect(Collectors.toList());
-                        if (component instanceof ImageView) {
-                            node.setVisible(true);
-                            Image img = new Image(getClass().getResource("/resources/img/" + exercicio.get(0).getImagem() + "White.png").toExternalForm());
-                            ((ImageView) component).setImage(img);
-                        } else if (component instanceof Label) {
-                            if (component.getId().contains("qntFav")) {
-                                ((Label) component).setText(String.valueOf(reverseSortedMap.get(exerciciosRealizadosChaves.get(finalAux))));
-                            } else {
-                                ((Label) component).setText(exercicio.get(0).getNome());
+                        int quantidade = reverseSortedMap.get(exerciciosRealizadosChaves.get(finalAux));
+
+
+                        if (quantidade > 0) {
+                            if (component instanceof ImageView) {
+                                node.setVisible(true);
+
+                                Image img = new Image(getClass().getResource("/resources/img/" + exercicio.get(0).getImagem() + "White.png").toExternalForm());
+                                ((ImageView) component).setImage(img);
+                            } else if (component instanceof Label) {
+                                if (component.getId().contains("qntFav")) {
+
+                                    ((Label) component).setText(String.valueOf(quantidade));
+
+                                } else {
+                                    ((Label) component).setText(exercicio.get(0).getNome());
+                                }
                             }
                         }
 
@@ -423,6 +444,7 @@ public class Dashboard implements Initializable {
         }
     }
 
+    //listagem exercícios tela de config
     public void getExercicioEscolhido(GridPane selectedPane) {
 
         Exercicio exercicio = new Exercicio();
@@ -570,7 +592,7 @@ public class Dashboard implements Initializable {
             resetDetails();
             goToHome();
         } else {
-            setDoneEx();
+            //setDoneEx();
             playPause(true);
         }
     }
@@ -594,6 +616,7 @@ public class Dashboard implements Initializable {
 
                                 timerDetails.setText(secondsToString(timeSeconds));
                                 if (timeSeconds <= 0) {
+                                    setDoneEx();
                                     resetDetails();
                                     resetPopUpSucesso();
 
@@ -627,12 +650,13 @@ public class Dashboard implements Initializable {
 
     private void setDoneEx() {
 
-        exercicioDAO.exercicioFeito(exercicioExecutado, qntExerciciosDisponivel--);
+        exercicioDAO.exercicioFeito(exercicioExecutado, --qntExerciciosDisponivel);
         exercicioExecutado = null;
         btnImagePlay.setImage(imagePlay);
     }
 
     public void goToHome() {
+        disableButtons(false);
         loadConfig();
 
         try {
@@ -756,6 +780,7 @@ public class Dashboard implements Initializable {
     public void getExerciciosEscolhidos() {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         func.setExercicios(usuarioDAO.consultarExerciciosEscolhidos(usuarioDAO.getLastRotina(func)));
+
     }
 
     public void getHorario() {
@@ -774,9 +799,13 @@ public class Dashboard implements Initializable {
     }
 
     public void getPremio() {
-        PremioDAO premioDAO = new PremioDAO();
-        Premio nomePremio = premioDAO.consultar(empresa.getPremioId());
-        premio.setText(nomePremio.getDescricao());
+        if (empresa.isPossuiPremio()) {
+            PremioDAO premioDAO = new PremioDAO();
+            Premio nomePremio = premioDAO.consultar(empresa.getPremioId());
+            premio.setText(nomePremio.getDescricao());
+        }
+
+        semPremio.setVisible(!empresa.isPossuiPremio());
 
     }
 
@@ -786,9 +815,18 @@ public class Dashboard implements Initializable {
 
     }
 
+    private void disableButtons(boolean disable) {
+        Home.setDisable(disable);
+        Config.setDisable(disable);
+        Logout.setDisable(disable);
+    }
+
+    //listagem exercícios dashboard
     public void getExerciciosDoDia() {
 
         List<Exercicio> exercicios = func.getExercicios();
+
+        semExercicios.setVisible(func.getExercicios().size() == 0);
 
         if (func.getExercicios().size() > 0) {
             Exercicio exercicio = func.getExercicios().get(0);
@@ -800,9 +838,7 @@ public class Dashboard implements Initializable {
             btnIniciar.setPickOnBounds(true);
             btnIniciar.setOnMouseClicked((MouseEvent e) -> {
 
-                Home.setDisable(true);
-                Config.setDisable(true);
-                Logout.setDisable(true);
+                disableButtons(true);
                 nomeDetails.setText(exercicio.getNome());
                 tempoDetails.setText(func.getDuracaoExercicios() + " min");
                 Image imgEx = new Image(getClass().getResource("/resources/img/" + exercicio.getImagem() + "White.png").toExternalForm());
@@ -825,76 +861,77 @@ public class Dashboard implements Initializable {
                 homeWhiteScreen.setVisible(false);
 
             });
-        }
 
 
-        int aux = 0;
-        for (Node pane : exerciciosDoDia.getChildren()) {
-            if (pane instanceof GridPane) {
-                ((GridPane) pane).setVisible(false);
-            }
-            if (aux < exercicios.size()) {
-
+            int aux = 0;
+            for (Node pane : exerciciosDoDia.getChildren()) {
                 if (pane instanceof GridPane) {
-                    Exercicio ex = exercicios.get(aux);
+                    pane.setVisible(false);
+                }
+                if (aux < exercicios.size()) {
 
-                    ((GridPane) pane).setId(pane.getId() + "_" + String.valueOf(ex.getId()));
-                    ((GridPane) pane).setVisible(true);
-                    for (Node child : ((GridPane) pane).getChildren()) {
+                    if (pane instanceof GridPane) {
+                        Exercicio ex = exercicios.get(aux);
 
-                        if (child instanceof ImageView) {
+                        pane.setId(pane.getId() + "_" + ex.getId());
+                        pane.setVisible(true);
+                        for (Node child : ((GridPane) pane).getChildren()) {
 
-                            if (((ImageView) child).getId() != null && ((ImageView) child).getId().contains("exDia")) {
-                                Image img = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
-                                ((ImageView) child).setImage(img);
-                            } else {
+                            if (child instanceof ImageView) {
 
-                                child.setPickOnBounds(true);
-                                child.setOnMouseClicked((MouseEvent e) -> {
+                                if (child.getId() != null && child.getId().contains("exDia")) {
+                                    img = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
+                                    ((ImageView) child).setImage(img);
+                                } else {
 
-                                    Home.setDisable(true);
-                                    Config.setDisable(true);
-                                    Logout.setDisable(true);
-                                    nomeDetails.setText(ex.getNome());
-                                    tempoDetails.setText(func.getDuracaoExercicios() + " min");
-                                    Image imgEx = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
-                                    imgDetails.setImage(imgEx);
-                                    timerDetails.setText(func.getDuracaoExercicios() + ":00");
+                                    child.setPickOnBounds(true);
+                                    child.setOnMouseClicked((MouseEvent e) -> {
 
-                                    exercicioExecutado = ex;
-                                    getInstrucoes(ex);
-                                    instrucaoDetails.setText(instrucoes.get(0));
+                                        Home.setDisable(true);
+                                        Config.setDisable(true);
+                                        Logout.setDisable(true);
+                                        nomeDetails.setText(ex.getNome());
+                                        tempoDetails.setText(func.getDuracaoExercicios() + " min");
+                                        Image imgEx = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
+                                        imgDetails.setImage(imgEx);
+                                        timerDetails.setText(func.getDuracaoExercicios() + ":00");
 
-                                    try {
-                                        AuditoriaTest.getInstance().StartThread("Exercise Details");
-                                    } catch (InterruptedException interruptedException) {
-                                        interruptedException.printStackTrace();
-                                    }
-                                    exerciseScreen.setVisible(true);
-                                    homeGrayScreen.setVisible(false);
-                                    homeWhiteScreen.setVisible(false);
-                                    configScreen.setVisible(false);
-                                });
+                                        exercicioExecutado = ex;
+                                        getInstrucoes(ex);
+                                        instrucaoDetails.setText(instrucoes.get(0));
+
+                                        try {
+                                            AuditoriaTest.getInstance().StartThread("Exercise Details");
+                                        } catch (InterruptedException interruptedException) {
+                                            interruptedException.printStackTrace();
+                                        }
+                                        exerciseScreen.setVisible(true);
+                                        homeGrayScreen.setVisible(false);
+                                        homeWhiteScreen.setVisible(false);
+                                        configScreen.setVisible(false);
+                                    });
+                                }
+                            }
+                            if (child instanceof Label) {
+
+                                if (child.getId() != null && child.getId().contains("nome")) {
+                                    ((Label) child).setText(ex.getNome());
+                                } else {
+                                    ((Label) child).setText(String.valueOf(func.getDuracaoExercicios()).replace(".0", "") + " min");
+                                }
                             }
                         }
-                        if (child instanceof Label) {
-
-                            if (((Label) child).getId() != null && ((Label) child).getId().contains("nome")) {
-                                ((Label) child).setText(ex.getNome());
-                            } else {
-                                ((Label) child).setText(String.valueOf(func.getDuracaoExercicios()).replace(".0", "") + " min");
-                            }
-                        }
+                        aux++;
                     }
-                    aux++;
                 }
             }
         }
+
     }
 
     public void resetDetails() {
 
-        if(timeline != null && timelineInstrucoes != null) {
+        if (timeline != null && timelineInstrucoes != null) {
             timeline.stop();
             timelineInstrucoes.stop();
         }
@@ -906,14 +943,23 @@ public class Dashboard implements Initializable {
 
     public void checkAvailableEx() {
 
-        Integer qnt = Rotina.getInstance().getQntDisponivelExercicios();
-        if (qnt != null && qnt == 0) {
-            LocalDate currentDate = LocalDate.now();
-            Date lastDate = daoFunc.getLastDateDone();
 
-            if (lastDate != null) {
-                bloqExDoDia.setVisible(!currentDate.equals(lastDate));
-                bloqParabens.setVisible(!currentDate.equals(lastDate));
+        Integer qnt = Rotina.getInstance().getQntDisponivelExercicios();
+        if (qnt == null || (qnt != null && qnt == 0)) {
+
+            String currentDate = String.valueOf(LocalDate.now());
+            String lastDate = String.valueOf(daoFunc.getLastDateDone());
+
+            if (lastDate.equals(null)) {
+                bloqExDoDia.setVisible(currentDate.equals(lastDate));
+                bloqParabens.setVisible(currentDate.equals(lastDate));
+
+                if (!currentDate.equals(lastDate)) {
+
+                    exercicioDAO.updateRotina(qntExDisponivel());
+                    qntExerciciosDisponivel = qntExDisponivel();
+
+                }
             }
         }
     }
@@ -948,7 +994,7 @@ public class Dashboard implements Initializable {
             btnImagePlay.setImage(imagePlay);
             pause = false;
 
-            if(timeline != null && timelineInstrucoes != null) {
+            if (timeline != null && timelineInstrucoes != null) {
                 timeline.pause();
                 timelineInstrucoes.pause();
             }
@@ -975,6 +1021,12 @@ public class Dashboard implements Initializable {
 
 
         loadConfig();
+
+        if (qntExerciciosDisponivel == 0) {
+            Integer qnt = Rotina.getInstance().getQntDisponivelExercicios();
+            qntExerciciosDisponivel = qnt == null ? 0 : qnt;
+        }
+
         for (Exercicio exercicio : func.getExercicios()) {
             novosExerciciosEscolhidos.add(exercicio);
         }
@@ -999,6 +1051,19 @@ public class Dashboard implements Initializable {
             } catch (IOException | InterruptedException ioException) {
                 ioException.printStackTrace();
             }
+
+        });
+
+        btnConfigure.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                AuditoriaTest.getInstance().StartThread("Settings");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+            configScreen.setVisible(true);
+            exerciseScreen.setVisible(false);
+            homeGrayScreen.setVisible(false);
+            homeWhiteScreen.setVisible(false);
 
         });
 
@@ -1097,9 +1162,8 @@ public class Dashboard implements Initializable {
             lembrete.setText(func.getLembrete());
         }
 
-        if (empresa.getFraseMotivacional() == null || empresa.getFraseMotivacional().isEmpty()) {
-            lembrete.setText("O seu maior projeto deve ser você!");
-        } else {
+        semMotivacao.setVisible(empresa.getFraseMotivacional() == null || empresa.getFraseMotivacional().isEmpty());
+        if (empresa.getFraseMotivacional() != null && !empresa.getFraseMotivacional().isEmpty()) {
             fraseMotivacional.setText(empresa.getFraseMotivacional());
         }
 

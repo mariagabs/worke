@@ -1185,7 +1185,7 @@
                                         <Cursor fx:constant="TEXT" />
                                     </cursor>
                                 </TextArea>
-                                <CheckBox fx:id="possuiPremio" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                                <CheckBox fx:id="naoPossuiPremio" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
                                     </cursor>

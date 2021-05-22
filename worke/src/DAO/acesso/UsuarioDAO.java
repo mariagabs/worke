@@ -105,7 +105,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 sentenca.setString(1, objt.getEmail());
                 sentenca.setString(2, objt.getNome());
                 sentenca.setString(3, objt.getFraseMotivacional());
-                sentenca.setBoolean(4, objt.isPremio());
+                sentenca.setBoolean(4, objt.isPossuiPremio());
                 sentenca.setInt(5, objt.getPremioId());
                 sentenca.setInt(6, objt.getId());
 
@@ -297,7 +297,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                         userEmpresa.setId(rs.getInt("Id"));
                         userEmpresa.setNome(rs.getString("Nome"));
                         userEmpresa.setFraseMotivacional(rs.getString("FraseMotivacional"));
-                        userEmpresa.setPremio(rs.getBoolean("PossuiPremio"));
+                        userEmpresa.setPossuiPremio(rs.getBoolean("PossuiPremio"));
                         userEmpresa.setPremioId(rs.getInt("PremioId"));
 
                     }
@@ -347,7 +347,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                             userEmpresa.setEmail(rs.getString("Login"));
                             userEmpresa.setSenha(rs.getString("Senha"));
                             userEmpresa.setFraseMotivacional(rs.getString("FraseMotivacional"));
-                            userEmpresa.setPremio(rs.getBoolean("PossuiPremio"));
+                            userEmpresa.setPossuiPremio(rs.getBoolean("PossuiPremio"));
 
                             if(premio != null)
                                 userEmpresa.setNomePremio(premio.getDescricao());
