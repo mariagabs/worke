@@ -1070,8 +1070,6 @@ public class Dashboard implements Initializable {
             }
         });
 
-        //playPause.setOnAction(playPauseEvent);
-
         lembrete.setPickOnBounds(true);
         lembrete.setOnMouseClicked((MouseEvent e) -> {
             lembreteEdit.setText(func.getLembrete());
@@ -1094,18 +1092,6 @@ public class Dashboard implements Initializable {
             exerciseScreen.setVisible(false);
             configScreen.setVisible(false);
         });
-
-        /*play.setPickOnBounds(true);
-        play.setOnMouseClicked((MouseEvent e) -> {
-            if (pause) {
-                btnImagePlay = imagePlay;
-                pause = false;
-            } else {
-                pause = true;
-                btnImagePlay = imagePause;
-
-            }
-        });*/
 
 
         Config.setPickOnBounds(true);
