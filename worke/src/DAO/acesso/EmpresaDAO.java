@@ -3,6 +3,7 @@ package DAO.acesso;
 import DAO.basis.AbstractDAO;
 import DAO.basis.MySQLDAO;
 import comuns.acesso.Empresa;
+import comuns.acesso.Rotina;
 import comuns.acesso.Usuario;
 
 import java.sql.PreparedStatement;
@@ -44,4 +45,5 @@ public class EmpresaDAO implements AbstractDAO<Empresa> {
     public ArrayList<Empresa> listar() {
         return null;
     }
+
 }

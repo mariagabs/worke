@@ -58,11 +58,11 @@ public class ExercicioDAO {
 
     }
 
-    public ArrayList<ExercicioEscolhido> listarTotalExercicios() {
+    public ArrayList<ExercicioEscolhido> listarTotalExercicios(Integer usuarioId) {
         ArrayList<Rotina> rotinaList = new ArrayList<Rotina>();
         ArrayList<ExercicioEscolhido> listaExercicio = new ArrayList<ExercicioEscolhido>();
 
-        listarRotinaUsuario(rotinaList);
+        listarRotinaUsuario(rotinaList, usuarioId);
         listarExerciciosUsuario(rotinaList, listaExercicio);
 
         return listaExercicio;
@@ -93,13 +93,13 @@ public class ExercicioDAO {
         return resultado;
     }
 
-    public void listarRotinaUsuario(ArrayList<Rotina> rotinaList) {
+    public void listarRotinaUsuario(ArrayList<Rotina> rotinaList, Integer usuarioId) {
         String sql = "SELECT * FROM rotina_exercicios WHERE UsuarioId = ?";
 
         try {
             if (this.connection.connection()) {
                 PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
-                sentenca.setInt(1, Funcionario.getInstance().getId());
+                sentenca.setInt(1, usuarioId);
 
                 ResultSet resultadoSentenca = sentenca.executeQuery();
 
