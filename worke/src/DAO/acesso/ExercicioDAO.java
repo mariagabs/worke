@@ -68,6 +68,31 @@ public class ExercicioDAO {
         return listaExercicio;
     }
 
+    public Integer consultarDuracaoTotalUsuario() {
+        String sql = "SELECT SUM(DuracaoTotalExercicios) AS Total FROM rotina_exercicios WHERE UsuarioId = ?";
+        int resultado = 0;
+        try {
+            if (this.connection.connection()) {
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+                sentenca.setInt(1, Funcionario.getInstance().getId());
+
+                ResultSet resultadoSentenca = sentenca.executeQuery();
+
+                while (resultadoSentenca.next()) {
+
+                    resultado = resultadoSentenca.getInt("Total");
+                }
+
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return resultado;
+    }
+
     public void listarRotinaUsuario(ArrayList<Rotina> rotinaList) {
         String sql = "SELECT * FROM rotina_exercicios WHERE UsuarioId = ?";
 
@@ -137,7 +162,7 @@ public class ExercicioDAO {
 
     public void escolherExercicio(Funcionario objt) {
 
-        String sql = "INSERT INTO exercicio_escolhido (ExercicioId, Duracao, RotinaId) VALUES (?,?,?)";
+        String sql = "INSERT INTO exercicio_escolhido (ExercicioId, Duracao, RotinaId, QntRealizado) VALUES (?,?,?,0)";
 
         int rotinaId = createRotina(objt);
 

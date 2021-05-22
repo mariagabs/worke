@@ -970,12 +970,12 @@
                                         <Font name="System Bold" size="9.0" />
                                     </font>
                                 </Label>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="17" textFill="#a3d3e4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                <Label fx:id="minutosTotal" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="17" textFill="#a3d3e4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="34.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="27.0" layoutY="27.0" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="70" textFill="#a3d3e4" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                <Label fx:id="qntExercicios" layoutX="27.0" layoutY="27.0" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="70" textFill="#a3d3e4" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="34.0" />
                                     </font>
@@ -1048,7 +1048,7 @@
                                               <Insets left="19.0" top="13.0" />
                                           </GridPane.margin>
                                       </ImageView>
-                                      <Label fx:id="nomeFav1" style="-fx-font-family: Nunito;" text="18" textFill="#071c35" GridPane.rowIndex="1">
+                                      <Label fx:id="qntFav1" style="-fx-font-family: Nunito;" text="18" textFill="#071c35" GridPane.rowIndex="1">
                                           <font>
                                               <Font name="System Bold" size="25.0" />
                                           </font>
@@ -1086,7 +1086,7 @@
                                               <Insets left="19.0" top="13.0" />
                                           </GridPane.margin>
                                       </ImageView>
-                                      <Label fx:id="nomeFav2" style="-fx-font-family: Nunito;" text="15" textFill="#071c35" GridPane.rowIndex="1">
+                                      <Label fx:id="qntFav2" style="-fx-font-family: Nunito;" text="15" textFill="#071c35" GridPane.rowIndex="1">
                                           <font>
                                               <Font name="System Bold" size="25.0" />
                                           </font>
@@ -1125,7 +1125,7 @@
                                           </GridPane.margin>
       
                                       </ImageView>
-                                      <Label fx:id="nomeFav3" style="-fx-font-family: Nunito;" text="12" textFill="#071c35" GridPane.rowIndex="1">
+                                      <Label fx:id="qntFav3" style="-fx-font-family: Nunito;" text="12" textFill="#071c35" GridPane.rowIndex="1">
                                           <font>
                                               <Font name="System Bold" size="25.0" />
                                           </font>
@@ -1164,7 +1164,7 @@
                                           </GridPane.margin>
       
                                       </ImageView>
-                                      <Label fx:id="nomeFav4" style="-fx-font-family: Nunito;" text="10" textFill="#071c35" GridPane.rowIndex="1">
+                                      <Label fx:id="qntFav4" style="-fx-font-family: Nunito;" text="10" textFill="#071c35" GridPane.rowIndex="1">
                                           <font>
                                               <Font name="System Bold" size="25.0" />
                                           </font>
@@ -1196,7 +1196,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label fx:id="instrucaoDetails" maxWidth="930.0" minWidth="930.0" style="-fx-font-family: Nunito;" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <Label fx:id="instrucaoDetails" maxWidth="930.0" minWidth="930.0" style="-fx-font-family: Nunito; -fx-alignment: center;" textAlignment="CENTER" textFill="#071c35" wrapText="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="54.0" />
                                     </font>

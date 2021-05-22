@@ -217,6 +217,10 @@ public class Dashboard implements Initializable {
     private GridPane btnCancelar;
     @FXML
     private GridPane favoritos;
+    @FXML
+    private Label qntExercicios;
+    @FXML
+    private Label minutosTotal;
 
 
     private Funcionario func = Funcionario.getInstance();
@@ -276,36 +280,70 @@ public class Dashboard implements Initializable {
         return sortedMap;
     }
 
-    public void getFavoritos(){
+    public void getConquistasFavoritos() {
         ExercicioDAO exercicioDAO = new ExercicioDAO();
         ArrayList<ExercicioEscolhido> exercicioEscolhidosList = exercicioDAO.listarTotalExercicios();
         HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = new HashMap<Integer, ArrayList<ExercicioEscolhido>>();
         HashMap<Integer, Integer> mapExercicioIdQnt = new HashMap<Integer, Integer>();
 
         for (ExercicioEscolhido exercicioEscolhido : exercicioEscolhidosList) {
-            if (!mapExercicioId.containsKey(exercicioEscolhido.getExercicioId())){
+            if (!mapExercicioId.containsKey(exercicioEscolhido.getExercicioId())) {
                 mapExercicioId.put(exercicioEscolhido.getExercicioId(), new ArrayList<ExercicioEscolhido>());
             }
             mapExercicioId.get(exercicioEscolhido.getExercicioId()).add(exercicioEscolhido);
         }
-        for (Integer i = 1; i <= 17; i++){
-            if (mapExercicioId.containsKey(i)){
+        for (Integer i = 1; i <= 17; i++) {
+            if (mapExercicioId.containsKey(i)) {
                 Integer qtd = 0;
-                for (ExercicioEscolhido exercicioEscolhido : mapExercicioId.get(i)){
+                for (ExercicioEscolhido exercicioEscolhido : mapExercicioId.get(i)) {
                     qtd += exercicioEscolhido.getQntRealizado();
                     mapExercicioIdQnt.put(i, qtd);
                 }
             }
         }
         LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = sortHashMapByValues(mapExercicioIdQnt);
+        LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
+
+        //Use Comparator.reverseOrder() for reverse ordering
+        mapExercicioQtdOrdenado.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
+
 
         ArrayList<Integer> exerciciosRealizadosChaves = new ArrayList<>();
-        for (Integer i : mapExercicioQtdOrdenado.keySet()){
+        Integer totalExerciciosRealizados = 0;
+        for (Integer i : reverseSortedMap.keySet()) {
             exerciciosRealizadosChaves.add(i);
+            if (reverseSortedMap.containsKey(i)){
+                totalExerciciosRealizados += reverseSortedMap.get(i);
+            }
         }
-//        Integer it = mapExercicioQtdOrdenado.get(mapExercicioQtdOrdenado.size()-1);
 
-        for (Node node: favoritos.getChildren()) {
+        qntExercicios.setText(String.valueOf(totalExerciciosRealizados));
+        minutosTotal.setText(String.valueOf(exercicioDAO.consultarDuracaoTotalUsuario()));
+
+        int aux = 0;
+        for (Node node : favoritos.getChildren()) {
+            if (node instanceof GridPane) {
+
+                if (aux == 4) break;
+                for (Node component : ((GridPane) node).getChildren()) {
+                    int finalAux = aux;
+                    List<Exercicio> exercicio = exercicioList.stream().filter(ex -> ex.getId() == exerciciosRealizadosChaves.get(finalAux)).collect(Collectors.toList());
+                    if (component instanceof ImageView) {
+                        Image img = new Image(getClass().getResource("/resources/img/" + exercicio.get(0).getImagem() + "White.png").toExternalForm());
+                        ((ImageView) component).setImage(img);
+                    } else if (component instanceof Label) {
+                        if (component.getId().contains("qntFav")) {
+                            ((Label) component).setText(String.valueOf(reverseSortedMap.get(exerciciosRealizadosChaves.get(finalAux))));
+                        } else {
+                            ((Label) component).setText(exercicio.get(0).getNome());
+                        }
+                    }
+                }
+                aux++;
+            }
 
         }
     }
@@ -519,6 +557,8 @@ public class Dashboard implements Initializable {
     }
 
     public void goToHome() {
+        loadConfig();
+
         try {
             AuditoriaTest.getInstance().StartThread("Home");
         } catch (InterruptedException interruptedException) {
@@ -794,7 +834,7 @@ public class Dashboard implements Initializable {
         getPremio();
         getExerciciosDoDia();
         checkAvailableEx();
-        getFavoritos();
+        getConquistasFavoritos();
 
         timeSeconds = func.getDuracaoExercicios() * 60;
         nomeUsuario.setText(func.getNome());
@@ -846,7 +886,7 @@ public class Dashboard implements Initializable {
         });
 
         btnCancelar.setOnMouseClicked((MouseEvent e) -> {
-            try{
+            try {
                 showConfirmacaoCancelarExercicio();
             } catch (IOException | InterruptedException ioException) {
                 ioException.printStackTrace();
@@ -1048,7 +1088,7 @@ public class Dashboard implements Initializable {
             avisoIntervalo.setVisible(false);
             avisoHorario.setVisible(false);
 
-            if (func.getExercicios().size() == 0) {
+            if (novosExerciciosEscolhidos.size() == 0) {
                 valid = false;
                 aviso.setVisible(true);
             }
