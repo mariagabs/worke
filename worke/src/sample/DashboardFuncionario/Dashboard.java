@@ -247,8 +247,68 @@ public class Dashboard implements Initializable {
 
     public static List<String> instrucoes;
 
+    public static LinkedHashMap<Integer, Integer> rankingFuncionarios;
+
     private static List<Exercicio> novosExerciciosEscolhidos = new ArrayList<>();
 
+    public LinkedHashMap<Integer, Integer> listarUsuariosEmpresa() {
+
+        List<Usuario> funcionarioList = dao.listar();
+        HashMap<Integer, Integer> mapFuncionarioIdQnt = new HashMap<Integer, Integer>();
+        for (Usuario funcionario : funcionarioList) {
+            mapFuncionarioIdQnt.put(funcionario.getId(), calcTotalExercicios(funcionario.getId()));
+        }
+        LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = sortHashMapByValues(mapFuncionarioIdQnt);
+        LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
+
+        mapExercicioQtdOrdenado.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
+        return reverseSortedMap;
+    }
+
+    public Integer calcTotalExercicios(Integer usuarioId) {
+        ExercicioDAO exercicioDAO = new ExercicioDAO();
+        ArrayList<ExercicioEscolhido> exercicioEscolhidosList = exercicioDAO.listarTotalExercicios(usuarioId);
+        HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = new HashMap<Integer, ArrayList<ExercicioEscolhido>>();
+        HashMap<Integer, Integer> mapExercicioIdQnt = new HashMap<Integer, Integer>();
+
+        for (ExercicioEscolhido exercicioEscolhido : exercicioEscolhidosList) {
+            if (!mapExercicioId.containsKey(exercicioEscolhido.getExercicioId())) {
+                mapExercicioId.put(exercicioEscolhido.getExercicioId(), new ArrayList<ExercicioEscolhido>());
+            }
+            mapExercicioId.get(exercicioEscolhido.getExercicioId()).add(exercicioEscolhido);
+        }
+        for (Integer i = 1; i <= 17; i++) {
+            if (mapExercicioId.containsKey(i)) {
+                Integer qtd = 0;
+                for (ExercicioEscolhido exercicioEscolhido : mapExercicioId.get(i)) {
+                    qtd += exercicioEscolhido.getQntRealizado();
+                    mapExercicioIdQnt.put(i, qtd);
+                }
+            }
+        }
+        LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = sortHashMapByValues(mapExercicioIdQnt);
+        LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
+
+        //Use Comparator.reverseOrder() for reverse ordering
+        mapExercicioQtdOrdenado.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
+
+
+        ArrayList<Integer> exerciciosRealizadosChaves = new ArrayList<>();
+        Integer totalExerciciosRealizados = 0;
+        for (Integer i : reverseSortedMap.keySet()) {
+            exerciciosRealizadosChaves.add(i);
+            if (reverseSortedMap.containsKey(i)){
+                totalExerciciosRealizados += reverseSortedMap.get(i);
+            }
+        }
+        return totalExerciciosRealizados;
+    }
 
     public LinkedHashMap<Integer, Integer> sortHashMapByValues(
             HashMap<Integer, Integer> passedMap) {
@@ -280,9 +340,9 @@ public class Dashboard implements Initializable {
         return sortedMap;
     }
 
-    public void getConquistasFavoritos() {
+    public void getConquistasFavoritos(Integer usuarioId) {
         ExercicioDAO exercicioDAO = new ExercicioDAO();
-        ArrayList<ExercicioEscolhido> exercicioEscolhidosList = exercicioDAO.listarTotalExercicios();
+        ArrayList<ExercicioEscolhido> exercicioEscolhidosList = exercicioDAO.listarTotalExercicios(usuarioId);
         HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = new HashMap<Integer, ArrayList<ExercicioEscolhido>>();
         HashMap<Integer, Integer> mapExercicioIdQnt = new HashMap<Integer, Integer>();
 
@@ -834,7 +894,8 @@ public class Dashboard implements Initializable {
         getPremio();
         getExerciciosDoDia();
         checkAvailableEx();
-        getConquistasFavoritos();
+        getConquistasFavoritos(func.getId());
+        rankingFuncionarios = listarUsuariosEmpresa();
 
         timeSeconds = func.getDuracaoExercicios() * 60;
         nomeUsuario.setText(func.getNome());
