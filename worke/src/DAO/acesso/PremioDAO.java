@@ -118,6 +118,26 @@ public class PremioDAO implements AbstractDAO<Premio> {
 
     @Override
     public ArrayList<Premio> listar() {
-        return null;
+
+        ArrayList<Premio> listaPremio = new ArrayList<Premio>();
+        String sql = "SELECT * FROM Premio WHERE Finalizado = 1 ORDER BY Descricao";
+
+        try {
+            if (this.connection.connection()) {
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+                ResultSet resultadoSentenca = sentenca.executeQuery();
+
+                while (resultadoSentenca.next()) {
+                    Premio premio = new Premio();
+                    listaPremio.add(premio);
+                }
+
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+            return listaPremio;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

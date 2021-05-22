@@ -5,6 +5,8 @@ import DAO.acesso.FuncionarioDAO;
 import DAO.acesso.PremioDAO;
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
+import application.EmpresaApp;
+import application.FuncionarioApp;
 import comuns.acesso.*;
 import comuns.conteudo.Exercicio;
 import javafx.animation.Animation;
@@ -262,135 +264,13 @@ public class Dashboard implements Initializable {
     private static List<Exercicio> novosExerciciosEscolhidos = new ArrayList<>();
 
     public Set<Integer> listarUsuariosEmpresa() {
-
-        List<Usuario> funcionarioList = dao.listar();
-        HashMap<Integer, Integer> mapFuncionarioIdQnt = new HashMap<Integer, Integer>();
-        for (Usuario funcionario : funcionarioList) {
-            mapFuncionarioIdQnt.put(funcionario.getId(), calcTotalExercicios(funcionario.getId()));
-        }
-        LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = sortHashMapByValues(mapFuncionarioIdQnt);
-        LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
-
-        mapExercicioQtdOrdenado.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
-        return reverseSortedMap.keySet();
-    }
-
-    public Integer calcTotalExercicios(Integer usuarioId) {
-        ExercicioDAO exercicioDAO = new ExercicioDAO();
-        ArrayList<ExercicioEscolhido> exercicioEscolhidosList = exercicioDAO.listarTotalExercicios(usuarioId);
-        HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = new HashMap<Integer, ArrayList<ExercicioEscolhido>>();
-        HashMap<Integer, Integer> mapExercicioIdQnt = new HashMap<Integer, Integer>();
-
-        for (ExercicioEscolhido exercicioEscolhido : exercicioEscolhidosList) {
-            if (!mapExercicioId.containsKey(exercicioEscolhido.getExercicioId())) {
-                mapExercicioId.put(exercicioEscolhido.getExercicioId(), new ArrayList<ExercicioEscolhido>());
-            }
-            mapExercicioId.get(exercicioEscolhido.getExercicioId()).add(exercicioEscolhido);
-        }
-        for (Integer i = 1; i <= 17; i++) {
-            if (mapExercicioId.containsKey(i)) {
-                Integer qtd = 0;
-                for (ExercicioEscolhido exercicioEscolhido : mapExercicioId.get(i)) {
-                    qtd += exercicioEscolhido.getQntRealizado();
-                    mapExercicioIdQnt.put(i, qtd);
-                }
-            }
-        }
-        LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = sortHashMapByValues(mapExercicioIdQnt);
-        LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
-
-        //Use Comparator.reverseOrder() for reverse ordering
-        mapExercicioQtdOrdenado.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
-
-
-        ArrayList<Integer> exerciciosRealizadosChaves = new ArrayList<>();
-        Integer totalExerciciosRealizados = 0;
-        for (Integer i : reverseSortedMap.keySet()) {
-            exerciciosRealizadosChaves.add(i);
-            if (reverseSortedMap.containsKey(i)) {
-                totalExerciciosRealizados += reverseSortedMap.get(i);
-            }
-        }
-        return totalExerciciosRealizados;
-    }
-
-    public LinkedHashMap<Integer, Integer> sortHashMapByValues(
-            HashMap<Integer, Integer> passedMap) {
-        List<Integer> mapKeys = new ArrayList<>(passedMap.keySet());
-        List<Integer> mapValues = new ArrayList<>(passedMap.values());
-        Collections.sort(mapValues);
-        Collections.sort(mapKeys);
-
-        LinkedHashMap<Integer, Integer> sortedMap =
-                new LinkedHashMap<>();
-
-        Iterator<Integer> valueIt = mapValues.iterator();
-        while (valueIt.hasNext()) {
-            Integer val = valueIt.next();
-            Iterator<Integer> keyIt = mapKeys.iterator();
-
-            while (keyIt.hasNext()) {
-                Integer key = keyIt.next();
-                Integer comp1 = passedMap.get(key);
-                Integer comp2 = val;
-
-                if (comp1.equals(comp2)) {
-                    keyIt.remove();
-                    sortedMap.put(key, val);
-                    break;
-                }
-            }
-        }
-        return sortedMap;
+        return EmpresaApp.listarUsuariosEmpresa();
     }
 
     public void getConquistasFavoritos(Integer usuarioId) {
-        ExercicioDAO exercicioDAO = new ExercicioDAO();
-        ArrayList<ExercicioEscolhido> exercicioEscolhidosList = exercicioDAO.listarTotalExercicios(usuarioId);
-        HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = new HashMap<Integer, ArrayList<ExercicioEscolhido>>();
-        HashMap<Integer, Integer> mapExercicioIdQnt = new HashMap<Integer, Integer>();
-
-        for (ExercicioEscolhido exercicioEscolhido : exercicioEscolhidosList) {
-            if (!mapExercicioId.containsKey(exercicioEscolhido.getExercicioId())) {
-                mapExercicioId.put(exercicioEscolhido.getExercicioId(), new ArrayList<ExercicioEscolhido>());
-            }
-            mapExercicioId.get(exercicioEscolhido.getExercicioId()).add(exercicioEscolhido);
-        }
-        for (Integer i = 1; i <= 17; i++) {
-            if (mapExercicioId.containsKey(i)) {
-                Integer qtd = 0;
-                for (ExercicioEscolhido exercicioEscolhido : mapExercicioId.get(i)) {
-                    qtd += exercicioEscolhido.getQntRealizado();
-                    mapExercicioIdQnt.put(i, qtd);
-                }
-            }
-        }
-        LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = sortHashMapByValues(mapExercicioIdQnt);
-        LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
-
-        //Use Comparator.reverseOrder() for reverse ordering
-        mapExercicioQtdOrdenado.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
-
-
         ArrayList<Integer> exerciciosRealizadosChaves = new ArrayList<>();
-        Integer totalExerciciosRealizados = 0;
-        for (Integer i : reverseSortedMap.keySet()) {
-            exerciciosRealizadosChaves.add(i);
-            if (reverseSortedMap.containsKey(i)) {
-                totalExerciciosRealizados += reverseSortedMap.get(i);
-            }
-        }
-
-        qntExercicios.setText(String.valueOf(totalExerciciosRealizados));
+        LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
+        qntExercicios.setText(String.valueOf(FuncionarioApp.calcTotalExercicios(usuarioId, exerciciosRealizadosChaves, reverseSortedMap)));
         minutosTotal.setText(String.valueOf(exercicioDAO.consultarDuracaoTotalUsuario()));
 
         if (exerciciosRealizadosChaves.size() > 0) {
@@ -754,8 +634,7 @@ public class Dashboard implements Initializable {
     }
 
     public void getExerciciosEscolhidos() {
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        func.setExercicios(usuarioDAO.consultarExerciciosEscolhidos(usuarioDAO.getLastRotina(func)));
+        func.setExercicios(dao.consultarExerciciosEscolhidos(dao.getLastRotina(func)));
     }
 
     public void getHorario() {

@@ -161,7 +161,7 @@
                                         <Insets bottom="39.0" left="15.0" top="5.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weight: bolder;" text="200" textFill="#a3d3e4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                <Label fx:id="qntFuncionariosTotal" style="-fx-font-family: Nunito; -fx-font-weight: bolder;" text="200" textFill="#a3d3e4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <font>
                                         <Font size="26.0" />
                                     </font>
@@ -177,7 +177,7 @@
                                         <Insets bottom="39.0" right="15.0" top="5.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="3" textFill="#f5986d" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                <Label fx:id="qntPremiosTotal" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="3" textFill="#f5986d" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <GridPane.margin>
                                         <Insets right="15.0" top="10.0" />
                                     </GridPane.margin>
@@ -185,7 +185,7 @@
                               <Font size="26.0" />
                            </font>
                                 </Label>
-                                <Label prefHeight="26.0" prefWidth="46.0" style="-fx-font-family: Nunito;" text="TOTAL DE HORAS" textAlignment="CENTER" textFill="#0b1f38" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                <Label prefHeight="26.0" prefWidth="46.0" style="-fx-font-family: Nunito;" text="TOTAL DE MINUTOS" textAlignment="CENTER" textFill="#0b1f38" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="8.0" />
                                     </font>
@@ -193,7 +193,7 @@
                                         <Insets bottom="49.0" left="15.0" top="5.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weight: bolder;" text="200" textFill="#ffd46a" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                <Label fx:id="qntMinutosTotal" style="-fx-font-family: Nunito; -fx-font-weight: bolder;" text="200" textFill="#ffd46a" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                     <GridPane.margin>
                                         <Insets left="15.0" top="10.0" />
                                     </GridPane.margin>
@@ -209,7 +209,7 @@
                                         <Insets bottom="49.0" right="15.0" top="5.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="5.252" textFill="#a3d3e4" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                <Label fx:id="qntExerciciosTotal" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="5.252" textFill="#a3d3e4" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="26.0" />
                                     </font>
@@ -342,7 +342,7 @@
                                     <Insets bottom="40.0" />
                                 </GridPane.margin>
                             </Label>
-                            <Label style="-fx-font-family: Nunito; -fx-font-weight: 800;" text="100H" textFill="#ffd46a" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                            <Label fx:id="qntHorasDia" style="-fx-font-family: Nunito; -fx-font-weight: 800;" text="100H" textFill="#ffd46a" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                 <font>
                                     <Font name="System Bold" size="26.0" />
                                 </font>
@@ -358,7 +358,7 @@
                                     <Insets right="15.0" />
                                 </padding>
                             </Label>
-                            <Label style="-fx-font-family: Nunito;" text="1.000" textFill="#F5986D" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                            <Label fx:id="qntExerciciosDia" style="-fx-font-family: Nunito;" text="1.000" textFill="#F5986D" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                 <font>
                                     <Font name="System Bold" size="26.0" />
                                 </font>

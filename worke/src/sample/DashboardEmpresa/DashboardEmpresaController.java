@@ -4,9 +4,12 @@ import DAO.acesso.EmpresaDAO;
 import DAO.acesso.PremioDAO;
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
+import application.EmpresaApp;
+import application.FuncionarioApp;
 import comuns.acesso.Empresa;
 import comuns.acesso.Usuario;
 import comuns.acesso.Premio;
+import comuns.conteudo.Exercicio;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -48,10 +51,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DashboardEmpresaController implements Initializable {
 
@@ -105,6 +105,20 @@ public class DashboardEmpresaController implements Initializable {
     private TextArea premio;
     @FXML
     private CheckBox possuiPremio;
+    @FXML
+    private Label qntFuncionariosTotal;
+    @FXML
+    private Label qntExerciciosTotal;
+    @FXML
+    private Label qntMinutosTotal;
+    @FXML
+    private Label qntPremiosTotal;
+    @FXML
+    private Label qntHorasDia;
+    @FXML
+    private Label qntExerciciosDia;
+
+    private static LinkedHashMap<Integer, Integer> usuariosEmpresa;
 
     @FXML
     public void setDateTime(){
@@ -129,6 +143,14 @@ public class DashboardEmpresaController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         setDateTime();
+        Date dateNow = new Date();
+        usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
+        qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
+        qntExerciciosTotal.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(usuariosEmpresa)));
+        qntMinutosTotal.setText(String.valueOf(EmpresaApp.totalMinutos()));
+        qntPremiosTotal.setText(String.valueOf(EmpresaApp.totalPremios()));
+        qntHorasDia.setText(String.valueOf(EmpresaApp.totalMinutos(dateNow)));
+        qntExerciciosDia.setText(String.valueOf(EmpresaApp.totalMinutos(dateNow)));
         loadUsuarios(usuariosTable);
         fraseMotivacional.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= 45 ? change : null));
