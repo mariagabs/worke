@@ -85,7 +85,7 @@
                             </rowConstraints>
                             <children>
                                 <Label style="-fx-font-family: Nunito;" text="MOTIVAÇÃO DA EMPRESA" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                                <Label fx:id="fraseMotivacional" alignment="CENTER" contentDisplay="TEXT_ONLY" prefHeight="64.0" prefWidth="248.0" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="O seu maior projeto deve ser você! " textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                <Label fx:id="fraseMotivacional" alignment="CENTER" contentDisplay="TEXT_ONLY" prefHeight="64.0" prefWidth="248.0" style="-fx-font-family: Nunito; -fx-font-weight: bold;" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                     <font>
                                         <Font name="System Bold" size="22.0" />
                                     </font>
@@ -961,7 +961,7 @@
                            </image>
                         </ImageView>
                      </children></Pane>
-                  <Pane layoutX="59.0" layoutY="135.0" prefHeight="290.0" prefWidth="290.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;">
+                  <Pane fx:id="semExercicios" layoutX="59.0" layoutY="135.0" prefHeight="290.0" prefWidth="290.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;" visible="false">
                      <children>
                         <ImageView fitHeight="175.0" fitWidth="362.0" layoutX="-36.0" layoutY="-36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -978,10 +978,10 @@
                            </font>
                         </Label>
                         <Label layoutX="48.0" layoutY="194.0" prefHeight="42.0" prefWidth="196.0" style="-fx-font-family: Nunito;" text="Para iniciar sua rotina de exercícios, configure o sistema!" textAlignment="CENTER" wrapText="true" />
-                        <Button layoutX="159.0" layoutY="244.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="116.0" style="-fx-background-radius: 50px; -fx-font-family: Nunito; -fx-background-color: #A3D3E4;" text="CONFIGURE" textFill="WHITE" />
+                        <Button fx:id="btnConfigure" layoutX="159.0" layoutY="244.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="116.0" style="-fx-background-radius: 50px; -fx-font-family: Nunito; -fx-background-color: #A3D3E4;" text="CONFIGURE" textFill="WHITE" />
                      </children>
                   </Pane>
-                  <Pane layoutX="373.0" layoutY="136.0" prefHeight="130.0" prefWidth="362.0" style="-fx-background-color: #A3D3E4; -fx-background-radius: 20;">
+                  <Pane fx:id="semMotivacao" layoutX="373.0" layoutY="136.0" prefHeight="130.0" prefWidth="362.0" style="-fx-background-color: #A3D3E4; -fx-background-radius: 20;" visible="false">
                      <children>
                         <Label layoutX="62.0" layoutY="11.0" prefHeight="109.0" prefWidth="238.0" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="Incentive seus colegas de trabalho a terem uma vida mais saudável!" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
@@ -990,7 +990,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <GridPane layoutX="373.0" layoutY="297.0" prefHeight="130.0" prefWidth="362.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                  <GridPane fx:id="semPremio" layoutX="373.0" layoutY="297.0" prefHeight="130.0" prefWidth="362.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="10.0" prefWidth="328.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="5.0" prefWidth="34.0" />
@@ -1026,6 +1026,7 @@
                         </Label>
                      </children>
                   </GridPane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
                     </children>
                 </Pane>
                 <Pane fx:id="homeWhiteScreen" layoutX="883.0" prefHeight="780.0" prefWidth="318.0" style="-fx-background-color: #FFFFFF;">
@@ -1269,6 +1270,15 @@
                               </GridPane>
                      </children>
                   </GridPane>
+                  <Pane fx:id="semFavoritos" layoutX="40.0" layoutY="258.0" prefHeight="109.0" prefWidth="243.0" style="-fx-background-radius: 20; -fx-background-color: #FFD46A;">
+                     <children>
+                        <Label layoutX="3.0" layoutY="7.0" prefHeight="96.0" prefWidth="238.0" style="-fx-font-family: Nunito; -fx-font-weight: bold;" text="Realize exercícios para descobrir seus favoritos!" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
                     </children>
                 </Pane>
                 <Pane fx:id="exerciseScreen" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">

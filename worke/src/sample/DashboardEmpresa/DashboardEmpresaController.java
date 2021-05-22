@@ -104,7 +104,7 @@ public class DashboardEmpresaController implements Initializable {
     @FXML
     private TextArea premio;
     @FXML
-    private CheckBox possuiPremio;
+    private CheckBox naoPossuiPremio;
     @FXML
     private Label qntFuncionariosTotal;
     @FXML
@@ -164,10 +164,10 @@ public class DashboardEmpresaController implements Initializable {
         });
 
 
-        possuiPremio.selectedProperty().addListener(new ChangeListener<Boolean>() {
+        naoPossuiPremio.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
-                premio.setDisable(possuiPremio.isSelected());
+                premio.setDisable(naoPossuiPremio.isSelected());
             }
         });
 
@@ -312,10 +312,16 @@ public class DashboardEmpresaController implements Initializable {
                         PremioDAO premioDAO = new PremioDAO();
 
                         emp.setFraseMotivacional(fraseMotivacional.getText() == null ? "" : fraseMotivacional.getText());
-                        if (!possuiPremio.isSelected() && premio.getText().length() > 0){
+                        emp.setPossuiPremio(!naoPossuiPremio.isSelected());
+
+                        /*if(possuiPremio.isSelected()){
+                            emp.setPremioId(0);
+                        }*/
+
+                        if (!naoPossuiPremio.isSelected() && premio.getText().length() > 0){
                             emp.setNomePremio(premio.getText());
                             emp.setPremioId(premioDAO.inserirPremio(premio.getText()));
-                            emp.setPremio(true);
+                            emp.setPossuiPremio(true);
                         }
                         dao.alterarEmpresa(emp);
 
@@ -392,7 +398,7 @@ public class DashboardEmpresaController implements Initializable {
         Empresa emp = Empresa.getInstance();
         Premio prem = Premio.getInstance();
         fraseMotivacional.setText(emp.getFraseMotivacional());
-        possuiPremio.setSelected(!emp.isPremio());
+        naoPossuiPremio.setSelected(!emp.isPossuiPremio());
         premio.setText(prem.getDescricao());
     }
 
