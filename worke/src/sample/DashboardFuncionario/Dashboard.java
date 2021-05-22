@@ -247,11 +247,11 @@ public class Dashboard implements Initializable {
 
     public static List<String> instrucoes;
 
-    public static LinkedHashMap<Integer, Integer> rankingFuncionarios;
+    public static Set<Integer> rankingFuncionarios;
 
     private static List<Exercicio> novosExerciciosEscolhidos = new ArrayList<>();
 
-    public LinkedHashMap<Integer, Integer> listarUsuariosEmpresa() {
+    public Set<Integer> listarUsuariosEmpresa() {
 
         List<Usuario> funcionarioList = dao.listar();
         HashMap<Integer, Integer> mapFuncionarioIdQnt = new HashMap<Integer, Integer>();
@@ -265,7 +265,7 @@ public class Dashboard implements Initializable {
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
-        return reverseSortedMap;
+        return reverseSortedMap.keySet();
     }
 
     public Integer calcTotalExercicios(Integer usuarioId) {
@@ -896,6 +896,8 @@ public class Dashboard implements Initializable {
         checkAvailableEx();
         getConquistasFavoritos(func.getId());
         rankingFuncionarios = listarUsuariosEmpresa();
+
+        int posicaoRanking = new ArrayList<>(rankingFuncionarios).indexOf(func.getId());
 
         timeSeconds = func.getDuracaoExercicios() * 60;
         nomeUsuario.setText(func.getNome());
