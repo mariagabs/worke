@@ -2,12 +2,10 @@ package DAO.acesso;
 
 import DAO.basis.MySQLDAO;
 import comuns.acesso.Funcionario;
+import comuns.acesso.Rotina;
 import comuns.conteudo.Exercicio;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class FuncionarioDAO {
 
@@ -42,6 +40,39 @@ public class FuncionarioDAO {
                 this.connection.getConnection().close();
             }
         } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public Date getLastDateDone() {
+        String sql = "SELECT DataExecucao FROM exercicio_escolhido WHERE RotinaId = ? ORDER BY DataExecucao DESC LIMIT 1";
+
+        Date lastData = null;
+
+        try {
+
+            if (this.connection.connection()) {
+
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+                sentenca.setInt(1, Rotina.getInstance().getId());
+
+                ResultSet rs = sentenca.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+                        lastData = rs.getDate("DataExecucao");
+                    }
+                }
+
+
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+
+            return lastData;
+        } catch (
+                SQLException ex) {
             throw new RuntimeException(ex);
         }
     }

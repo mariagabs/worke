@@ -4,16 +4,10 @@ import DAO.basis.MySQLDAO;
 import comuns.acesso.ExercicioEscolhido;
 import comuns.acesso.Funcionario;
 import comuns.acesso.Rotina;
-import comuns.acesso.Usuario;
 import comuns.conteudo.Exercicio;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class ExercicioDAO {
@@ -160,11 +154,11 @@ public class ExercicioDAO {
         }
     }
 
-    public void escolherExercicio(Funcionario objt) {
+    public void escolherExercicio(Funcionario objt, int qntDisponivel) {
 
         String sql = "INSERT INTO exercicio_escolhido (ExercicioId, Duracao, RotinaId, QntRealizado) VALUES (?,?,?,0)";
 
-        int rotinaId = createRotina(objt);
+        int rotinaId = createRotina(objt, qntDisponivel);
 
         try {
 
@@ -188,8 +182,8 @@ public class ExercicioDAO {
         }
     }
 
-    public Integer createRotina(Funcionario objt) {
-        String sql = "INSERT INTO rotina_exercicios (QuantidadeExercicios, UsuarioId, DataCriacao, DuracaoTotalExercicios) VALUES (?,?,?,0)";
+    public Integer createRotina(Funcionario objt, int qndDisponivel) {
+        String sql = "INSERT INTO rotina_exercicios (QuantidadeExercicios, UsuarioId, DataCriacao, DuracaoTotalExercicios, QntExerciciosDisponivel) VALUES (?,?,?,0,?)";
 
         int rotinaId = 0;
 
@@ -205,6 +199,7 @@ public class ExercicioDAO {
                 sentenca.setInt(1, objt.getExercicios().size());
                 sentenca.setInt(2, objt.getId());
                 sentenca.setTimestamp(3, date);
+                sentenca.setInt(4, qndDisponivel);
 
                 int affectedRows = sentenca.executeUpdate();
 
@@ -233,8 +228,8 @@ public class ExercicioDAO {
         }
     }
 
-    public void updateRotina() {
-        String sql = "UPDATE rotina_exercicios SET DuracaoTotalExercicios = DuracaoTotalExercicios + ? WHERE Id = ?";
+    public void updateRotina(int qntDisponivel) {
+        String sql = "UPDATE rotina_exercicios SET DuracaoTotalExercicios = DuracaoTotalExercicios + ?, QntExerciciosDisponivel = ? WHERE Id = ?";
 
         try {
 
@@ -243,7 +238,8 @@ public class ExercicioDAO {
                 PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
 
                 sentenca.setInt(1, Funcionario.getInstance().getDuracaoExercicios());
-                sentenca.setInt(2, Rotina.getInstance().getId());
+                sentenca.setInt(2, qntDisponivel);
+                sentenca.setInt(3, Rotina.getInstance().getId());
 
                 sentenca.execute();
                 sentenca.close();
@@ -254,7 +250,7 @@ public class ExercicioDAO {
         }
     }
 
-    public void exercicioFeito(Exercicio exercicio) {
+    public void exercicioFeito(Exercicio exercicio, int qntDisponivel) {
         String sql = "UPDATE exercicio_escolhido SET DataExecucao = CURRENT_DATE, QntRealizado = QntRealizado + 1 WHERE ExercicioId = ? AND RotinaId = ?";
 
         try {
@@ -274,7 +270,7 @@ public class ExercicioDAO {
             throw new RuntimeException(ex);
         }
 
-        updateRotina();
+        updateRotina(qntDisponivel);
     }
 
     public List<String> listarInstrucoes(int id) {

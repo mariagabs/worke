@@ -31,6 +31,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -42,12 +43,14 @@ import sample.PopUpSucesso.popUpSucessoController;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Repeatable;
 import java.net.URL;
 import java.sql.Array;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -221,9 +224,16 @@ public class Dashboard implements Initializable {
     private Label qntExercicios;
     @FXML
     private Label minutosTotal;
+    @FXML
+    private Label ranking;
+    @FXML
+    private Rectangle bloqExDoDia;
+    @FXML
+    private Pane bloqParabens;
 
 
     private Funcionario func = Funcionario.getInstance();
+    FuncionarioDAO daoFunc = new FuncionarioDAO();
     ExercicioDAO exercicioDAO = new ExercicioDAO();
     List<Exercicio> exercicioList = exercicioDAO.listar();
     UsuarioDAO dao = new UsuarioDAO();
@@ -303,7 +313,7 @@ public class Dashboard implements Initializable {
         Integer totalExerciciosRealizados = 0;
         for (Integer i : reverseSortedMap.keySet()) {
             exerciciosRealizadosChaves.add(i);
-            if (reverseSortedMap.containsKey(i)){
+            if (reverseSortedMap.containsKey(i)) {
                 totalExerciciosRealizados += reverseSortedMap.get(i);
             }
         }
@@ -375,7 +385,7 @@ public class Dashboard implements Initializable {
         Integer totalExerciciosRealizados = 0;
         for (Integer i : reverseSortedMap.keySet()) {
             exerciciosRealizadosChaves.add(i);
-            if (reverseSortedMap.containsKey(i)){
+            if (reverseSortedMap.containsKey(i)) {
                 totalExerciciosRealizados += reverseSortedMap.get(i);
             }
         }
@@ -383,28 +393,33 @@ public class Dashboard implements Initializable {
         qntExercicios.setText(String.valueOf(totalExerciciosRealizados));
         minutosTotal.setText(String.valueOf(exercicioDAO.consultarDuracaoTotalUsuario()));
 
-        int aux = 0;
-        for (Node node : favoritos.getChildren()) {
-            if (node instanceof GridPane) {
+        if (exerciciosRealizadosChaves.size() > 0) {
+            int aux = 0;
+            for (Node node : favoritos.getChildren()) {
+                if (node instanceof GridPane) {
 
-                if (aux == 4) break;
-                for (Node component : ((GridPane) node).getChildren()) {
-                    int finalAux = aux;
-                    List<Exercicio> exercicio = exercicioList.stream().filter(ex -> ex.getId() == exerciciosRealizadosChaves.get(finalAux)).collect(Collectors.toList());
-                    if (component instanceof ImageView) {
-                        Image img = new Image(getClass().getResource("/resources/img/" + exercicio.get(0).getImagem() + "White.png").toExternalForm());
-                        ((ImageView) component).setImage(img);
-                    } else if (component instanceof Label) {
-                        if (component.getId().contains("qntFav")) {
-                            ((Label) component).setText(String.valueOf(reverseSortedMap.get(exerciciosRealizadosChaves.get(finalAux))));
-                        } else {
-                            ((Label) component).setText(exercicio.get(0).getNome());
+                    if (aux == 4 || aux == exerciciosRealizadosChaves.size()) break;
+                    for (Node component : ((GridPane) node).getChildren()) {
+                        int finalAux = aux;
+
+                        List<Exercicio> exercicio = exercicioList.stream().filter(ex -> ex.getId() == exerciciosRealizadosChaves.get(finalAux)).collect(Collectors.toList());
+                        if (component instanceof ImageView) {
+                            node.setVisible(true);
+                            Image img = new Image(getClass().getResource("/resources/img/" + exercicio.get(0).getImagem() + "White.png").toExternalForm());
+                            ((ImageView) component).setImage(img);
+                        } else if (component instanceof Label) {
+                            if (component.getId().contains("qntFav")) {
+                                ((Label) component).setText(String.valueOf(reverseSortedMap.get(exerciciosRealizadosChaves.get(finalAux))));
+                            } else {
+                                ((Label) component).setText(exercicio.get(0).getNome());
+                            }
                         }
-                    }
-                }
-                aux++;
-            }
 
+                    }
+                    aux++;
+                }
+
+            }
         }
     }
 
@@ -473,7 +488,7 @@ public class Dashboard implements Initializable {
                     if (pane instanceof GridPane) {
                         Exercicio ex = exercicioList.get(aux);
 
-                        ((GridPane) pane).setId(pane.getId() + "_" + String.valueOf(ex.getId()));
+                        pane.setId(pane.getId() + "_" + ex.getId());
                         Boolean exists = false;
                         for (Node child : ((GridPane) pane).getChildren()) {
 
@@ -555,6 +570,7 @@ public class Dashboard implements Initializable {
             resetDetails();
             goToHome();
         } else {
+            setDoneEx();
             playPause(true);
         }
     }
@@ -611,7 +627,7 @@ public class Dashboard implements Initializable {
 
     private void setDoneEx() {
 
-        exercicioDAO.exercicioFeito(exercicioExecutado);
+        exercicioDAO.exercicioFeito(exercicioExecutado, qntExerciciosDisponivel--);
         exercicioExecutado = null;
         btnImagePlay.setImage(imagePlay);
     }
@@ -784,6 +800,9 @@ public class Dashboard implements Initializable {
             btnIniciar.setPickOnBounds(true);
             btnIniciar.setOnMouseClicked((MouseEvent e) -> {
 
+                Home.setDisable(true);
+                Config.setDisable(true);
+                Logout.setDisable(true);
                 nomeDetails.setText(exercicio.getNome());
                 tempoDetails.setText(func.getDuracaoExercicios() + " min");
                 Image imgEx = new Image(getClass().getResource("/resources/img/" + exercicio.getImagem() + "White.png").toExternalForm());
@@ -833,6 +852,9 @@ public class Dashboard implements Initializable {
                                 child.setPickOnBounds(true);
                                 child.setOnMouseClicked((MouseEvent e) -> {
 
+                                    Home.setDisable(true);
+                                    Config.setDisable(true);
+                                    Logout.setDisable(true);
                                     nomeDetails.setText(ex.getNome());
                                     tempoDetails.setText(func.getDuracaoExercicios() + " min");
                                     Image imgEx = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
@@ -871,17 +893,28 @@ public class Dashboard implements Initializable {
     }
 
     public void resetDetails() {
-        timeline.stop();
-        timelineInstrucoes.stop();
+
+        if(timeline != null && timelineInstrucoes != null) {
+            timeline.stop();
+            timelineInstrucoes.stop();
+        }
+
         pause = false;
-        qntExerciciosDisponivel--;
-        setDoneEx();
+
         timeSeconds = func.getDuracaoExercicios() * 60;
     }
 
     public void checkAvailableEx() {
-        if (qntExerciciosDisponivel < 0) {
-            //pane que bloqueia acessar os exercicios
+
+        Integer qnt = Rotina.getInstance().getQntDisponivelExercicios();
+        if (qnt != null && qnt == 0) {
+            LocalDate currentDate = LocalDate.now();
+            Date lastDate = daoFunc.getLastDateDone();
+
+            if (lastDate != null) {
+                bloqExDoDia.setVisible(!currentDate.equals(lastDate));
+                bloqParabens.setVisible(!currentDate.equals(lastDate));
+            }
         }
     }
 
@@ -897,17 +930,12 @@ public class Dashboard implements Initializable {
         getConquistasFavoritos(func.getId());
         rankingFuncionarios = listarUsuariosEmpresa();
 
-        int posicaoRanking = new ArrayList<>(rankingFuncionarios).indexOf(func.getId());
+        int posicaoRanking = new ArrayList<>(rankingFuncionarios).indexOf(func.getId()) + 1;
 
+        ranking.setText("Sua posição: " + posicaoRanking);
         timeSeconds = func.getDuracaoExercicios() * 60;
         nomeUsuario.setText(func.getNome());
 
-
-        LocalTime horaInicio = LocalTime.parse(func.getHoraInicio());
-        LocalTime horaFinal = LocalTime.parse(func.getHoraTermino());
-        double horas = (double) ((func.getIntervaloExercicios().getHours() * 60) + func.getIntervaloExercicios().getMinutes()) / 60;
-
-        qntExerciciosDisponivel = Math.round((int) ((int) (((java.time.Duration.between(horaInicio, horaFinal).toHours()) - 1)) / horas));
     }
 
     public void playPause(boolean play) throws InterruptedException {
@@ -919,21 +947,38 @@ public class Dashboard implements Initializable {
         } else {
             btnImagePlay.setImage(imagePlay);
             pause = false;
-            timeline.pause();
-            timelineInstrucoes.pause();
-            AuditoriaTest.getInstance().StartThread("Play");
+
+            if(timeline != null && timelineInstrucoes != null) {
+                timeline.pause();
+                timelineInstrucoes.pause();
+            }
+
+            //AuditoriaTest.getInstance().StartThread("Play");
         }
+    }
+
+    public Integer qntExDisponivel() {
+        int total = 0;
+        if (func.getHoraInicio() != null && func.getHoraTermino() != null) {
+            LocalTime horaInicio = LocalTime.parse(func.getHoraInicio());
+            LocalTime horaFinal = LocalTime.parse(func.getHoraTermino());
+            double horas = (double) ((func.getIntervaloExercicios().getHours() * 60) + func.getIntervaloExercicios().getMinutes()) / 60;
+
+            total = qntExerciciosDisponivel = Math.round((int) ((int) (((java.time.Duration.between(horaInicio, horaFinal).toHours()) - 1)) / horas));
+        }
+
+        return total;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
         loadConfig();
         for (Exercicio exercicio : func.getExercicios()) {
             novosExerciciosEscolhidos.add(exercicio);
         }
 
-        FuncionarioDAO daoFunc = new FuncionarioDAO();
 
         playGrid.setOnMouseClicked((MouseEvent e) -> {
             try {
@@ -1110,6 +1155,7 @@ public class Dashboard implements Initializable {
         Logout.setPickOnBounds(true);
         Logout.setOnMouseClicked((MouseEvent e) -> {
             try {
+                novosExerciciosEscolhidos.clear();
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml")));
                 Stage stage = new Stage();
                 stage.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
@@ -1163,7 +1209,7 @@ public class Dashboard implements Initializable {
 
                 if (!equalLists) {
                     func.setExercicios(novosExerciciosEscolhidos);
-                    exercicioDAO.escolherExercicio(func);
+                    exercicioDAO.escolherExercicio(func, qntExDisponivel());
 
                 }
 

@@ -426,7 +426,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
     }
 
     public Integer getLastRotina(Funcionario objt) {
-        String sql = "SELECT Id FROM Rotina_Exercicios WHERE UsuarioId = ? ORDER BY DataCriacao DESC LIMIT 1";
+        String sql = "SELECT * FROM Rotina_Exercicios WHERE UsuarioId = ? ORDER BY DataCriacao DESC LIMIT 1";
 
         int rotinaId = 0;
 
@@ -443,6 +443,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                 if (rs != null) {
                     while (rs.next()) {
                         rotinaId = rs.getInt("Id");
+                        Rotina.getInstance().setQntDisponivelExercicios(rs.getInt("QntExerciciosDisponivel"));
                         Rotina.getInstance().setId(rotinaId);
                     }
                 }

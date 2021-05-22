@@ -9,6 +9,7 @@ public class Rotina extends Entidade {
     private Integer usuarioId;
     private Double duracaoExercicios;
     private Date dataCriacao;
+    private Integer qntDisponivelExercicios;
     private final static Rotina INSTANCE = new Rotina();
     public static Rotina getInstance(){
         return INSTANCE;
@@ -46,5 +47,13 @@ public class Rotina extends Entidade {
 
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
+    }
+
+    public Integer getQntDisponivelExercicios() {
+        return qntDisponivelExercicios;
+    }
+
+    public void setQntDisponivelExercicios(Integer qntDisponivelExercicios) {
+        this.qntDisponivelExercicios = qntDisponivelExercicios;
     }
 }
