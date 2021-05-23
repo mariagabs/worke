@@ -45,7 +45,9 @@ public class popUpSucessoController implements Initializable {
 
         btnOK.setOnMouseClicked((MouseEvent e) -> {
 
-            controller.goToHome();
+            if (controller != null){
+                controller.goToHome();
+            }
 
             Stage stage = (Stage) btnOK.getScene().getWindow();
             stage.close();

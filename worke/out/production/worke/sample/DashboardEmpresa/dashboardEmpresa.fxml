@@ -599,7 +599,10 @@
                                         <Insets left="70.0" />
                                     </GridPane.margin>
                                 </Label>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #ffd46a; -fx-padding: 8px 24px; -fx-font-family: Nunito; -fx-background-radius: 50; -fx-font-weight: bold;" text="FINALIZAR" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                        <Button fx:id="btnFinalizar" mnemonicParsing="false" style="-fx-background-color: #ffd46a; -fx-padding: 8px 24px; -fx-font-family: Nunito; -fx-background-radius: 50; -fx-font-weight: bold;" text="FINALIZAR" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                             </children>
                         </GridPane>
                     </children>

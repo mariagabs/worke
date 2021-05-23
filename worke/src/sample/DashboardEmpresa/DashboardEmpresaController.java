@@ -43,6 +43,7 @@ import javafx.util.Callback;
 import javafx.util.Duration;
 import sample.Main;
 import sample.PopUpCriarFuncionarios.PopUpCriarFuncionarioController;
+import sample.PopUpSucesso.popUpSucessoController;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -62,6 +63,8 @@ public class DashboardEmpresaController implements Initializable {
     private Button btnSalvarConfig;
     @FXML
     private Button btnCriarUsuario;
+    @FXML
+    private Button btnFinalizar;
     @FXML
     private ImageView btnUsuarios;
     @FXML
@@ -411,6 +414,39 @@ public class DashboardEmpresaController implements Initializable {
                     }
                 }
         );
+        btnFinalizar.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        try {
+                            Parent root;
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/PopUpSucesso/PopUpSucesso.fxml"));
+                            root = fxmlLoader.load();
+                            popUpSucessoController popUpController = fxmlLoader.getController();
+//                            popUpController.controller = this;
+                            popUpController.titulo = "Finalizado!";
+                            popUpController.mensagem = usuarioIdNome.get(usuarioIdArray[0]) + " venceu essa rodada. Parabéns!";
+                            popUpController.initialize(null, null);
+                            Stage dialog = new Stage();
+                            dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
+                            dialog.setScene(new Scene(root));
+                            dialog.initModality(Modality.APPLICATION_MODAL);
+                            dialog.show();
+
+                            EmpresaApp.finalizarPremio(usuarioIdArray[0]);
+                            premio.setText(null);
+
+                            AuditoriaTest auditoria = new AuditoriaTest();
+                            auditoria.StartThread("Finalize prize");
+
+                        } catch (InterruptedException | IOException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                }
+        );
     }
 
 
@@ -419,7 +455,7 @@ public class DashboardEmpresaController implements Initializable {
         Premio prem = Premio.getInstance();
         fraseMotivacional.setText(emp.getFraseMotivacional());
         naoPossuiPremio.setSelected(!emp.isPossuiPremio());
-        premio.setText(prem.getDescricao());
+        premio.setText(emp.isPossuiPremio() ? prem.getDescricao() : null);
     }
 
     private void addButtonToTable() {

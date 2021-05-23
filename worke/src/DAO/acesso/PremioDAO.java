@@ -8,10 +8,8 @@ package DAO.acesso;
         import comuns.acesso.Premio;
         import comuns.acesso.Usuario;
 
-        import java.sql.PreparedStatement;
-        import java.sql.ResultSet;
-        import java.sql.SQLException;
-        import java.sql.Statement;
+        import java.sql.*;
+        import java.time.LocalDate;
         import java.util.ArrayList;
 
 public class PremioDAO implements AbstractDAO<Premio> {
@@ -68,6 +66,27 @@ public class PremioDAO implements AbstractDAO<Premio> {
 
     @Override
     public void alterar(Premio objt) {
+        String sql = "UPDATE Premio SET UsuarioId = ?, DataFinal = ?, Finalizado = 1 WHERE Id = ?";
+
+        try {
+
+            if (this.connection.connection()) {
+
+
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                sentenca.setInt(1, objt.getUsuarioId());
+                sentenca.setDate(2, Date.valueOf(LocalDate.now()));
+                sentenca.setInt(3, objt.getId());
+
+                sentenca.executeUpdate();
+
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 
