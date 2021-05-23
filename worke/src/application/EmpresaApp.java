@@ -6,11 +6,13 @@ import DAO.acesso.UsuarioDAO;
 import comuns.acesso.ExercicioEscolhido;
 import comuns.acesso.Usuario;
 
+import java.sql.Array;
+import java.time.LocalDate;
 import java.util.*;
 
 public class EmpresaApp {
 
-    public static LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade(Date dataHoje) {
+    public static LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade(String dataHoje) {
         UsuarioDAO dao = new UsuarioDAO();
         List<Usuario> funcionarioList = dao.listar();
         HashMap<Integer, Integer> mapFuncionarioIdQnt = new HashMap<Integer, Integer>();
@@ -35,16 +37,28 @@ public class EmpresaApp {
         return mapExercicioQtd;
     }
 
+    public static HashMap<Integer, String> mapFuncionarioIdNome(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade){
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        HashMap<Integer, String> mapFuncNome = new HashMap<>();
+        for (Usuario usuario : usuarioDAO.listar()) {
+            if (mapExercicioIdQuantidade.containsKey(usuario.getId())){
+                mapFuncNome.put(usuario.getId(), usuario.getNome());
+            }
+        }
+        return mapFuncNome;
+    }
+
     public static LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade() {
         return mapExercicioIdQuantidade(null);
     }
 
 
-    public static Set<Integer> listarUsuariosEmpresa(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade) {
-        return mapExercicioIdQuantidade.keySet();
+    public static Integer[] listarUsuariosEmpresa(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade) {
+        return mapExercicioIdQuantidade.keySet().toArray(new Integer[mapExercicioIdQuantidade.keySet().size()]);
     }
-    public static Set<Integer> listarUsuariosEmpresa() {
-        return mapExercicioIdQuantidade().keySet();
+    public static Integer[] listarUsuariosEmpresa() {
+        LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade = mapExercicioIdQuantidade();
+        return mapExercicioIdQuantidade.keySet().toArray(new Integer[mapExercicioIdQuantidade.keySet().size()]);
     }
 
     public static Integer totalExerciciosTodosFuncionarios(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade){
@@ -53,10 +67,10 @@ public class EmpresaApp {
     }
 
     public static Integer totalFuncionarios(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade){
-        return listarUsuariosEmpresa(mapExercicioIdQuantidade).size();
+        return listarUsuariosEmpresa(mapExercicioIdQuantidade).length;
     }
 
-    public static Integer totalMinutos(Date dataHoje){
+    public static Integer totalMinutos(String dataHoje){
 
         UsuarioDAO dao = new UsuarioDAO();
         List<Usuario> funcionarioList = dao.listar();

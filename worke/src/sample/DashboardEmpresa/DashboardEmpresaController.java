@@ -49,6 +49,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -117,8 +118,18 @@ public class DashboardEmpresaController implements Initializable {
     private Label qntHorasDia;
     @FXML
     private Label qntExerciciosDia;
+    @FXML
+    private Label ranking1;
+    @FXML
+    private Label ranking2;
+    @FXML
+    private Label ranking3;
 
     private static LinkedHashMap<Integer, Integer> usuariosEmpresa;
+
+    private static HashMap<Integer, String> usuarioIdNome;
+
+    private static Integer[] usuarioIdArray;
 
     @FXML
     public void setDateTime(){
@@ -143,14 +154,23 @@ public class DashboardEmpresaController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         setDateTime();
-        Date dateNow = new Date();
+        String currentDate = String.valueOf(LocalDate.now());
         usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
+        usuarioIdNome = EmpresaApp.mapFuncionarioIdNome(usuariosEmpresa);
+        usuarioIdArray = EmpresaApp.listarUsuariosEmpresa(usuariosEmpresa);
+
         qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
         qntExerciciosTotal.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(usuariosEmpresa)));
         qntMinutosTotal.setText(String.valueOf(EmpresaApp.totalMinutos()));
         qntPremiosTotal.setText(String.valueOf(EmpresaApp.totalPremios()));
-        qntHorasDia.setText(String.valueOf(EmpresaApp.totalMinutos(dateNow)));
-        qntExerciciosDia.setText(String.valueOf(EmpresaApp.totalMinutos(dateNow)));
+        qntHorasDia.setText(String.valueOf(EmpresaApp.totalMinutos(currentDate)));
+        qntExerciciosDia.setText(String.valueOf(EmpresaApp.totalMinutos(currentDate)));
+
+        // fazer foreach pra verificar se tem ou não 3 usuarios pro ranking
+        ranking1.setText(String.valueOf(usuarioIdNome.get(usuarioIdArray[0])));
+        ranking2.setText(String.valueOf(usuarioIdNome.get(usuarioIdArray[1])));
+        ranking3.setText(String.valueOf(usuarioIdNome.get(usuarioIdArray[2])));
+
         loadUsuarios(usuariosTable);
         fraseMotivacional.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= 45 ? change : null));

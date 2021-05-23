@@ -271,18 +271,19 @@ public class Dashboard implements Initializable {
 
     public static List<String> instrucoes;
 
-    public static Set<Integer> rankingFuncionarios;
+    public static Integer[] rankingFuncionarios;
 
     private static List<Exercicio> novosExerciciosEscolhidos = new ArrayList<>();
 
-    public Set<Integer> listarUsuariosEmpresa() {
+    public Integer[] listarUsuariosEmpresa() {
         return EmpresaApp.listarUsuariosEmpresa();
     }
 
     public void getConquistasFavoritos(Integer usuarioId) {
         ArrayList<Integer> exerciciosRealizadosChaves = new ArrayList<>();
         LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
-        qntExercicios.setText(String.valueOf(FuncionarioApp.calcTotalExercicios(usuarioId, exerciciosRealizadosChaves, reverseSortedMap)));
+        int totalExerciciosRealizados = FuncionarioApp.calcTotalExercicios(usuarioId, exerciciosRealizadosChaves, reverseSortedMap);
+        qntExercicios.setText(String.valueOf(totalExerciciosRealizados));
         minutosTotal.setText(String.valueOf(exercicioDAO.consultarDuracaoTotalUsuario()));
         semFavoritos.setVisible(totalExerciciosRealizados == 0);
 
@@ -856,7 +857,7 @@ public class Dashboard implements Initializable {
         getConquistasFavoritos(func.getId());
         rankingFuncionarios = listarUsuariosEmpresa();
 
-        int posicaoRanking = new ArrayList<>(rankingFuncionarios).indexOf(func.getId()) + 1;
+        int posicaoRanking = Arrays.asList(rankingFuncionarios).indexOf(func.getId()) + 1;
 
         ranking.setText("Sua posição: " + posicaoRanking);
         timeSeconds = func.getDuracaoExercicios() * 60;

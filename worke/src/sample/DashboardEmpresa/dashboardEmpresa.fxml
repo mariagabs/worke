@@ -576,17 +576,17 @@
                               <Insets left="36.0" />
                            </GridPane.margin>
                                 </Label>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weight: 200;" text="José Francisco Rocha" textFill="#071c35" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                <Label fx:id="ranking1" style="-fx-font-family: Nunito; -fx-font-weight: 200;" text="José Francisco Rocha" textFill="#071c35" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <GridPane.margin>
                                         <Insets left="70.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weight: 200;" text="Jéssica Mendes Silva" textFill="#071c35" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                <Label fx:id="ranking2" style="-fx-font-family: Nunito; -fx-font-weight: 200;" text="Jéssica Mendes Silva" textFill="#071c35" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                     <GridPane.margin>
                                         <Insets left="70.0" />
                                     </GridPane.margin>
                                 </Label>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weight: 200;" text="Fernando Costa" textFill="#071c35" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                <Label fx:id="ranking3" style="-fx-font-family: Nunito; -fx-font-weight: 200;" text="Fernando Costa" textFill="#071c35" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                     <GridPane.margin>
                                         <Insets left="70.0" />
                                     </GridPane.margin>

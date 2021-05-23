@@ -60,7 +60,7 @@ public class FuncionarioApp {
         return mapExercicioId;
     }
 
-    public static Integer calcTotalExercicios(Integer usuarioId, ArrayList<Integer> exerciciosRealizadosChaves, LinkedHashMap<Integer, Integer> reverseSortedMap, Date dataHoje) {
+    public static Integer calcTotalExercicios(Integer usuarioId, ArrayList<Integer> exerciciosRealizadosChaves, LinkedHashMap<Integer, Integer> reverseSortedMap, String dataHoje) {
 
         HashMap<Integer, Integer> mapExercicioIdQnt = new HashMap<Integer, Integer>();
         HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = mapExercicioIdExEscolhido(usuarioId);
@@ -73,7 +73,7 @@ public class FuncionarioApp {
                         qtd += exercicioEscolhido.getQntRealizado();
                         mapExercicioIdQnt.put(i, qtd);
                     } else {
-                        if (exercicioEscolhido.getDataExecucao() == dataHoje){
+                        if (String.valueOf(exercicioEscolhido.getDataExecucao()).equals(dataHoje)){
                             qtd += exercicioEscolhido.getQntRealizado();
                             mapExercicioIdQnt.put(i, qtd);
                         }
@@ -104,7 +104,7 @@ public class FuncionarioApp {
         return calcTotalExercicios(usuarioId,exerciciosRealizadosChaves,reverseSortedMap,null);
     }
 
-    public static Integer calcDuracaoTotal(Integer usuarioId, ArrayList<Integer> exerciciosRealizadosChaves, LinkedHashMap<Integer, Integer> reverseSortedMap, Date dataHoje) {
+    public static Integer calcDuracaoTotal(Integer usuarioId, ArrayList<Integer> exerciciosRealizadosChaves, LinkedHashMap<Integer, Integer> reverseSortedMap, String dataHoje) {
         HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = mapExercicioIdExEscolhido(usuarioId);
 
         Integer qtd = 0;
@@ -114,7 +114,7 @@ public class FuncionarioApp {
                     if (dataHoje == null){
                         qtd += exercicioEscolhido.getDuracao();
                     } else {
-                        if (exercicioEscolhido.getDataExecucao() == dataHoje){
+                        if (String.valueOf(exercicioEscolhido.getDataExecucao()).equals(dataHoje)){
                             qtd += exercicioEscolhido.getDuracao();
                         }
                     }
