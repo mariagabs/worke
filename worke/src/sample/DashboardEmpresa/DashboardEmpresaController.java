@@ -46,9 +46,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import org.controlsfx.control.spreadsheet.Grid;
 import sample.Main;
 import sample.PopUpCriarFuncionarios.PopUpCriarFuncionarioController;
+import sample.PopUpDelete.popUpDeleteController;
 import sample.PopUpSucesso.popUpSucessoController;
 
 import java.io.FileInputStream;
@@ -191,7 +191,7 @@ public class DashboardEmpresaController implements Initializable {
         qntMinutosTotal.setText(EmpresaApp.convertToHours(EmpresaApp.totalMinutos()));
         qntPremiosTotal.setText(String.valueOf(EmpresaApp.totalPremios()));
         qntHorasDia.setText(String.valueOf(EmpresaApp.totalMinutos(currentDate)));
-        qntExerciciosDia.setText(String.valueOf(EmpresaApp.totalMinutos(currentDate)));
+        qntExerciciosDia.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(currentDate)));
 
         // fazer foreach pra verificar se tem ou não 3 usuarios pro ranking
         ranking1.setText(String.valueOf(usuarioIdNome.get(usuarioIdArray[0])));

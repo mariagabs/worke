@@ -8,7 +8,16 @@ import comuns.acesso.Empresa;
 import comuns.acesso.ExercicioEscolhido;
 import comuns.acesso.Premio;
 import comuns.acesso.Usuario;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import sample.Main;
+import sample.PopUpDelete.popUpDeleteController;
 
+import java.io.IOException;
 import java.sql.Array;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -70,6 +79,11 @@ public class EmpresaApp {
         return sum;
     }
 
+    public static Integer totalExerciciosTodosFuncionarios(String dataHoje){
+        int sum = mapExercicioIdQuantidade(dataHoje).values().stream().reduce(0, Integer::sum);
+        return sum;
+    }
+
     public static Integer totalFuncionarios(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade){
         return listarUsuariosEmpresa(mapExercicioIdQuantidade).length;
     }
@@ -125,6 +139,22 @@ public class EmpresaApp {
         Empresa.getInstance().setPossuiPremio(false);
         EmpresaDAO empresaDAO = new EmpresaDAO();
         empresaDAO.alterar(Empresa.getInstance());
+    }
+
+    public void confimacaoExclusaoUsuario() throws IOException {
+        Parent root;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/PopUpDelete/PopUpDelete.fxml"));
+        root = fxmlLoader.load();
+        popUpDeleteController popUpController = fxmlLoader.getController();
+//        popUpController.controller = this;
+        popUpController.titulo = "Atenção!";
+        popUpController.mensagem = "Deseja realmente excluir o usuário?";
+        popUpController.initialize(null, null);
+        Stage dialog = new Stage();
+        dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
+        dialog.setScene(new Scene(root));
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.show();
     }
 
 }

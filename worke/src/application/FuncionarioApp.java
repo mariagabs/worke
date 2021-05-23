@@ -112,10 +112,10 @@ public class FuncionarioApp {
             if (mapExercicioId.containsKey(i)) {
                 for (ExercicioEscolhido exercicioEscolhido : mapExercicioId.get(i)) {
                     if (dataHoje == null){
-                        qtd += exercicioEscolhido.getDuracao();
+                        qtd += exercicioEscolhido.getDuracao() * exercicioEscolhido.getQntRealizado();
                     } else {
                         if (String.valueOf(exercicioEscolhido.getDataExecucao()).equals(dataHoje)){
-                            qtd += exercicioEscolhido.getDuracao();
+                            qtd += exercicioEscolhido.getDuracao() * exercicioEscolhido.getQntRealizado();
                         }
                     }
                 }
