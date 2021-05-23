@@ -1,13 +1,17 @@
 package application;
 
+import DAO.acesso.EmpresaDAO;
 import DAO.acesso.ExercicioDAO;
 import DAO.acesso.PremioDAO;
 import DAO.acesso.UsuarioDAO;
+import comuns.acesso.Empresa;
 import comuns.acesso.ExercicioEscolhido;
+import comuns.acesso.Premio;
 import comuns.acesso.Usuario;
 
 import java.sql.Array;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 public class EmpresaApp {
@@ -103,4 +107,24 @@ public class EmpresaApp {
     public static String convertToHours(Integer minutes) {
         return String.valueOf(minutes / 60);
     }
+
+    public static void finalizarPremio(Integer usuarioId) {
+
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        Empresa empresa = usuarioDAO.listarDadosEmpresa();
+
+        PremioDAO premioDAO = new PremioDAO();
+        Premio premio = premioDAO.consultar(empresa.getPremioId());
+        premio.setUsuarioId(usuarioId);
+        premioDAO.alterar(premio);
+        finalizarPremioEmpresa();
+    }
+    public static void finalizarPremioEmpresa() {
+        Empresa.getInstance().setNomePremio(null);
+        Empresa.getInstance().setPremioId(null);
+        Empresa.getInstance().setPossuiPremio(false);
+        EmpresaDAO empresaDAO = new EmpresaDAO();
+        empresaDAO.alterar(Empresa.getInstance());
+    }
+
 }

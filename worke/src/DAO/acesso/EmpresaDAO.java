@@ -6,10 +6,8 @@ import comuns.acesso.Empresa;
 import comuns.acesso.Rotina;
 import comuns.acesso.Usuario;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EmpresaDAO implements AbstractDAO<Empresa> {
@@ -28,7 +26,30 @@ public class EmpresaDAO implements AbstractDAO<Empresa> {
 
     @Override
     public void alterar(Empresa objt) {
+        String sql = "UPDATE Usuario SET PossuiPremio = ?, PremioId = ? WHERE Id = ?";
 
+        try {
+
+            if (this.connection.connection()) {
+
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                sentenca.setBoolean(1, objt.isPossuiPremio());
+                if (objt.getPremioId() == null){
+                    sentenca.setNull(2, Types.INTEGER);
+                } else {
+                    sentenca.setInt(2, objt.getPremioId());
+                }
+                sentenca.setInt(3, objt.getId());
+
+                sentenca.executeUpdate();
+
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
