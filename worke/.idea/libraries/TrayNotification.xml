@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="TrayNotification">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/TrayNotification.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

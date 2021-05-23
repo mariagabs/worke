@@ -27,11 +27,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import tray.animations.*;
-import org.controlsfx.control.Notifications;
-import tray.notification.NotificationType;
-import tray.notification.TrayNotification;
-
 public class LoginController implements Initializable {
 
     UsuarioDAO usuarioDAO = new UsuarioDAO();
