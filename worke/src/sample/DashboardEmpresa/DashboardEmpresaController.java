@@ -161,7 +161,7 @@ public class DashboardEmpresaController implements Initializable {
 
         qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
         qntExerciciosTotal.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(usuariosEmpresa)));
-        qntMinutosTotal.setText(String.valueOf(EmpresaApp.totalMinutos()));
+        qntMinutosTotal.setText(EmpresaApp.convertToHours(EmpresaApp.totalMinutos()));
         qntPremiosTotal.setText(String.valueOf(EmpresaApp.totalPremios()));
         qntHorasDia.setText(String.valueOf(EmpresaApp.totalMinutos(currentDate)));
         qntExerciciosDia.setText(String.valueOf(EmpresaApp.totalMinutos(currentDate)));

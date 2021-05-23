@@ -99,4 +99,8 @@ public class EmpresaApp {
         PremioDAO premioDAO = new PremioDAO();
         return premioDAO.listar().size();
     }
+
+    public static String convertToHours(Integer minutes) {
+        return String.valueOf(minutes / 60);
+    }
 }

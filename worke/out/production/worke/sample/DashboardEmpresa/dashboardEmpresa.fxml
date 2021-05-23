@@ -185,7 +185,7 @@
                               <Font size="26.0" />
                            </font>
                                 </Label>
-                                <Label prefHeight="26.0" prefWidth="46.0" style="-fx-font-family: Nunito;" text="TOTAL DE MINUTOS" textAlignment="CENTER" textFill="#0b1f38" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                <Label prefHeight="26.0" prefWidth="46.0" style="-fx-font-family: Nunito;" text="TOTAL DE HORAS" textAlignment="CENTER" textFill="#0b1f38" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="8.0" />
                                     </font>
@@ -334,7 +334,7 @@
                                     <Insets bottom="18.0" />
                                 </GridPane.margin>
                             </Label>
-                            <Label style="-fx-font-family: Nunito;" text="HORAS" textFill="#0b1f38" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                            <Label style="-fx-font-family: Nunito;" text="MINUTOS" textFill="#0b1f38" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                 <font>
                                     <Font name="System Bold" size="9.0" />
                                 </font>
