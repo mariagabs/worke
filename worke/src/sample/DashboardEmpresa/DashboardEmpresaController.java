@@ -147,6 +147,10 @@ public class DashboardEmpresaController implements Initializable {
 
     private static Integer[] usuarioIdArray;
 
+    private static Integer qtdUsuariosFezExercicio;
+
+    private static Integer qtdUsuariosNaoFezExercicio;
+
     private static Users funcionariosEmpresa;
     @FXML
     private Circle donut;
@@ -184,8 +188,6 @@ public class DashboardEmpresaController implements Initializable {
         final Chart chart = new Chart(pieChartData);
         chartEx.add(chart, 1,1);
 
-
-
         String Euro = "Meditação";
         String Pound = "Alongamento\nparte superior";
         String A_Dollar = "Sequência de flexões";
@@ -201,13 +203,13 @@ public class DashboardEmpresaController implements Initializable {
         barChart.getData().add(series);
         barChart.setLegendSide(Side.TOP);
 
-
-
         setDateTime();
         String currentDate = String.valueOf(LocalDate.now());
         usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
         usuarioIdNome = EmpresaApp.mapFuncionarioIdNome(usuariosEmpresa);
         usuarioIdArray = EmpresaApp.listarUsuariosEmpresa(usuariosEmpresa);
+        qtdUsuariosFezExercicio = EmpresaApp.usuariosFezExercicios(usuariosEmpresa);
+        qtdUsuariosNaoFezExercicio = usuariosEmpresa.keySet().size() - qtdUsuariosFezExercicio;
 
         qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
         qntExerciciosTotal.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(usuariosEmpresa)));

@@ -141,4 +141,14 @@ public class EmpresaApp {
         empresaDAO.alterar(Empresa.getInstance());
     }
 
+    public static Integer usuariosFezExercicios(LinkedHashMap<Integer, Integer> usuariosEmpresa) {
+        int qtd = 0;
+        for (Integer usuarioId : usuariosEmpresa.keySet()) {
+            if (usuariosEmpresa.get(usuarioId) != 0){
+                 qtd++;
+            }
+        }
+        return qtd;
+    }
+
 }

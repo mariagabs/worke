@@ -902,7 +902,7 @@ public class Dashboard implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-        if (func.getIntervaloExercicios().getHours() > 0 && func.getIntervaloExercicios().getMinutes() > 0) {
+        if (func.getIntervaloExercicios() != null && func.getIntervaloExercicios().getHours() > 0 && func.getIntervaloExercicios().getMinutes() > 0) {
             double minutos = func.getIntervaloExercicios().getMinutes();
             double horaTotal = func.getIntervaloExercicios().getHours() + (minutos > 0 ? (minutos / 60) : 0);
             NotificationApp.startTimerNotification(horaTotal);
