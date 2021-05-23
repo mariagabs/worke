@@ -140,6 +140,7 @@ public class DashboardEmpresaController implements Initializable {
 
     private static Integer[] usuarioIdArray;
 
+    private static Users funcionariosEmpresa;
     @FXML
     private Circle donut;
     @FXML
@@ -508,11 +509,13 @@ public class DashboardEmpresaController implements Initializable {
                         });
 
                         btnExcluir.setOnAction((ActionEvent event) -> {
-                            Users data = getTableView().getItems().get(getIndex());
+                            funcionariosEmpresa = getTableView().getItems().get(getIndex());
+                            try {
+                                confimacaoExclusaoUsuario("Atenção!", "Deseja realmente excluir o usuário?");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
 
-                            UsuarioDAO dao = new UsuarioDAO();
-                            dao.excluir(data.id.getValue().intValue());
-                            loadUsuarios(usuariosTable);
                         });
                     }
 
@@ -594,6 +597,30 @@ public class DashboardEmpresaController implements Initializable {
         table.setItems(users);
         table.refresh();
 
+    }
+
+    public void confimacaoExclusaoUsuario(String titulo, String mensagem) throws IOException {
+        Parent root;
+        FXMLLoader fxmlLoader = new FXMLLoader(EmpresaApp.class.getResource("/sample/PopUpDelete/PopUpDelete.fxml"));
+        root = fxmlLoader.load();
+        popUpDeleteController popUpController = fxmlLoader.getController();
+        popUpController.controllerEmpresa = this;
+        popUpController.titulo = titulo;
+        popUpController.mensagem = mensagem;
+        popUpController.initialize(null, null);
+        Stage dialog = new Stage();
+        dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
+        dialog.setScene(new Scene(root));
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.show();
+    }
+
+    public void confirmarCancelarUsuario(boolean ok) throws InterruptedException {
+        if (ok) {
+            UsuarioDAO dao = new UsuarioDAO();
+            dao.excluir(funcionariosEmpresa.id.getValue().intValue());
+            loadUsuarios(usuariosTable);
+        }
     }
 
     public static class Users{

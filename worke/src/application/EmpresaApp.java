@@ -65,10 +65,10 @@ public class EmpresaApp {
         return mapExercicioIdQuantidade(null);
     }
 
-
     public static Integer[] listarUsuariosEmpresa(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade) {
         return mapExercicioIdQuantidade.keySet().toArray(new Integer[mapExercicioIdQuantidade.keySet().size()]);
     }
+
     public static Integer[] listarUsuariosEmpresa() {
         LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade = mapExercicioIdQuantidade();
         return mapExercicioIdQuantidade.keySet().toArray(new Integer[mapExercicioIdQuantidade.keySet().size()]);
@@ -112,7 +112,6 @@ public class EmpresaApp {
         return totalMinutos(null);
     }
 
-
     public static Integer totalPremios() {
         PremioDAO premioDAO = new PremioDAO();
         return premioDAO.listar().size();
@@ -133,28 +132,13 @@ public class EmpresaApp {
         premioDAO.alterar(premio);
         finalizarPremioEmpresa();
     }
+
     public static void finalizarPremioEmpresa() {
         Empresa.getInstance().setNomePremio(null);
         Empresa.getInstance().setPremioId(null);
         Empresa.getInstance().setPossuiPremio(false);
         EmpresaDAO empresaDAO = new EmpresaDAO();
         empresaDAO.alterar(Empresa.getInstance());
-    }
-
-    public void confimacaoExclusaoUsuario() throws IOException {
-        Parent root;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/PopUpDelete/PopUpDelete.fxml"));
-        root = fxmlLoader.load();
-        popUpDeleteController popUpController = fxmlLoader.getController();
-//        popUpController.controller = this;
-        popUpController.titulo = "Atenção!";
-        popUpController.mensagem = "Deseja realmente excluir o usuário?";
-        popUpController.initialize(null, null);
-        Stage dialog = new Stage();
-        dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
-        dialog.setScene(new Scene(root));
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.show();
     }
 
 }

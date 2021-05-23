@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import sample.DashboardEmpresa.DashboardEmpresaController;
 import sample.DashboardFuncionario.Dashboard;
 
 import java.net.URL;
@@ -23,6 +24,7 @@ public class popUpDeleteController implements Initializable {
     private GridPane btnNao;
 
     public static Dashboard controller;
+    public static DashboardEmpresaController controllerEmpresa;
     public String titulo;
     public String mensagem;
 
@@ -37,29 +39,30 @@ public class popUpDeleteController implements Initializable {
         setLabels();
 
         btnSim.setOnMouseClicked((MouseEvent e) -> {
-
-            if(controller != null) {
-                try {
+            try {
+                if(controller != null) {
                     controller.confirmarCancelarExercicio(true);
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
+                } else if (controllerEmpresa != null) {
+                    controllerEmpresa.confirmarCancelarUsuario(true);
                 }
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
             }
-
             Stage stage = (Stage) btnSim.getScene().getWindow();
             stage.close();
         });
 
         btnNao.setOnMouseClicked((MouseEvent e) -> {
 
-            if(controller != null) {
-                try {
+            try {
+                if(controller != null) {
                     controller.confirmarCancelarExercicio(false);
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
+                } else if (controllerEmpresa != null) {
+                    controllerEmpresa.confirmarCancelarUsuario(false);
                 }
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
             }
-
             Stage stage = (Stage) btnNao.getScene().getWindow();
             stage.close();
         });
