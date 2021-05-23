@@ -4,6 +4,7 @@ import DAO.acesso.EmpresaDAO;
 import DAO.acesso.PremioDAO;
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
+import application.Chart;
 import application.EmpresaApp;
 import application.FuncionarioApp;
 import comuns.acesso.Empresa;
@@ -29,18 +30,23 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import org.controlsfx.control.spreadsheet.Grid;
 import sample.Main;
 import sample.PopUpCriarFuncionarios.PopUpCriarFuncionarioController;
 import sample.PopUpSucesso.popUpSucessoController;
@@ -135,6 +141,10 @@ public class DashboardEmpresaController implements Initializable {
     private static Integer[] usuarioIdArray;
 
     @FXML
+    private Circle donut;
+    @FXML
+    private GridPane chartEx;
+    @FXML
     public void setDateTime(){
 
         String pattern = "dd/MM/yyyy";
@@ -153,8 +163,22 @@ public class DashboardEmpresaController implements Initializable {
         clock.play();
     }
 
+    private ObservableList<PieChart.Data> createData() {
+        return FXCollections.observableArrayList(
+                new PieChart.Data("até 4", 50),
+                new PieChart.Data("Nenhum", 25),
+                new PieChart.Data("Todos", 25));
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        ObservableList<PieChart.Data> pieChartData = createData();
+
+        final Chart chart = new Chart(pieChartData);
+
+        chartEx.add(chart, 1,1);
+
 
         setDateTime();
         String currentDate = String.valueOf(LocalDate.now());
@@ -448,7 +472,6 @@ public class DashboardEmpresaController implements Initializable {
                 }
         );
     }
-
 
     private void loadConfig(){
         Empresa emp = Empresa.getInstance();

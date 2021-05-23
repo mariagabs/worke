@@ -227,68 +227,24 @@
                         </Label>
                             </children>
                         </GridPane>
-                        <GridPane layoutX="352.0" layoutY="138.0" prefHeight="304.0" prefWidth="388.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                        <GridPane fx:id="chartEx" layoutX="352.0" layoutY="138.0" prefHeight="304.0" prefWidth="388.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints maxHeight="88.0" minHeight="35.0" prefHeight="88.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="233.0" minHeight="10.0" prefHeight="178.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="84.0" minHeight="3.0" prefHeight="38.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="18.0" minHeight="18.0" prefHeight="18.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="88.0" minHeight="20.0" prefHeight="58.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="284.0" minHeight="10.0" prefHeight="226.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="262.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#a3d3e4" height="15.0" stroke="#a3d3e4" strokeType="INSIDE" width="15.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                                    <GridPane.margin>
-                                        <Insets bottom="24.0" left="50.0" top="24.0" />
-                                    </GridPane.margin>
-                                </Rectangle>
-                                <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#FFD46A" height="15.0" stroke="#FFD46A" strokeType="INSIDE" width="15.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                    <GridPane.margin>
-                                        <Insets bottom="24.0" left="34.0" top="24.0" />
-                                    </GridPane.margin>
-                                </Rectangle>
-                                <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#F5986D" height="15.0" stroke="#F5986D" strokeType="INSIDE" width="15.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                    <GridPane.margin>
-                                        <Insets bottom="24.0" left="20.0" top="24.0" />
-                                    </GridPane.margin>
-                                </Rectangle>
-                                <ImageView fitHeight="187.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                    <image>
-                                        <Image url="@../../resources/img/grafico.png" />
-                                    </image>
-                                </ImageView>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weigh: bold;" text="Quantidade de Exercícios" textFill="#071c35" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                <Label style="-fx-font-family: Nunito; -fx-font-weigh: bold;" text="Quantidade de Exercícios" textFill="#071c35" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
                                         <Font name="System Bold" size="22.0" />
                                     </font>
                                     <GridPane.margin>
-                                        <Insets top="29.0" />
-                                    </GridPane.margin>
-                                </Label>
-                                <Label style="-fx-font-family: Nunito;" text="por funcionário" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                                    <GridPane.margin>
-                                        <Insets top="41.0" />
-                                    </GridPane.margin>
-                                    <padding>
-                                        <Insets top="3.0" />
-                                    </padding>
-                                </Label>
-                                <Label style="-fx-font-family: Nunito;" text="até 4" textFill="#707070" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                                    <GridPane.margin>
-                                        <Insets left="46.0" />
-                                    </GridPane.margin>
-                                </Label>
-                                <Label style="-fx-font-family: Nunito;" text="todos" textFill="#707070" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                                    <GridPane.margin>
-                                        <Insets left="23.0" />
-                                    </GridPane.margin>
-                                </Label>
-                                <Label style="-fx-font-family: Nunito;" text="nenhum" textFill="#707070" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                                    <GridPane.margin>
-                                        <Insets left="4.0" />
+                                        <Insets />
                                     </GridPane.margin>
                                 </Label>
                             </children>
