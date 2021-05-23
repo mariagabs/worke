@@ -171,20 +171,9 @@ public class DashboardEmpresaController implements Initializable {
         clock.play();
     }
 
-    private ObservableList<PieChart.Data> createData() {
-        return FXCollections.observableArrayList(
-                new PieChart.Data("até 4", 50),
-                new PieChart.Data("Nenhum", 25),
-                new PieChart.Data("Todos", 25));
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<PieChart.Data> pieChartData = createData();
-        final Chart chart = new Chart(pieChartData);
-        chartEx.add(chart, 1,1);
-
-
+        chartEx.add(EmpresaApp.createChart(), 1,1);
 
         String Euro = "Meditação";
         String Pound = "Alongamento\nparte superior";

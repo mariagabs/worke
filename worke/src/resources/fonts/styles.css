@@ -92,7 +92,8 @@
 .data1.chart-bar  { -fx-bar-fill: #F5986D; }
 .data2.chart-bar  { -fx-bar-fill: #FFD46A; }
 .data3.chart-bar  { -fx-bar-fill: #A3D3E4; }
-
+.default-color0.chart-pie { -fx-pie-color: #A3D3E4; }
+.default-color1.chart-pie { -fx-pie-color: #F5986D; }
 
 #btnSalvarConfig:hover{
     -fx-font-size: 21;

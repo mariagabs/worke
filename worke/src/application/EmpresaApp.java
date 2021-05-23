@@ -8,9 +8,13 @@ import comuns.acesso.Empresa;
 import comuns.acesso.ExercicioEscolhido;
 import comuns.acesso.Premio;
 import comuns.acesso.Usuario;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -139,6 +143,25 @@ public class EmpresaApp {
         Empresa.getInstance().setPossuiPremio(false);
         EmpresaDAO empresaDAO = new EmpresaDAO();
         empresaDAO.alterar(Empresa.getInstance());
+    }
+
+    public static ObservableList<PieChart.Data> createData() {
+        return FXCollections.observableArrayList(
+                new PieChart.Data("realizaram", 50),
+                new PieChart.Data("não realizaram", 25));
+    }
+
+    public static Chart createChart(){
+        ObservableList<PieChart.Data> pieChartData = createData();
+        final Chart chart = new Chart(pieChartData);
+        pieChartData.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.pieValueProperty(), " funcionários ", data.getName()
+                        )
+                )
+        );
+        return chart;
     }
 
 }
