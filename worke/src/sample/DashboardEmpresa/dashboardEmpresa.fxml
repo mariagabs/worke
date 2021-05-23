@@ -227,7 +227,7 @@
                         </Label>
                             </children>
                         </GridPane>
-                        <GridPane layoutX="352.0" layoutY="138.0" prefHeight="304.0" prefWidth="388.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                        <GridPane layoutX="352.0" layoutY="138.0" prefHeight="304.0" prefWidth="388.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -473,7 +473,7 @@
                                 </Label>
                             </children>
                         </GridPane>
-                        <GridPane layoutX="352.0" layoutY="470.0" prefHeight="259.0" prefWidth="388.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                        <GridPane layoutX="352.0" layoutY="470.0" prefHeight="259.0" prefWidth="388.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0" minWidth="10.0" prefWidth="291.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.8" minWidth="10.0" prefWidth="97.80000000000001" />
@@ -605,6 +605,63 @@
                            </cursor></Button>
                             </children>
                         </GridPane>
+                  <Pane layoutX="352.0" layoutY="138.0" prefHeight="304.0" prefWidth="388.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                     <children>
+                        <Label layoutX="47.0" layoutY="116.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Nenhum dado disponível!" textFill="#071c35">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="36.0" layoutY="152.0" style="-fx-font-family: Nunito;" text="Incentive seus funcionários a realizarem exercícios." textFill="#071c35">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="352.0" layoutY="470.0" prefHeight="259.0" prefWidth="388.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                     <children>
+                        <Label layoutX="47.0" layoutY="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Nenhum dado disponível!" textFill="#071c35">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="36.0" layoutY="138.0" style="-fx-font-family: Nunito;" text="Incentive seus funcionários a realizarem exercícios." textFill="#071c35">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="772.0" layoutY="470.0" prefHeight="258.0" prefWidth="279.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                     <children>
+                        <ImageView fitHeight="170.0" fitWidth="343.0" layoutX="-31.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../resources/img/ellipse.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="109.0" fitWidth="109.0" layoutX="86.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../resources/img/gear.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="78.0" layoutY="135.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Configure!">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="28.0" layoutY="172.0" prefHeight="36.0" prefWidth="226.0" style="-fx-font-family: Nunito;" text="Configure seu sistema para liberar prêmios e frase motivacional para seu funcionário!" textAlignment="CENTER" textFill="#071c35" wrapText="true">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Pane layoutX="147.0" layoutY="212.0" prefHeight="32.0" prefWidth="113.0" style="-fx-background-color: #F7753D; -fx-background-radius: 20;">
+                           <children>
+                              <Label layoutX="24.0" layoutY="7.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="CONFIGURE" textFill="WHITE" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
                     </children>
                 </Pane>
                 <Pane fx:id="PremioPane" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">
@@ -1208,13 +1265,14 @@
                                 </Label>
                             </children>
                         </GridPane>
-                        <Button fx:id="btnSalvarConfig" layoutX="905.0" layoutY="695.0" mnemonicParsing="false" prefWidth="145.0" style="-fx-background-color: #ffd46a; -fx-background-radius: 30; -fx-font-family: Nunito; -fx-font-weight: Bold;" text="SALVAR" textFill="WHITE">
+                        <Button fx:id="btnSalvarConfig" layoutX="905.0" layoutY="695.0" maxHeight="45.0" maxWidth="145.0" minHeight="45.0" minWidth="145.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #ffd46a; -fx-background-radius: 30; -fx-font-family: Nunito; -fx-font-weight: Bold;" text="SALVAR" textFill="WHITE">
                             <font>
                                 <Font size="21.0" />
                             </font>
                         </Button>
                     </children>
                 </Pane>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </Pane>
     </children>
