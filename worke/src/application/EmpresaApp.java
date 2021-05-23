@@ -8,7 +8,16 @@ import comuns.acesso.Empresa;
 import comuns.acesso.ExercicioEscolhido;
 import comuns.acesso.Premio;
 import comuns.acesso.Usuario;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import sample.Main;
+import sample.PopUpDelete.popUpDeleteController;
 
+import java.io.IOException;
 import java.sql.Array;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -56,10 +65,10 @@ public class EmpresaApp {
         return mapExercicioIdQuantidade(null);
     }
 
-
     public static Integer[] listarUsuariosEmpresa(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade) {
         return mapExercicioIdQuantidade.keySet().toArray(new Integer[mapExercicioIdQuantidade.keySet().size()]);
     }
+
     public static Integer[] listarUsuariosEmpresa() {
         LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade = mapExercicioIdQuantidade();
         return mapExercicioIdQuantidade.keySet().toArray(new Integer[mapExercicioIdQuantidade.keySet().size()]);
@@ -67,6 +76,11 @@ public class EmpresaApp {
 
     public static Integer totalExerciciosTodosFuncionarios(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade){
         int sum = mapExercicioIdQuantidade.values().stream().reduce(0, Integer::sum);
+        return sum;
+    }
+
+    public static Integer totalExerciciosTodosFuncionarios(String dataHoje){
+        int sum = mapExercicioIdQuantidade(dataHoje).values().stream().reduce(0, Integer::sum);
         return sum;
     }
 
@@ -98,7 +112,6 @@ public class EmpresaApp {
         return totalMinutos(null);
     }
 
-
     public static Integer totalPremios() {
         PremioDAO premioDAO = new PremioDAO();
         return premioDAO.listar().size();
@@ -119,6 +132,7 @@ public class EmpresaApp {
         premioDAO.alterar(premio);
         finalizarPremioEmpresa();
     }
+
     public static void finalizarPremioEmpresa() {
         Empresa.getInstance().setNomePremio(null);
         Empresa.getInstance().setPremioId(null);

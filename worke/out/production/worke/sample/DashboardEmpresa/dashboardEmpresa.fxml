@@ -431,7 +431,7 @@
                                 </Label>
                             </children>
                         </GridPane>
-                        <GridPane layoutX="352.0" layoutY="470.0" prefHeight="259.0" prefWidth="388.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                        <GridPane layoutX="352.0" layoutY="470.0" prefHeight="259.0" prefWidth="388.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="322.0" />
                                 <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
