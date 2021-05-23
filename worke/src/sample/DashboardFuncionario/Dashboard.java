@@ -831,7 +831,7 @@ public class Dashboard implements Initializable {
             String currentDate = String.valueOf(LocalDate.now());
             String lastDate = String.valueOf(daoFunc.getLastDateDone());
 
-            if (lastDate.equals(null)) {
+            if (!lastDate.equals(null)) {
                 bloqExDoDia.setVisible(currentDate.equals(lastDate));
                 bloqParabens.setVisible(currentDate.equals(lastDate));
 
