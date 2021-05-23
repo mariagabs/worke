@@ -7,13 +7,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sample.DashboardEmpresa.DashboardEmpresaController;
+import sample.Main;
+import sample.PopUpSucesso.popUpSucessoController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -57,6 +63,7 @@ public class CriarSenhaController implements Initializable {
                         usuarioLogado.setSenha(novaSenha.getText());
                         try {
                             dao.alterar(usuarioLogado);
+                            DashboardEmpresaController.popUpSucessoMensagem("Senha alterada", "Sua senha foi alterada com sucesso!");
                         } catch (Exception ex){
                             ex.printStackTrace();
                         }

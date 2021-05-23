@@ -444,20 +444,7 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         try {
-                            Parent root;
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/PopUpSucesso/PopUpSucesso.fxml"));
-                            root = fxmlLoader.load();
-                            popUpSucessoController popUpController = fxmlLoader.getController();
-//                            popUpController.controller = this;
-                            popUpController.titulo = "Finalizado!";
-                            popUpController.mensagem = usuarioIdNome.get(usuarioIdArray[0]) + " venceu essa rodada. Parabéns!";
-                            popUpController.initialize(null, null);
-                            Stage dialog = new Stage();
-                            dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
-                            dialog.setScene(new Scene(root));
-                            dialog.initModality(Modality.APPLICATION_MODAL);
-                            dialog.show();
-
+                            popUpSucessoMensagem("Finalizado!", usuarioIdNome.get(usuarioIdArray[0]) + " venceu essa rodada. Parabéns!");
                             EmpresaApp.finalizarPremio(usuarioIdArray[0]);
                             premio.setText(null);
 
@@ -605,6 +592,21 @@ public class DashboardEmpresaController implements Initializable {
         root = fxmlLoader.load();
         popUpDeleteController popUpController = fxmlLoader.getController();
         popUpController.controllerEmpresa = this;
+        popUpController.titulo = titulo;
+        popUpController.mensagem = mensagem;
+        popUpController.initialize(null, null);
+        Stage dialog = new Stage();
+        dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
+        dialog.setScene(new Scene(root));
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.show();
+    }
+
+    public static void popUpSucessoMensagem(String titulo, String mensagem) throws IOException {
+        Parent root;
+        FXMLLoader fxmlLoader = new FXMLLoader(DashboardEmpresaController.class.getResource("/sample/PopUpSucesso/PopUpSucesso.fxml"));
+        root = fxmlLoader.load();
+        popUpSucessoController popUpController = fxmlLoader.getController();
         popUpController.titulo = titulo;
         popUpController.mensagem = mensagem;
         popUpController.initialize(null, null);
