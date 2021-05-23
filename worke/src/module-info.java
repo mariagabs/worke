@@ -3,7 +3,6 @@ module worke {
     requires javafx.controls;
     requires java.sql;
     requires javafx.graphics;
-    requires org.controlsfx.controls;
     requires TrayNotification;
 
     exports sample;
