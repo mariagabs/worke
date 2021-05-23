@@ -3,11 +3,14 @@ module worke {
     requires javafx.controls;
     requires java.sql;
     requires javafx.graphics;
+    requires org.controlsfx.controls;
+    requires TrayNotification;
 
     exports sample;
     exports mask;
 
-    opens sample to javafx.fxml;
+
+    opens sample to javafx.fxml, org.controlsfx.controls;
     opens sample.Login to javafx.fxml;
     opens sample.CriarSenha to javafx.fxml;
     opens sample.DashboardEmpresa to javafx.fxml, javafx.base;
