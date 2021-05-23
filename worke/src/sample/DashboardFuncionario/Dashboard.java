@@ -7,6 +7,7 @@ import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
 import application.EmpresaApp;
 import application.FuncionarioApp;
+import application.NotificationApp;
 import comuns.acesso.*;
 import comuns.conteudo.Exercicio;
 import javafx.animation.Animation;
@@ -901,6 +902,9 @@ public class Dashboard implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
+        if (func.getIntervaloExercicios().getHours() > 0) {
+            NotificationApp.startTimerNotification(func.getIntervaloExercicios().getHours());
+        }
         loadConfig();
 
         if (qntExerciciosDisponivel == 0) {
@@ -1159,6 +1163,11 @@ public class Dashboard implements Initializable {
                 }
 
                 daoFunc.alterarFuncionario(func);
+
+                double minutos = func.getIntervaloExercicios().getMinutes();
+                double horaTotal = func.getIntervaloExercicios().getHours() + (minutos > 0 ? (minutos / 60) : 0);
+
+                NotificationApp.startTimerNotification(horaTotal);
                 loadConfig();
                 try {
                     AuditoriaTest.getInstance().StartThread("Initialize");

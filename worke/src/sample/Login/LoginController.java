@@ -2,6 +2,7 @@ package sample.Login;
 
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
+import application.NotificationApp;
 import comuns.acesso.Usuario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sample.Main;
@@ -24,6 +26,11 @@ import sample.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import tray.animations.*;
+import org.controlsfx.control.Notifications;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 public class LoginController implements Initializable {
 
@@ -49,44 +56,35 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
-        //sair.setPickOnBounds(true);
-        //sair.setOnMouseClicked((MouseEvent e) -> {
-        //    Stage stage = (Stage) sair.getScene().getWindow();
-        //    stage.close();
-        //});
-
         entrar.setOnAction(entrarEvent);
 
         senha.setOnKeyPressed(keyEvent -> {
-            if(keyEvent.getEventType() == KeyEvent.KEY_PRESSED){
-                if(keyEvent.getCode().equals(KeyCode.ENTER)){
+            if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED) {
+                if (keyEvent.getCode().equals(KeyCode.ENTER)) {
                     entrar.fire();
                 }
             }
         });
-
     }
 
     EventHandler<ActionEvent> entrarEvent = new EventHandler<ActionEvent>() {
-        public void handle(ActionEvent e)
-        {
+        public void handle(ActionEvent e) {
             try {
                 AuditoriaTest.getInstance().StartThread("Login");
 
                 Usuario user = usuarioDAO.consultar(email.getText(), senha.getText());
 
-                if(user == null || user.getId() == 0){
+                if (user == null || user.getId() == 0) {
                     dadosIncorretos.setVisible(true);
-                }else{
+                } else {
                     dadosIncorretos.setVisible(false);
                     Scene scene;
 
-                    if(user.isAdmEmpresa()){
+                    if (user.isAdmEmpresa()) {
                         scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/DashboardEmpresa/dashboardEmpresa.fxml")));
-                    } else if(user.getSenha().equals("Trocar123*")){
+                    } else if (user.getSenha().equals("Trocar123*")) {
                         scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/CriarSenha/criarSenha.fxml")));
-                    }else{
+                    } else {
                         scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/DashboardFuncionario/dashboardFuncionario.fxml")));
                     }
 
@@ -109,7 +107,6 @@ public class LoginController implements Initializable {
             }
         }
     };
-
 
 
 }
