@@ -1104,6 +1104,7 @@ public class Dashboard implements Initializable {
         Logout.setPickOnBounds(true);
         Logout.setOnMouseClicked((MouseEvent e) -> {
             try {
+                NotificationApp.timeline.stop();
                 novosExerciciosEscolhidos.clear();
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml")));
                 Stage stage = new Stage();

@@ -7,6 +7,7 @@ import DAO.auditoria.AuditoriaTest;
 import application.Chart;
 import application.EmpresaApp;
 import application.FuncionarioApp;
+import application.NotificationApp;
 import comuns.acesso.Empresa;
 import comuns.acesso.Usuario;
 import comuns.acesso.Premio;
@@ -27,12 +28,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -46,7 +51,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import org.controlsfx.control.spreadsheet.Grid;
 import sample.Main;
 import sample.PopUpCriarFuncionarios.PopUpCriarFuncionarioController;
 import sample.PopUpSucesso.popUpSucessoController;
@@ -133,6 +137,8 @@ public class DashboardEmpresaController implements Initializable {
     private Label ranking2;
     @FXML
     private Label ranking3;
+    @FXML
+    private BarChart barChart;
 
     private static LinkedHashMap<Integer, Integer> usuariosEmpresa;
 
@@ -172,12 +178,27 @@ public class DashboardEmpresaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         ObservableList<PieChart.Data> pieChartData = createData();
-
         final Chart chart = new Chart(pieChartData);
-
         chartEx.add(chart, 1,1);
+
+
+
+        String Euro = "Meditação";
+        String Pound = "Alongamento\nparte superior";
+        String A_Dollar = "Sequência de flexões";
+        String frenc= "Polichinelo";
+
+        //Configuring Series for XY chart
+        XYChart.Series<String,Float> series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data(Euro,22));
+        series.getData().add(new XYChart.Data(Pound,13));
+        series.getData().add(new XYChart.Data(A_Dollar,15));
+        series.getData().add(new XYChart.Data(frenc,7));
+
+        barChart.getData().add(series);
+        barChart.setLegendSide(Side.TOP);
+
 
 
         setDateTime();
@@ -225,6 +246,9 @@ public class DashboardEmpresaController implements Initializable {
         logout.setPickOnBounds(true);
         logout.setOnMouseClicked((MouseEvent e) -> {
             try {
+
+                NotificationApp.timeline.stop();
+
                 Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml")));
 
                 Stage stage = new Stage();
