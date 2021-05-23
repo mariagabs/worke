@@ -151,7 +151,7 @@ public class EmpresaApp {
                 new PieChart.Data("não realizaram", 25));
     }
 
-    public static Chart createChart(){
+    public static Chart createChart() {
         ObservableList<PieChart.Data> pieChartData = createData();
         final Chart chart = new Chart(pieChartData);
         pieChartData.forEach(data ->
@@ -162,6 +162,7 @@ public class EmpresaApp {
                 )
         );
         return chart;
+    }
     public static Integer usuariosFezExercicios(LinkedHashMap<Integer, Integer> usuariosEmpresa) {
         int qtd = 0;
         for (Integer usuarioId : usuariosEmpresa.keySet()) {

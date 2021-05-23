@@ -147,9 +147,7 @@ public class DashboardEmpresaController implements Initializable {
 
     private static Integer[] usuarioIdArray;
 
-    private static Integer qtdUsuariosFezExercicio;
-
-    private static Integer qtdUsuariosNaoFezExercicio;
+    private static HashMap<Integer, Integer> exercicioIdQntFeita;
 
     private static Users funcionariosEmpresa;
     @FXML
@@ -199,8 +197,7 @@ public class DashboardEmpresaController implements Initializable {
         usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
         usuarioIdNome = EmpresaApp.mapFuncionarioIdNome(usuariosEmpresa);
         usuarioIdArray = EmpresaApp.listarUsuariosEmpresa(usuariosEmpresa);
-        qtdUsuariosFezExercicio = EmpresaApp.usuariosFezExercicios(usuariosEmpresa);
-        qtdUsuariosNaoFezExercicio = usuariosEmpresa.keySet().size() - qtdUsuariosFezExercicio;
+        exercicioIdQntFeita = EmpresaApp.mapExercicioIdQuantidade();
 
         qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
         qntExerciciosTotal.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(usuariosEmpresa)));
