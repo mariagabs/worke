@@ -13,10 +13,9 @@ import tray.notification.TrayNotification;
 
 public class NotificationApp {
 
-    public static Timeline timeline;
+    public static Timeline timeline = new Timeline();
 
     public static void startTimerNotification(double horas){
-        timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(
                 new KeyFrame(Duration.hours(horas),
