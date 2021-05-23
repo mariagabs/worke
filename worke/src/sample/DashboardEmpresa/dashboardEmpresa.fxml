@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.image.*?>
@@ -234,19 +235,20 @@
                         <ColumnConstraints />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints maxHeight="88.0" minHeight="20.0" prefHeight="58.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="284.0" minHeight="10.0" prefHeight="226.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="88.0" minHeight="20.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="284.0" minHeight="10.0" prefHeight="211.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="262.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label style="-fx-font-family: Nunito; -fx-font-weigh: bold;" text="Quantidade de Exercícios" textFill="#071c35" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <Label style="-fx-font-family: Nunito; -fx-font-weigh: bold;" text="Verificação de aceitação" textFill="#071c35" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
                                         <Font name="System Bold" size="22.0" />
                                     </font>
                                     <GridPane.margin>
-                                        <Insets />
+                                        <Insets bottom="15.0" />
                                     </GridPane.margin>
                                 </Label>
+                                <Label style="-fx-font-family: Nunito;" text="Verifique se seus funcionários estão realizando exercícios" GridPane.columnSpan="3" textFill="#0b1f38" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
                             </children>
                         </GridPane>
                         <GridPane layoutX="772.0" layoutY="138.0" prefHeight="304.0" prefWidth="279.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
@@ -429,40 +431,31 @@
                                 </Label>
                             </children>
                         </GridPane>
-                        <GridPane layoutX="352.0" layoutY="470.0" prefHeight="259.0" prefWidth="388.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
+                        <GridPane layoutX="352.0" layoutY="470.0" prefHeight="259.0" prefWidth="388.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.0" minWidth="10.0" prefWidth="291.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.8" minWidth="10.0" prefWidth="97.80000000000001" />
-                                <ColumnConstraints />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="322.0" />
+                                <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
-                            <ImageView fitHeight="173.0" fitWidth="327.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                <image>
-                                    <Image url="@../../resources/img/graficoLinha.png" />
-                                </image>
-                            </ImageView>
-                            <Label style="-fx-font-family: Nunito;" text="Quantidade de Exercícios" textFill="#071c35" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                            <Label style="-fx-font-family: Nunito;" text="Os 4 exercícios mais realizados" textFill="#071c35" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                 <font>
-                                    <Font name="System Bold" size="22.0" />
+                                    <Font name="System Bold" size="20.0" />
                                 </font>
                                 <GridPane.margin>
-                                    <Insets left="25.0" top="15.0" />
+                                    <Insets top="15.0" />
                                 </GridPane.margin>
                             </Label>
-                            <Label style="-fx-font-family: Nunito;" text="por tempo" textFill="#c7c7c7" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
-                                <GridPane.margin>
-                                    <Insets />
-                                </GridPane.margin>
-                                <padding>
-                                    <Insets top="3.0" />
-                                </padding>
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Label>
+                     <BarChart fx:id="barChart" alternativeRowFillVisible="false" animated="false" legendVisible="false" nodeOrientation="LEFT_TO_RIGHT" GridPane.rowIndex="1">
+                       <xAxis>
+                         <CategoryAxis side="BOTTOM" />
+                       </xAxis>
+                       <yAxis>
+                         <NumberAxis side="LEFT" />
+                       </yAxis>
+                     </BarChart>
                         </GridPane>
                         <GridPane layoutX="772.0" layoutY="470.0" prefHeight="258.0" prefWidth="279.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
                             <columnConstraints>
@@ -561,7 +554,7 @@
                            </cursor></Button>
                             </children>
                         </GridPane>
-                  <Pane layoutX="352.0" layoutY="138.0" prefHeight="304.0" prefWidth="388.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                  <Pane layoutX="352.0" layoutY="138.0" prefHeight="304.0" prefWidth="388.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
                      <children>
                         <Label layoutX="47.0" layoutY="116.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Nenhum dado disponível!" textFill="#071c35">
                            <font>
@@ -575,7 +568,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane layoutX="352.0" layoutY="470.0" prefHeight="259.0" prefWidth="388.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                  <Pane layoutX="352.0" layoutY="470.0" prefHeight="259.0" prefWidth="388.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
                      <children>
                         <Label layoutX="47.0" layoutY="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Nenhum dado disponível!" textFill="#071c35">
                            <font>
@@ -611,7 +604,7 @@
                               <Font size="11.0" />
                            </font>
                         </Label>
-                        <Pane layoutX="147.0" layoutY="212.0" prefHeight="32.0" prefWidth="113.0" style="-fx-background-color: #F7753D; -fx-background-radius: 20;">
+                        <Pane layoutX="147.0" layoutY="212.0" prefHeight="32.0" prefWidth="113.0" style="-fx-background-color: #a3d3e4; -fx-background-radius: 20;">
                            <children>
                               <Label layoutX="24.0" layoutY="7.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="CONFIGURE" textFill="WHITE" />
                            </children>
