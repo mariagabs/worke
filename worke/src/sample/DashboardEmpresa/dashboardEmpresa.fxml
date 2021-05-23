@@ -217,6 +217,14 @@
                                         <Insets right="15.0" top="10.0" />
                                     </GridPane.margin>
                                 </Label>
+                        <Label style="-fx-font-family: Nunito;" text="(aprox)" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="63.0" top="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
                             </children>
                         </GridPane>
                         <GridPane layoutX="352.0" layoutY="138.0" prefHeight="304.0" prefWidth="388.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
