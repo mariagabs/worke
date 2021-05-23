@@ -9,6 +9,8 @@ import comuns.acesso.ExercicioEscolhido;
 import comuns.acesso.Premio;
 import comuns.acesso.Usuario;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -122,7 +124,8 @@ public class EmpresaApp {
     }
 
     public static String convertToHours(Integer minutes) {
-        return String.valueOf(minutes / 60);
+        double resultado = (double) minutes / 60;
+        return String.valueOf(resultado);
     }
 
     public static void finalizarPremio(Integer usuarioId) {
@@ -145,23 +148,39 @@ public class EmpresaApp {
         empresaDAO.alterar(Empresa.getInstance());
     }
 
-    public static ObservableList<PieChart.Data> createData() {
-        return FXCollections.observableArrayList(
-                new PieChart.Data("realizaram", 50),
-                new PieChart.Data("não realizaram", 25));
+    public static boolean existsDataChartVerificacao(){
+        LinkedHashMap<Integer, Integer> usuariosEmpresa = mapExercicioIdQuantidade();
+        int qtdUsuariosFezExercicio = EmpresaApp.usuariosFezExercicios(usuariosEmpresa);
+        int qtdUsuariosNaoFezExercicio = usuariosEmpresa.keySet().size() - qtdUsuariosFezExercicio;
+
+        return (qtdUsuariosFezExercicio > 0 && qtdUsuariosNaoFezExercicio > 0);
     }
 
-    public static Chart createChart(){
+    public static ObservableList<PieChart.Data> createData() {
+
+        LinkedHashMap<Integer, Integer> usuariosEmpresa = mapExercicioIdQuantidade();
+        int qtdUsuariosFezExercicio = EmpresaApp.usuariosFezExercicios(usuariosEmpresa);
+        int qtdUsuariosNaoFezExercicio = usuariosEmpresa.keySet().size() - qtdUsuariosFezExercicio;
+
+        return FXCollections.observableArrayList(
+                new PieChart.Data("realizaram", qtdUsuariosFezExercicio),
+                new PieChart.Data("não realizaram", qtdUsuariosNaoFezExercicio));
+    }
+
+    public static Chart createChart() {
         ObservableList<PieChart.Data> pieChartData = createData();
         final Chart chart = new Chart(pieChartData);
         pieChartData.forEach(data ->
                 data.nameProperty().bind(
                         Bindings.concat(
-                                data.pieValueProperty(), " funcionários ", data.getName()
+                                data.pieValueProperty().intValue(), " funcionários ", data.getName()
                         )
                 )
         );
+        chart.setLabelsVisible(false);
         return chart;
+    }
+
     public static Integer usuariosFezExercicios(LinkedHashMap<Integer, Integer> usuariosEmpresa) {
         int qtd = 0;
         for (Integer usuarioId : usuariosEmpresa.keySet()) {
