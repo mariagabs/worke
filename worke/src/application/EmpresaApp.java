@@ -151,4 +151,21 @@ public class EmpresaApp {
         return qtd;
     }
 
+    public static HashMap<Integer, Integer> calcTotalExerciciosExEscolhido() {
+        HashMap<Integer, Integer> mapFuncionarioIdQnt = new HashMap<Integer, Integer>();
+        UsuarioDAO dao = new UsuarioDAO();
+        List<Usuario> funcionarioList = dao.listar();
+        for (Usuario usuario : funcionarioList){
+            HashMap<Integer, Integer> calcTotalExerciciosPorExEscolhido = FuncionarioApp.calcTotalExerciciosPorExEscolhido(usuario.getId());
+            for (Integer exId : calcTotalExerciciosPorExEscolhido.keySet()) {
+                if (!mapFuncionarioIdQnt.containsKey(exId)){
+                    mapFuncionarioIdQnt.put(exId, 0);
+                }
+                int qtd = calcTotalExerciciosPorExEscolhido.get(exId) + mapFuncionarioIdQnt.get(exId);
+                mapFuncionarioIdQnt.put(exId, qtd);
+            }
+        }
+        return mapFuncionarioIdQnt;
+    }
+
 }
