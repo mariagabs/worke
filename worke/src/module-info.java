@@ -9,7 +9,7 @@ module worke {
     exports mask;
 
 
-    opens sample to javafx.fxml, org.controlsfx.controls;
+    opens sample to javafx.fxml;
     opens sample.Login to javafx.fxml;
     opens sample.CriarSenha to javafx.fxml;
     opens sample.DashboardEmpresa to javafx.fxml, javafx.base;
