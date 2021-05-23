@@ -62,26 +62,7 @@ public class FuncionarioApp {
 
     public static Integer calcTotalExercicios(Integer usuarioId, ArrayList<Integer> exerciciosRealizadosChaves, LinkedHashMap<Integer, Integer> reverseSortedMap, String dataHoje) {
 
-        HashMap<Integer, Integer> mapExercicioIdQnt = new HashMap<Integer, Integer>();
-        HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = mapExercicioIdExEscolhido(usuarioId);
-
-        for (Integer i = 1; i <= 17; i++) {
-            if (mapExercicioId.containsKey(i)) {
-                Integer qtd = 0;
-                for (ExercicioEscolhido exercicioEscolhido : mapExercicioId.get(i)) {
-                    if (dataHoje == null){
-                        qtd += exercicioEscolhido.getQntRealizado();
-                        mapExercicioIdQnt.put(i, qtd);
-                    } else {
-                        if (String.valueOf(exercicioEscolhido.getDataExecucao()).equals(dataHoje)){
-                            qtd += exercicioEscolhido.getQntRealizado();
-                            mapExercicioIdQnt.put(i, qtd);
-                        }
-                    }
-                }
-            }
-        }
-        LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = sortHashMapByValues(mapExercicioIdQnt);
+        LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = sortHashMapByValues(calcTotalExerciciosPorExEscolhido(usuarioId, dataHoje));
 
         //Use Comparator.reverseOrder() for reverse ordering
         mapExercicioQtdOrdenado.entrySet()
@@ -104,7 +85,34 @@ public class FuncionarioApp {
         return calcTotalExercicios(usuarioId,exerciciosRealizadosChaves,reverseSortedMap,null);
     }
 
-    public static Integer calcDuracaoTotal(Integer usuarioId, ArrayList<Integer> exerciciosRealizadosChaves, LinkedHashMap<Integer, Integer> reverseSortedMap, String dataHoje) {
+    public static HashMap<Integer, Integer> calcTotalExerciciosPorExEscolhido(Integer usuarioId, String dataHoje) {
+        HashMap<Integer, Integer> mapExercicioIdQnt = new HashMap<Integer, Integer>();
+        HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = mapExercicioIdExEscolhido(usuarioId);
+
+        for (Integer i = 1; i <= 17; i++) {
+            if (mapExercicioId.containsKey(i)) {
+                Integer qtd = 0;
+                for (ExercicioEscolhido exercicioEscolhido : mapExercicioId.get(i)) {
+                    if (dataHoje == null){
+                        qtd += exercicioEscolhido.getQntRealizado();
+                        mapExercicioIdQnt.put(i, qtd);
+                    } else {
+                        if (String.valueOf(exercicioEscolhido.getDataExecucao()).equals(dataHoje)){
+                            qtd += exercicioEscolhido.getQntRealizado();
+                            mapExercicioIdQnt.put(i, qtd);
+                        }
+                    }
+                }
+            }
+        }
+        return mapExercicioIdQnt;
+    }
+
+    public static HashMap<Integer, Integer> calcTotalExerciciosPorExEscolhido(Integer usuarioId) {
+        return calcTotalExerciciosPorExEscolhido(usuarioId, null);
+    }
+
+        public static Integer calcDuracaoTotal(Integer usuarioId, ArrayList<Integer> exerciciosRealizadosChaves, LinkedHashMap<Integer, Integer> reverseSortedMap, String dataHoje) {
         HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = mapExercicioIdExEscolhido(usuarioId);
 
         Integer qtd = 0;
