@@ -459,12 +459,14 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         try {
-                            popUpSucessoMensagem("Finalizado!", usuarioIdNome.get(usuarioIdArray[0]) + " venceu essa rodada. Parabéns!");
-                            EmpresaApp.finalizarPremio(usuarioIdArray[0]);
-                            premio.setText(null);
+                            if (Empresa.getInstance().getNomePremio() == null || Empresa.getInstance().getNomePremio().equals("")){
+                                popUpSucessoMensagem("Finalizado!", usuarioIdNome.get(usuarioIdArray[0]) + " venceu essa rodada. Parabéns!");
+                                EmpresaApp.finalizarPremio(usuarioIdArray[0]);
+                                premio.setText(null);
 
-                            AuditoriaTest auditoria = new AuditoriaTest();
-                            auditoria.StartThread("Finalize prize");
+                                AuditoriaTest auditoria = new AuditoriaTest();
+                                auditoria.StartThread("Finalize prize");
+                            }
 
                         } catch (InterruptedException | IOException e) {
                             e.printStackTrace();
