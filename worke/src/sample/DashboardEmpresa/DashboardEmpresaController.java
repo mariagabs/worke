@@ -161,6 +161,8 @@ public class DashboardEmpresaController implements Initializable {
     private Circle donut;
     @FXML
     private GridPane chartEx;
+    @FXML
+    private Pane semRanking;
 
     @FXML
     public void setDateTime() {
@@ -181,13 +183,46 @@ public class DashboardEmpresaController implements Initializable {
         clock.play();
     }
 
+    private void setRanking(){
+        usuarioIdNome = EmpresaApp.mapFuncionarioIdNome(usuariosEmpresa);
+        usuarioIdArray = EmpresaApp.listarUsuariosEmpresa(usuariosEmpresa);
+
+        semRanking.setVisible(usuarioIdArray.length == 0);
+        if(usuarioIdArray.length > 0) {
+            int aux = 0;
+            for (Node node : rankingPane.getChildren()) {
+                if (aux == usuarioIdArray.length) break;
+                if (node instanceof Pane) {
+
+                    node.setVisible(true);
+
+                    for (Node component : ((Pane) node).getChildren()) {
+
+                        if (component instanceof Label) {
+
+                            if (component.getId().contains("ranking")) {
+                                ((Label) component).setText(usuarioIdNome.get(usuarioIdArray[aux]));
+                                aux++;
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
         vazioVerificacao.setVisible(!EmpresaApp.existsDataChartVerificacao());
         if (EmpresaApp.existsDataChartVerificacao()) {
             chartEx.add(EmpresaApp.createChart(), 1, 1);
         }
+
 
         String Euro = "Meditação";
         String Pound = "Alongamento\nparte superior";
@@ -209,6 +244,7 @@ public class DashboardEmpresaController implements Initializable {
         usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
         usuarioIdNome = EmpresaApp.mapFuncionarioIdNome(usuariosEmpresa);
         usuarioIdArray = EmpresaApp.listarUsuariosEmpresa(usuariosEmpresa);
+        setRanking();
         exercicioIdQntFeita = EmpresaApp.calcTotalExerciciosExEscolhido();
 
         qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
@@ -217,11 +253,6 @@ public class DashboardEmpresaController implements Initializable {
         qntPremiosTotal.setText(String.valueOf(EmpresaApp.totalPremios()));
         qntHorasDia.setText(String.valueOf(EmpresaApp.totalMinutos(currentDate)));
         qntExerciciosDia.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(currentDate)));
-
-        // fazer foreach pra verificar se tem ou não 3 usuarios pro ranking
-        ranking1.setText(String.valueOf(usuarioIdNome.get(usuarioIdArray[0])));
-        ranking2.setText(String.valueOf(usuarioIdNome.get(usuarioIdArray[1])));
-        ranking3.setText(String.valueOf(usuarioIdNome.get(usuarioIdArray[2])));
 
         loadUsuarios(usuariosTable);
         fraseMotivacional.setTextFormatter(new TextFormatter<String>(change ->
