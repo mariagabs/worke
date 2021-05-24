@@ -101,3 +101,7 @@
     height: 45;
     weight: 145;
 }
+
+.chart-legend-item {
+    -fx-alignment: center;
+}

@@ -16,6 +16,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -61,6 +63,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -223,27 +226,17 @@ public class DashboardEmpresaController implements Initializable {
             chartEx.add(EmpresaApp.createChart(), 1, 1);
         }
 
+        vazioMaisRealizados.setVisible(EmpresaApp.calcTotalExerciciosExEscolhido().size() == 0);
+        if(EmpresaApp.calcTotalExerciciosExEscolhido().size() > 0){
+            barChart.getData().add(EmpresaApp.createBarChart());
+            barChart.setLegendSide(Side.TOP);
+        }
 
-        String Euro = "Meditação";
-        String Pound = "Alongamento\nparte superior";
-        String A_Dollar = "Sequência de flexões";
-        String frenc = "Polichinelo";
 
-        //Configuring Series for XY chart
-        XYChart.Series<String, Float> series = new XYChart.Series<>();
-        series.getData().add(new XYChart.Data(Euro, 22));
-        series.getData().add(new XYChart.Data(Pound, 13));
-        series.getData().add(new XYChart.Data(A_Dollar, 15));
-        series.getData().add(new XYChart.Data(frenc, 7));
-
-        barChart.getData().add(series);
-        barChart.setLegendSide(Side.TOP);
 
         setDateTime();
         String currentDate = String.valueOf(LocalDate.now());
         usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
-        usuarioIdNome = EmpresaApp.mapFuncionarioIdNome(usuariosEmpresa);
-        usuarioIdArray = EmpresaApp.listarUsuariosEmpresa(usuariosEmpresa);
         setRanking();
         exercicioIdQntFeita = EmpresaApp.calcTotalExerciciosExEscolhido();
 

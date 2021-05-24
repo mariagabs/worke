@@ -8,6 +8,7 @@ import comuns.acesso.Empresa;
 import comuns.acesso.ExercicioEscolhido;
 import comuns.acesso.Premio;
 import comuns.acesso.Usuario;
+import comuns.conteudo.Exercicio;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -17,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -28,6 +30,7 @@ import java.sql.Array;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class EmpresaApp {
 
@@ -38,7 +41,7 @@ public class EmpresaApp {
         ArrayList<Integer> exerciciosRealizadosChaves = new ArrayList<>();
         LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
         for (Usuario funcionario : funcionarioList) {
-            if (dataHoje == null){
+            if (dataHoje == null) {
                 mapFuncionarioIdQnt.put(funcionario.getId(), FuncionarioApp.calcTotalExercicios(funcionario.getId(), exerciciosRealizadosChaves, reverseSortedMap));
             } else {
                 mapFuncionarioIdQnt.put(funcionario.getId(), FuncionarioApp.calcTotalExercicios(funcionario.getId(), exerciciosRealizadosChaves, reverseSortedMap, dataHoje));
@@ -56,11 +59,11 @@ public class EmpresaApp {
         return mapExercicioQtd;
     }
 
-    public static HashMap<Integer, String> mapFuncionarioIdNome(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade){
+    public static HashMap<Integer, String> mapFuncionarioIdNome(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade) {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         HashMap<Integer, String> mapFuncNome = new HashMap<>();
         for (Usuario usuario : usuarioDAO.listar()) {
-            if (mapExercicioIdQuantidade.containsKey(usuario.getId())){
+            if (mapExercicioIdQuantidade.containsKey(usuario.getId())) {
                 mapFuncNome.put(usuario.getId(), usuario.getNome());
             }
         }
@@ -80,21 +83,21 @@ public class EmpresaApp {
         return mapExercicioIdQuantidade.keySet().toArray(new Integer[mapExercicioIdQuantidade.keySet().size()]);
     }
 
-    public static Integer totalExerciciosTodosFuncionarios(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade){
+    public static Integer totalExerciciosTodosFuncionarios(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade) {
         int sum = mapExercicioIdQuantidade.values().stream().reduce(0, Integer::sum);
         return sum;
     }
 
-    public static Integer totalExerciciosTodosFuncionarios(String dataHoje){
+    public static Integer totalExerciciosTodosFuncionarios(String dataHoje) {
         int sum = mapExercicioIdQuantidade(dataHoje).values().stream().reduce(0, Integer::sum);
         return sum;
     }
 
-    public static Integer totalFuncionarios(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade){
+    public static Integer totalFuncionarios(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade) {
         return listarUsuariosEmpresa(mapExercicioIdQuantidade).length;
     }
 
-    public static Integer totalMinutos(String dataHoje){
+    public static Integer totalMinutos(String dataHoje) {
 
         UsuarioDAO dao = new UsuarioDAO();
         List<Usuario> funcionarioList = dao.listar();
@@ -102,7 +105,7 @@ public class EmpresaApp {
         ArrayList<Integer> exerciciosRealizadosChaves = new ArrayList<>();
         LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
         for (Usuario funcionario : funcionarioList) {
-            if (dataHoje == null){
+            if (dataHoje == null) {
                 mapFuncionarioIdQnt.put(funcionario.getId(), FuncionarioApp.calcDuracaoTotal(funcionario.getId(), exerciciosRealizadosChaves, reverseSortedMap));
             } else {
                 mapFuncionarioIdQnt.put(funcionario.getId(), FuncionarioApp.calcDuracaoTotal(funcionario.getId(), exerciciosRealizadosChaves, reverseSortedMap, dataHoje));
@@ -114,7 +117,7 @@ public class EmpresaApp {
         return sum;
     }
 
-    public static Integer totalMinutos(){
+    public static Integer totalMinutos() {
         return totalMinutos(null);
     }
 
@@ -148,7 +151,7 @@ public class EmpresaApp {
         empresaDAO.alterar(Empresa.getInstance());
     }
 
-    public static boolean existsDataChartVerificacao(){
+    public static boolean existsDataChartVerificacao() {
         LinkedHashMap<Integer, Integer> usuariosEmpresa = mapExercicioIdQuantidade();
         int qtdUsuariosFezExercicio = EmpresaApp.usuariosFezExercicios(usuariosEmpresa);
         int qtdUsuariosNaoFezExercicio = usuariosEmpresa.keySet().size() - qtdUsuariosFezExercicio;
@@ -181,11 +184,38 @@ public class EmpresaApp {
         return chart;
     }
 
+    public static XYChart.Series createBarChart() {
+        ExercicioDAO exercicioDAO = new ExercicioDAO();
+        List<Exercicio> exercicioList = exercicioDAO.listar();
+        HashMap<Integer, Integer> exercicioIdQntFeita = EmpresaApp.calcTotalExerciciosExEscolhido();
+        XYChart.Series<String, Float> series = new XYChart.Series<>();
+        int aux = 0;
+        int qntMax = exercicioIdQntFeita.size() > 4 ? 4 : exercicioIdQntFeita.size();
+        for (Integer id : exercicioIdQntFeita.keySet()) {
+            if (aux == qntMax) break;
+
+            Optional<Exercicio> exercicio = exercicioList.stream().filter(ex -> ex.getId() == id).findFirst();
+            String nome = exercicio.get().getNome();
+
+            if (nome.split(" ")[0].length() >= 10) {
+                int qnt = nome.split(" ")[0].length();
+                nome = nome.split(" ")[0].trim() + "\n" + nome.substring(qnt, nome.length()).trim();
+            }
+
+            Integer qnt = exercicioIdQntFeita.get(id);
+
+            series.getData().add(new XYChart.Data(nome, qnt));
+            aux++;
+        }
+
+        return series;
+    }
+
     public static Integer usuariosFezExercicios(LinkedHashMap<Integer, Integer> usuariosEmpresa) {
         int qtd = 0;
         for (Integer usuarioId : usuariosEmpresa.keySet()) {
-            if (usuariosEmpresa.get(usuarioId) != 0){
-                 qtd++;
+            if (usuariosEmpresa.get(usuarioId) != 0) {
+                qtd++;
             }
         }
         return qtd;
@@ -195,10 +225,10 @@ public class EmpresaApp {
         HashMap<Integer, Integer> mapFuncionarioIdQnt = new HashMap<Integer, Integer>();
         UsuarioDAO dao = new UsuarioDAO();
         List<Usuario> funcionarioList = dao.listar();
-        for (Usuario usuario : funcionarioList){
+        for (Usuario usuario : funcionarioList) {
             HashMap<Integer, Integer> calcTotalExerciciosPorExEscolhido = FuncionarioApp.calcTotalExerciciosPorExEscolhido(usuario.getId());
             for (Integer exId : calcTotalExerciciosPorExEscolhido.keySet()) {
-                if (!mapFuncionarioIdQnt.containsKey(exId)){
+                if (!mapFuncionarioIdQnt.containsKey(exId)) {
                     mapFuncionarioIdQnt.put(exId, 0);
                 }
                 int qtd = calcTotalExerciciosPorExEscolhido.get(exId) + mapFuncionarioIdQnt.get(exId);
