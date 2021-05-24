@@ -217,7 +217,7 @@ public class DashboardEmpresaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        setRanking();
+
         vazioVerificacao.setVisible(!EmpresaApp.existsDataChartVerificacao());
         if (EmpresaApp.existsDataChartVerificacao()) {
             chartEx.add(EmpresaApp.createChart(), 1, 1);
@@ -242,7 +242,7 @@ public class DashboardEmpresaController implements Initializable {
         setDateTime();
         String currentDate = String.valueOf(LocalDate.now());
         usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
-
+        setRanking();
         exercicioIdQntFeita = EmpresaApp.calcTotalExerciciosExEscolhido();
 
         qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
