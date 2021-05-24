@@ -67,4 +67,37 @@ public class EmpresaDAO implements AbstractDAO<Empresa> {
         return null;
     }
 
+
+    public ArrayList<Usuario> listarFuncionarios() {
+        ArrayList<Usuario> usuarioLista = new ArrayList<>();
+        String sql = "SELECT * FROM Usuario WHERE AdmEmpresa = 0";
+
+        try {
+            if (this.connection.connection()) {
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+                ResultSet rs = sentenca.executeQuery();
+
+                if (rs != null) {
+                    while (rs.next()) {
+
+                        Usuario usuario = new Usuario();
+                        usuario.setId(rs.getInt("Id"));
+                        usuario.setNome(rs.getString("Nome"));
+                        usuarioLista.add(usuario);
+                    }
+                }
+
+                sentenca.close();
+                this.connection.getConnection().close();
+
+                return usuarioLista;
+            }
+
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return null;
+    }
+
 }

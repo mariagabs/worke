@@ -23,7 +23,7 @@ public class PremioDAO implements AbstractDAO<Premio> {
 
     public Integer inserirPremio(String premio) {
 
-        String sql = "INSERT INTO Premio (Descricao) VALUES (?)";
+        String sql = "INSERT INTO Premio (Descricao, Finalizado) VALUES (?,0)";
 
         int premioId = 0;
 

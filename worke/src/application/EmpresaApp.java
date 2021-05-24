@@ -205,7 +205,14 @@ public class EmpresaApp {
                 mapFuncionarioIdQnt.put(exId, qtd);
             }
         }
-        return mapFuncionarioIdQnt;
+        LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = FuncionarioApp.sortHashMapByValues(mapFuncionarioIdQnt);
+        LinkedHashMap<Integer, Integer> mapExercicioQtd = new LinkedHashMap<>();
+
+        mapExercicioQtdOrdenado.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> mapExercicioQtd.put(x.getKey(), x.getValue()));
+        return mapExercicioQtd;
     }
 
 }

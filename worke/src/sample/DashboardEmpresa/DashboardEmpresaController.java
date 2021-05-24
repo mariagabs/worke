@@ -209,7 +209,7 @@ public class DashboardEmpresaController implements Initializable {
         usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
         usuarioIdNome = EmpresaApp.mapFuncionarioIdNome(usuariosEmpresa);
         usuarioIdArray = EmpresaApp.listarUsuariosEmpresa(usuariosEmpresa);
-        exercicioIdQntFeita = EmpresaApp.mapExercicioIdQuantidade();
+        exercicioIdQntFeita = EmpresaApp.calcTotalExerciciosExEscolhido();
 
         qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
         qntExerciciosTotal.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(usuariosEmpresa)));
@@ -320,6 +320,7 @@ public class DashboardEmpresaController implements Initializable {
         home.setPickOnBounds(true);
         home.setOnMouseClicked((MouseEvent e) -> {
             try {
+                qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
                 AuditoriaTest.getInstance().StartThread("Home");
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
@@ -471,11 +472,12 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         try {
-                            if (Empresa.getInstance().getNomePremio() == null || Empresa.getInstance().getNomePremio().equals("")){
+                            if (Empresa.getInstance().getNomePremio() != null && !Empresa.getInstance().getNomePremio().equals("")){
                                 popUpSucessoMensagem("Finalizado!", usuarioIdNome.get(usuarioIdArray[0]) + " venceu essa rodada. Parabéns!");
                                 EmpresaApp.finalizarPremio(usuarioIdArray[0]);
                                 premio.setText(null);
 
+                                qntPremiosTotal.setText(String.valueOf(EmpresaApp.totalPremios()));
                                 AuditoriaTest auditoria = new AuditoriaTest();
                                 auditoria.StartThread("Finalize prize");
                             }
