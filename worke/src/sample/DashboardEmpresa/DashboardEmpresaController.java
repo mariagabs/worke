@@ -122,7 +122,7 @@ public class DashboardEmpresaController implements Initializable {
     @FXML
     private CheckBox naoPossuiPremio;
     @FXML
-    private Label qntFuncionariosTotal;
+    public Label qntFuncionariosTotal;
     @FXML
     private Label qntExerciciosTotal;
     @FXML
@@ -247,7 +247,8 @@ public class DashboardEmpresaController implements Initializable {
         setRanking();
         exercicioIdQntFeita = EmpresaApp.calcTotalExerciciosExEscolhido();
 
-        qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
+        EmpresaDAO empresaDAO = new EmpresaDAO();
+        qntFuncionariosTotal.setText(String.valueOf(empresaDAO.listarFuncionarios().size()));
         qntExerciciosTotal.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(usuariosEmpresa)));
         qntMinutosTotal.setText(EmpresaApp.convertToHours(EmpresaApp.totalMinutos()));
         qntPremiosTotal.setText(String.valueOf(EmpresaApp.totalPremios()));
@@ -682,7 +683,9 @@ public class DashboardEmpresaController implements Initializable {
     public void confirmarCancelarUsuario(boolean ok) throws InterruptedException {
         if (ok) {
             UsuarioDAO dao = new UsuarioDAO();
+            EmpresaDAO empresaDAO = new EmpresaDAO();
             dao.excluir(funcionariosEmpresa.id.getValue().intValue());
+            qntFuncionariosTotal.setText(String.valueOf(empresaDAO.listarFuncionarios().size()));
             loadUsuarios(usuariosTable);
         }
     }
