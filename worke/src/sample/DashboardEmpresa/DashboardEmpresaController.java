@@ -407,7 +407,6 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
 
-                        UsuarioDAO dao = new UsuarioDAO();
                         Empresa emp = Empresa.getInstance();
                         EmpresaDAO empDAO = new EmpresaDAO();
                         PremioDAO premioDAO = new PremioDAO();
@@ -415,16 +414,16 @@ public class DashboardEmpresaController implements Initializable {
                         emp.setFraseMotivacional(fraseMotivacional.getText() == null ? "" : fraseMotivacional.getText());
                         emp.setPossuiPremio(!naoPossuiPremio.isSelected());
 
-                        /*if(possuiPremio.isSelected()){
-                            emp.setPremioId(0);
-                        }*/
+                        if(naoPossuiPremio.isSelected()){
+                            emp.setPremioId(null);
+                        }
 
                         if (!naoPossuiPremio.isSelected() && premio.getText().length() > 0) {
                             emp.setNomePremio(premio.getText());
                             emp.setPremioId(premioDAO.inserirPremio(premio.getText()));
                             emp.setPossuiPremio(true);
                         }
-                        dao.alterarEmpresa(emp);
+                        empDAO.alterar(emp);
 
                         UserPane.setVisible(false);
                         PremioPane.setVisible(false);
@@ -497,7 +496,7 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         try {
-                            if (Empresa.getInstance().getNomePremio() != null && !Empresa.getInstance().getNomePremio().equals("")){
+                            if (Empresa.getInstance().isPossuiPremio()){
                                 popUpSucessoMensagem("Finalizado!", usuarioIdNome.get(usuarioIdArray[0]) + " venceu essa rodada. Parabéns!");
                                 EmpresaApp.finalizarPremio(usuarioIdArray[0]);
                                 premio.setText(null);

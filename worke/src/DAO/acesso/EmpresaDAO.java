@@ -26,7 +26,7 @@ public class EmpresaDAO implements AbstractDAO<Empresa> {
 
     @Override
     public void alterar(Empresa objt) {
-        String sql = "UPDATE Usuario SET PossuiPremio = ?, PremioId = ? WHERE Id = ?";
+        String sql = "UPDATE Usuario SET PossuiPremio = ?, FraseMotivacional = ?, PremioId = ? WHERE Id = ?";
 
         try {
 
@@ -34,12 +34,13 @@ public class EmpresaDAO implements AbstractDAO<Empresa> {
 
                 PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 sentenca.setBoolean(1, objt.isPossuiPremio());
+                sentenca.setString(2, objt.getFraseMotivacional());
                 if (objt.getPremioId() == null){
-                    sentenca.setNull(2, Types.INTEGER);
+                    sentenca.setNull(3, Types.INTEGER);
                 } else {
-                    sentenca.setInt(2, objt.getPremioId());
+                    sentenca.setInt(3, objt.getPremioId());
                 }
-                sentenca.setInt(3, objt.getId());
+                sentenca.setInt(4, objt.getId());
 
                 sentenca.executeUpdate();
 

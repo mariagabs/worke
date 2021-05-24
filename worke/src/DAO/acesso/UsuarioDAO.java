@@ -93,30 +93,6 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
         }
     }
 
-    public void alterarEmpresa(Empresa objt) {
-        String sql = "UPDATE Usuario SET Login = ? , Nome = ?, FraseMotivacional = ?, PossuiPremio = ?, PremioId = ? WHERE id = ?";
-
-        try {
-
-            if (this.connection.connection()) {
-
-                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
-
-                sentenca.setString(1, objt.getEmail());
-                sentenca.setString(2, objt.getNome());
-                sentenca.setString(3, objt.getFraseMotivacional());
-                sentenca.setBoolean(4, objt.isPossuiPremio());
-                sentenca.setInt(5, objt.getPremioId());
-                sentenca.setInt(6, objt.getId());
-
-                sentenca.execute();
-                sentenca.close();
-                this.connection.getConnection().close();
-            }
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
     public void excluirExercicios(List<Integer> idList) {
 
         String sql = "SELECT Id FROM exercicio_escolhido WHERE RotinaId = ?";
