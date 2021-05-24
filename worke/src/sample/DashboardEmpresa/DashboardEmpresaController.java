@@ -46,6 +46,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -140,6 +141,12 @@ public class DashboardEmpresaController implements Initializable {
     private Label ranking3;
     @FXML
     private BarChart barChart;
+    @FXML
+    private Pane vazioVerificacao;
+    @FXML
+    private Pane vazioMaisRealizados;
+    @FXML
+    private GridPane rankingPane;
 
     private static LinkedHashMap<Integer, Integer> usuariosEmpresa;
 
@@ -154,8 +161,9 @@ public class DashboardEmpresaController implements Initializable {
     private Circle donut;
     @FXML
     private GridPane chartEx;
+
     @FXML
-    public void setDateTime(){
+    public void setDateTime() {
 
         String pattern = "dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -175,19 +183,23 @@ public class DashboardEmpresaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        chartEx.add(EmpresaApp.createChart(), 1,1);
+
+        vazioVerificacao.setVisible(!EmpresaApp.existsDataChartVerificacao());
+        if (EmpresaApp.existsDataChartVerificacao()) {
+            chartEx.add(EmpresaApp.createChart(), 1, 1);
+        }
 
         String Euro = "Meditação";
         String Pound = "Alongamento\nparte superior";
         String A_Dollar = "Sequência de flexões";
-        String frenc= "Polichinelo";
+        String frenc = "Polichinelo";
 
         //Configuring Series for XY chart
-        XYChart.Series<String,Float> series = new XYChart.Series<>();
-        series.getData().add(new XYChart.Data(Euro,22));
-        series.getData().add(new XYChart.Data(Pound,13));
-        series.getData().add(new XYChart.Data(A_Dollar,15));
-        series.getData().add(new XYChart.Data(frenc,7));
+        XYChart.Series<String, Float> series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data(Euro, 22));
+        series.getData().add(new XYChart.Data(Pound, 13));
+        series.getData().add(new XYChart.Data(A_Dollar, 15));
+        series.getData().add(new XYChart.Data(frenc, 7));
 
         barChart.getData().add(series);
         barChart.setLegendSide(Side.TOP);
@@ -281,7 +293,7 @@ public class DashboardEmpresaController implements Initializable {
             final ObservableList<Users> users =
                     FXCollections.observableArrayList();
 
-            for(Usuario usuario : usuarios){
+            for (Usuario usuario : usuarios) {
                 users.add(new Users(usuario));
             }
 
@@ -381,7 +393,7 @@ public class DashboardEmpresaController implements Initializable {
                             emp.setPremioId(0);
                         }*/
 
-                        if (!naoPossuiPremio.isSelected() && premio.getText().length() > 0){
+                        if (!naoPossuiPremio.isSelected() && premio.getText().length() > 0) {
                             emp.setNomePremio(premio.getText());
                             emp.setPremioId(premioDAO.inserirPremio(premio.getText()));
                             emp.setPossuiPremio(true);
@@ -478,7 +490,7 @@ public class DashboardEmpresaController implements Initializable {
         );
     }
 
-    private void loadConfig(){
+    private void loadConfig() {
         Empresa emp = Empresa.getInstance();
         Premio prem = Premio.getInstance();
         fraseMotivacional.setText(emp.getFraseMotivacional());
@@ -543,7 +555,7 @@ public class DashboardEmpresaController implements Initializable {
 
     }
 
-    public void edit(Users user){
+    public void edit(Users user) {
         Parent root = null;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/PopUpCriarFuncionarios/PopUpCriarFuncionario.fxml"));
@@ -569,14 +581,14 @@ public class DashboardEmpresaController implements Initializable {
         System.out.println("selectedData: " + user.id.getValue().intValue());
     }
 
-    public void loadUsuarios(TableView table){
+    public void loadUsuarios(TableView table) {
         table.getItems().clear();
         UsuarioDAO dao = new UsuarioDAO();
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
-        if(pesquisarUsuario.getText() == null || pesquisarUsuario.getText().isEmpty()){
+        if (pesquisarUsuario.getText() == null || pesquisarUsuario.getText().isEmpty()) {
             usuarios = dao.listar();
-        }else{
+        } else {
             usuarios = dao.listarFiltro(pesquisarUsuario.getText());
         }
 
@@ -589,7 +601,7 @@ public class DashboardEmpresaController implements Initializable {
         final ObservableList<Users> users =
                 FXCollections.observableArrayList();
 
-        for(Usuario usuario : usuarios){
+        for (Usuario usuario : usuarios) {
             users.add(new Users(usuario));
         }
 
@@ -642,12 +654,12 @@ public class DashboardEmpresaController implements Initializable {
         }
     }
 
-    public static class Users{
+    public static class Users {
         private final SimpleStringProperty nome;
         private final SimpleStringProperty email;
         private final SimpleIntegerProperty id;
 
-        public Users(Usuario user){
+        public Users(Usuario user) {
             this.nome = new SimpleStringProperty(user.getNome());
             this.email = new SimpleStringProperty(user.getEmail());
             this.id = new SimpleIntegerProperty(user.getId());

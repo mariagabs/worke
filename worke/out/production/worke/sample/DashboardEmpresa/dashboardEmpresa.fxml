@@ -448,7 +448,7 @@
                                     <Insets top="15.0" />
                                 </GridPane.margin>
                             </Label>
-                     <BarChart fx:id="barChart" alternativeRowFillVisible="false" animated="false" legendVisible="false" nodeOrientation="LEFT_TO_RIGHT" GridPane.rowIndex="1">
+                     <BarChart fx:id="barChart" alternativeRowFillVisible="false" animated="false" legendVisible="false" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #FFFFFF; -fx-background-radius: 25;" GridPane.rowIndex="1">
                        <xAxis>
                          <CategoryAxis side="BOTTOM" />
                        </xAxis>
@@ -554,7 +554,7 @@
                            </cursor></Button>
                             </children>
                         </GridPane>
-                  <Pane layoutX="352.0" layoutY="138.0" prefHeight="304.0" prefWidth="388.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
+                  <Pane fx:id="vazioVerificacao" layoutX="352.0" layoutY="138.0" prefHeight="304.0" prefWidth="388.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
                      <children>
                         <Label layoutX="47.0" layoutY="116.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Nenhum dado disponível!" textFill="#071c35">
                            <font>
@@ -568,7 +568,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane layoutX="352.0" layoutY="470.0" prefHeight="259.0" prefWidth="388.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
+                  <Pane fx:id="vazioMaisRealizados" layoutX="352.0" layoutY="470.0" prefHeight="259.0" prefWidth="388.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
                      <children>
                         <Label layoutX="47.0" layoutY="102.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Nenhum dado disponível!" textFill="#071c35">
                            <font>
@@ -582,9 +582,9 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane layoutX="772.0" layoutY="470.0" prefHeight="258.0" prefWidth="279.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
+                  <Pane layoutX="771.0" layoutY="472.0" prefHeight="258.0" prefWidth="279.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" visible="false">
                      <children>
-                        <ImageView fitHeight="170.0" fitWidth="343.0" layoutX="-31.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="164.0" fitWidth="349.0" layoutX="-31.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../resources/img/ellipse.png" />
                            </image>
