@@ -143,6 +143,8 @@ public class DashboardEmpresaController implements Initializable {
     @FXML
     private Label ranking3;
     @FXML
+    private Label premioErro;
+    @FXML
     private BarChart barChart;
     @FXML
     private Pane vazioVerificacao;
@@ -391,6 +393,7 @@ public class DashboardEmpresaController implements Initializable {
         config.setPickOnBounds(true);
         config.setOnMouseClicked((MouseEvent e) -> {
 
+            premioErro.setVisible(false);
             loadConfig();
             try {
                 AuditoriaTest.getInstance().StartThread("Settings");
@@ -408,6 +411,7 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
 
+                        Boolean valid = true;
                         Empresa emp = Empresa.getInstance();
                         EmpresaDAO empDAO = new EmpresaDAO();
                         PremioDAO premioDAO = new PremioDAO();
@@ -417,22 +421,24 @@ public class DashboardEmpresaController implements Initializable {
 
                         if(naoPossuiPremio.isSelected()){
                             emp.setPremioId(null);
-                        }
-
-                        if (!naoPossuiPremio.isSelected() && premio.getText().length() > 0) {
+                        } else if (!naoPossuiPremio.isSelected() && premio.getText().length() > 0) {
                             emp.setNomePremio(premio.getText());
                             emp.setPremioId(premioDAO.inserirPremio(premio.getText()));
                             emp.setPossuiPremio(true);
+                        } else {
+                            valid = false;
+                            premioErro.setVisible(true);
                         }
-                        empDAO.alterar(emp);
-
-                        try {
-                            popUpSucessoMensagem("Configurações salvas!", "Os dados das configurações foram atualizados com sucesso!");
-                            AuditoriaTest.getInstance().StartThread("Save Settings");
-                        } catch (InterruptedException | IOException interruptedException) {
-                            interruptedException.printStackTrace();
+                        if (valid) {
+                            empDAO.alterar(emp);
+                            try {
+                                popUpSucessoMensagem("Configurações salvas!", "Os dados das configurações foram atualizados com sucesso!");
+                                AuditoriaTest.getInstance().StartThread("Save Settings");
+                            } catch (InterruptedException | IOException interruptedException) {
+                                interruptedException.printStackTrace();
+                            }
+                            voltarHomePopUpSucesso();
                         }
-                        voltarHomePopUpSucesso();
                     }
                 }
         );
@@ -686,6 +692,7 @@ public class DashboardEmpresaController implements Initializable {
         PremioPane.setVisible(false);
         DashboardPane.setVisible(true);
         ConfigPane.setVisible(false);
+        premioErro.setVisible(false);
     }
 
     public static class Users {
