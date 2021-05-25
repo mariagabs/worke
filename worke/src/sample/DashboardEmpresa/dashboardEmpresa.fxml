@@ -1166,6 +1166,7 @@
                                 <RowConstraints maxHeight="126.4" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="159.39998474121094" minHeight="10.0" prefHeight="99.8" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="30.0" minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="30.0" minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="30.0" minHeight="22.400000000000006" prefHeight="22.400000000000006" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
@@ -1197,12 +1198,20 @@
                                         <Insets left="25.0" />
                                     </GridPane.margin>
                                 </Label>
+                        <Label fx:id="premioErro" text="Selecione a opção ou preencha o campo." textFill="#d70000" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Label>
                             </children>
                         </GridPane>
                         <Button fx:id="btnSalvarConfig" layoutX="905.0" layoutY="695.0" maxHeight="45.0" maxWidth="145.0" minHeight="45.0" minWidth="145.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #ffd46a; -fx-background-radius: 30; -fx-font-family: Nunito; -fx-font-weight: Bold;" text="SALVAR" textFill="WHITE">
                             <font>
                                 <Font size="21.0" />
                             </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </Button>
                     </children>
                 </Pane>

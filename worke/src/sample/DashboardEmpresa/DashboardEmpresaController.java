@@ -143,6 +143,8 @@ public class DashboardEmpresaController implements Initializable {
     @FXML
     private Label ranking3;
     @FXML
+    private Label premioErro;
+    @FXML
     private BarChart barChart;
     @FXML
     private Pane vazioVerificacao;
@@ -346,6 +348,7 @@ public class DashboardEmpresaController implements Initializable {
         home.setOnMouseClicked((MouseEvent e) -> {
             try {
                 qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
+                premio.setText(Empresa.getInstance().getNomePremio());
                 AuditoriaTest.getInstance().StartThread("Home");
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
@@ -390,6 +393,7 @@ public class DashboardEmpresaController implements Initializable {
         config.setPickOnBounds(true);
         config.setOnMouseClicked((MouseEvent e) -> {
 
+            premioErro.setVisible(false);
             loadConfig();
             try {
                 AuditoriaTest.getInstance().StartThread("Settings");
@@ -407,6 +411,7 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
 
+                        Boolean valid = true;
                         Empresa emp = Empresa.getInstance();
                         EmpresaDAO empDAO = new EmpresaDAO();
                         PremioDAO premioDAO = new PremioDAO();
@@ -416,24 +421,23 @@ public class DashboardEmpresaController implements Initializable {
 
                         if(naoPossuiPremio.isSelected()){
                             emp.setPremioId(null);
-                        }
-
-                        if (!naoPossuiPremio.isSelected() && premio.getText().length() > 0) {
+                        } else if (!naoPossuiPremio.isSelected() && premio.getText().length() > 0) {
                             emp.setNomePremio(premio.getText());
                             emp.setPremioId(premioDAO.inserirPremio(premio.getText()));
                             emp.setPossuiPremio(true);
+                        } else {
+                            valid = false;
+                            premioErro.setVisible(true);
                         }
-                        empDAO.alterar(emp);
-
-                        UserPane.setVisible(false);
-                        PremioPane.setVisible(false);
-                        DashboardPane.setVisible(true);
-                        ConfigPane.setVisible(false);
-
-                        try {
-                            AuditoriaTest.getInstance().StartThread("Save Settings");
-                        } catch (InterruptedException interruptedException) {
-                            interruptedException.printStackTrace();
+                        if (valid) {
+                            empDAO.alterar(emp);
+                            try {
+                                popUpSucessoMensagem("Configurações salvas!", "Os dados das configurações foram atualizados com sucesso!");
+                                AuditoriaTest.getInstance().StartThread("Save Settings");
+                            } catch (InterruptedException | IOException interruptedException) {
+                                interruptedException.printStackTrace();
+                            }
+                            voltarHomePopUpSucesso();
                         }
                     }
                 }
@@ -521,7 +525,7 @@ public class DashboardEmpresaController implements Initializable {
         Premio prem = Premio.getInstance();
         fraseMotivacional.setText(emp.getFraseMotivacional());
         naoPossuiPremio.setSelected(!emp.isPossuiPremio());
-        premio.setText(emp.isPossuiPremio() ? prem.getDescricao() : null);
+        premio.setText(emp.isPossuiPremio() ? emp.getNomePremio() : null);
     }
 
     private void addButtonToTable() {
@@ -680,6 +684,15 @@ public class DashboardEmpresaController implements Initializable {
             qntFuncionariosTotal.setText(String.valueOf(empresaDAO.listarFuncionarios().size()));
             loadUsuarios(usuariosTable);
         }
+    }
+
+    public void voltarHomePopUpSucesso() {
+
+        UserPane.setVisible(false);
+        PremioPane.setVisible(false);
+        DashboardPane.setVisible(true);
+        ConfigPane.setVisible(false);
+        premioErro.setVisible(false);
     }
 
     public static class Users {

@@ -61,7 +61,7 @@ public class PopUpCriarFuncionarioController implements Initializable {
         btnSalvar.setPickOnBounds(true);
         btnSalvar.setOnMouseClicked((MouseEvent e) -> {
 
-            if(nomeCompleto.getText().isEmpty() || email.getText().isEmpty()){
+            if(nomeCompleto.getText().trim().isEmpty() || email.getText().trim().isEmpty()){
                 msgAviso.setVisible(true);
             }else {
                 msgAviso.setVisible(false);
@@ -89,8 +89,15 @@ public class PopUpCriarFuncionarioController implements Initializable {
                 }
                 DashboardEmpresaController controller = fxmlLoader.getController();
                     controller.loadUsuarios(tableTeste);
-
-
+                try {
+                    if (usuario == null || usuario.getId() == 0){
+                        DashboardEmpresaController.popUpSucessoMensagem("Usuário criado!","O usuário "+nomeCompleto.getText() + " foi criado com sucesso!");
+                    } else {
+                        DashboardEmpresaController.popUpSucessoMensagem("Usuário alterado!","O usuário "+nomeCompleto.getText() + " foi alterado com sucesso!");
+                    }
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
                 Stage stage = (Stage) btnSalvar.getScene().getWindow();
                 stage.close();
             }

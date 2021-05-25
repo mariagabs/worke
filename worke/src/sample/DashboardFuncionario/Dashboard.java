@@ -408,8 +408,7 @@ public class Dashboard implements Initializable {
 
     }
 
-    // Abertura do pop-up de sucesso
-    public void showPopUpSucesso() {
+    public void showPopUpSucesso(String titulo, String mensagem) {
         try {
 
             Parent root;
@@ -417,8 +416,8 @@ public class Dashboard implements Initializable {
             root = fxmlLoader.load();
             popUpSucessoController popUpController = fxmlLoader.getController();
             popUpController.controller = this;
-            popUpController.titulo = "Parabéns!";
-            popUpController.mensagem = "Você completou um exercício.";
+            popUpController.titulo = titulo;
+            popUpController.mensagem = mensagem;
             popUpController.initialize(null, null);
 
             FuncionarioApp.openModal("/resources/img/w!.png", root);
@@ -470,11 +469,11 @@ public class Dashboard implements Initializable {
                         (EventHandler) event -> {
                             timeSeconds--;
 
-                            timerDetails.setText(secondsToString(timeSeconds));
-                            if (timeSeconds <= 0) {
-                                setDoneEx();
-                                resetDetails();
-                                showPopUpSucesso();
+                                timerDetails.setText(secondsToString(timeSeconds));
+                                if (timeSeconds <= 0) {
+                                    setDoneEx();
+                                    resetDetails();
+                                    showPopUpSucesso("Parabéns!", "Você completou um exercício.");
 
                             }
                         }));
@@ -853,6 +852,10 @@ public class Dashboard implements Initializable {
         homeWhiteScreen.setVisible(true);
         exerciseScreen.setVisible(false);
         configScreen.setVisible(false);
+        avisoDuracao.setVisible(false);
+        avisoIntervalo.setVisible(false);
+        avisoHorario.setVisible(false);
+        aviso.setVisible(false);
     }
 
     private void goToConfig(){
@@ -971,6 +974,7 @@ public class Dashboard implements Initializable {
         Home.setOnMouseClicked((MouseEvent e) -> {
             loadConfig();
             setHomeVisible();
+            
         });
 
 
@@ -1033,6 +1037,7 @@ public class Dashboard implements Initializable {
                 loadConfig();
                 setHomeVisible();
                 try {
+                    resetPopUpSucesso("Configurações salvas!", "Os dados das configurações foram atualizados com sucesso!");
                     AuditoriaTest.getInstance().StartThread("Initialize");
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();

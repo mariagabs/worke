@@ -63,7 +63,6 @@ public class CriarSenhaController implements Initializable {
                         usuarioLogado.setSenha(novaSenha.getText());
                         try {
                             dao.alterar(usuarioLogado);
-                            DashboardEmpresaController.popUpSucessoMensagem("Senha alterada", "Sua senha foi alterada com sucesso!");
                         } catch (Exception ex){
                             ex.printStackTrace();
                         }
@@ -80,7 +79,8 @@ public class CriarSenhaController implements Initializable {
 
                         try {
                             AuditoriaTest.getInstance().StartThread("New Password");
-                        } catch (InterruptedException interruptedException) {
+                            DashboardEmpresaController.popUpSucessoMensagem("Senha alterada", "Sua senha foi alterada com sucesso!");
+                        } catch (InterruptedException | IOException interruptedException) {
                             interruptedException.printStackTrace();
                         }
 
