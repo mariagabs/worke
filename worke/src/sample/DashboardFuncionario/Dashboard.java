@@ -1037,7 +1037,7 @@ public class Dashboard implements Initializable {
                 loadConfig();
                 setHomeVisible();
                 try {
-                    resetPopUpSucesso("Configurações salvas!", "Os dados das configurações foram atualizados com sucesso!");
+                    showPopUpSucesso("Configurações salvas!", "Os dados das configurações foram atualizados com sucesso!");
                     AuditoriaTest.getInstance().StartThread("Initialize");
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
