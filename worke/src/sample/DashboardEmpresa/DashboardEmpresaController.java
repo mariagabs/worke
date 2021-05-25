@@ -346,6 +346,7 @@ public class DashboardEmpresaController implements Initializable {
         home.setOnMouseClicked((MouseEvent e) -> {
             try {
                 qntFuncionariosTotal.setText(String.valueOf(EmpresaApp.totalFuncionarios(usuariosEmpresa)));
+                premio.setText(Empresa.getInstance().getNomePremio());
                 AuditoriaTest.getInstance().StartThread("Home");
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
@@ -425,16 +426,13 @@ public class DashboardEmpresaController implements Initializable {
                         }
                         empDAO.alterar(emp);
 
-                        UserPane.setVisible(false);
-                        PremioPane.setVisible(false);
-                        DashboardPane.setVisible(true);
-                        ConfigPane.setVisible(false);
-
                         try {
+                            popUpSucessoMensagem("Configurações salvas!", "Os dados das configurações foram atualizados com sucesso!");
                             AuditoriaTest.getInstance().StartThread("Save Settings");
-                        } catch (InterruptedException interruptedException) {
+                        } catch (InterruptedException | IOException interruptedException) {
                             interruptedException.printStackTrace();
                         }
+                        voltarHomePopUpSucesso();
                     }
                 }
         );
@@ -521,7 +519,7 @@ public class DashboardEmpresaController implements Initializable {
         Premio prem = Premio.getInstance();
         fraseMotivacional.setText(emp.getFraseMotivacional());
         naoPossuiPremio.setSelected(!emp.isPossuiPremio());
-        premio.setText(emp.isPossuiPremio() ? prem.getDescricao() : null);
+        premio.setText(emp.isPossuiPremio() ? emp.getNomePremio() : null);
     }
 
     private void addButtonToTable() {
@@ -680,6 +678,14 @@ public class DashboardEmpresaController implements Initializable {
             qntFuncionariosTotal.setText(String.valueOf(empresaDAO.listarFuncionarios().size()));
             loadUsuarios(usuariosTable);
         }
+    }
+
+    public void voltarHomePopUpSucesso() {
+
+        UserPane.setVisible(false);
+        PremioPane.setVisible(false);
+        DashboardPane.setVisible(true);
+        ConfigPane.setVisible(false);
     }
 
     public static class Users {

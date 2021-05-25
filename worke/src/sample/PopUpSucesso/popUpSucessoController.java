@@ -29,6 +29,8 @@ public class popUpSucessoController implements Initializable {
 
     public static Dashboard controller;
 
+    public static DashboardEmpresaController controllerEmpresa;
+
     public String mensagem;
 
     public String titulo;
@@ -47,6 +49,8 @@ public class popUpSucessoController implements Initializable {
 
             if (controller != null){
                 controller.goToHome();
+            } else if (controllerEmpresa != null){
+                controllerEmpresa.voltarHomePopUpSucesso();
             }
 
             Stage stage = (Stage) btnOK.getScene().getWindow();

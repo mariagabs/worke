@@ -1203,6 +1203,9 @@
                             <font>
                                 <Font size="21.0" />
                             </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </Button>
                     </children>
                 </Pane>

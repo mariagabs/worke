@@ -428,7 +428,7 @@ public class Dashboard implements Initializable {
 
     }
 
-    public void resetPopUpSucesso() {
+    public void resetPopUpSucesso(String titulo, String mensagem) {
         try {
 
             Parent root;
@@ -436,8 +436,8 @@ public class Dashboard implements Initializable {
             root = fxmlLoader.load();
             popUpSucessoController popUpController = fxmlLoader.getController();
             popUpController.controller = this;
-            popUpController.titulo = "Parabéns!";
-            popUpController.mensagem = "Você completou um exercício.";
+            popUpController.titulo = titulo;
+            popUpController.mensagem = mensagem;
             popUpController.initialize(null, null);
             Stage dialog = new Stage();
             dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
@@ -500,7 +500,7 @@ public class Dashboard implements Initializable {
                                 if (timeSeconds <= 0) {
                                     setDoneEx();
                                     resetDetails();
-                                    resetPopUpSucesso();
+                                    resetPopUpSucesso("Parabéns!", "Você completou um exercício.");
 
                                 }
                             }
@@ -1087,6 +1087,10 @@ public class Dashboard implements Initializable {
             homeWhiteScreen.setVisible(true);
             exerciseScreen.setVisible(false);
             configScreen.setVisible(false);
+            avisoDuracao.setVisible(false);
+            avisoIntervalo.setVisible(false);
+            avisoHorario.setVisible(false);
+            aviso.setVisible(false);
         });
 
 
@@ -1173,6 +1177,7 @@ public class Dashboard implements Initializable {
                 NotificationApp.startTimerNotification(horaTotal);
                 loadConfig();
                 try {
+                    resetPopUpSucesso("Configurações salvas!", "Os dados das configurações foram atualizados com sucesso!");
                     AuditoriaTest.getInstance().StartThread("Initialize");
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
