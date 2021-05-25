@@ -246,46 +246,36 @@ public class Dashboard implements Initializable {
     @FXML
     private Button btnConfigure;
 
-
     private Funcionario func = Funcionario.getInstance();
     FuncionarioDAO daoFunc = new FuncionarioDAO();
     ExercicioDAO exercicioDAO = new ExercicioDAO();
     List<Exercicio> exercicioList = exercicioDAO.listar();
     UsuarioDAO dao = new UsuarioDAO();
     Empresa empresa = dao.listarDadosEmpresa();
-
-    DecimalFormat df = new DecimalFormat("#");
-
     Image imagePause = new Image(getClass().getResource("/resources/img/simbolo-de-pausa.png").toExternalForm());
     Image imagePlay = new Image(getClass().getResource("/resources/img/botao-play-ponta-de-seta.png").toExternalForm());
-
     static boolean pause;
-
     private Timeline timeline;
     private Timeline timelineInstrucoes;
-
     private static int timeSeconds;
-
     private static int qntExerciciosDisponivel;
-
     private static Exercicio exercicioExecutado;
-
     public static List<String> instrucoes;
-
     public static Integer[] rankingFuncionarios;
-
     private static List<Exercicio> novosExerciciosEscolhidos = new ArrayList<>();
-
     public Integer[] listarUsuariosEmpresa() {
         return EmpresaApp.listarUsuariosEmpresa();
     }
 
+    // Mostra os dados de conquistas (horas e exercícios feitos) e favoritos (exercícios mais feitos)
     public void getConquistasFavoritos(Integer usuarioId) {
         ArrayList<Integer> exerciciosRealizadosChaves = new ArrayList<>();
         LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
         int totalExerciciosRealizados = FuncionarioApp.calcTotalExercicios(usuarioId, exerciciosRealizadosChaves, reverseSortedMap);
         qntExercicios.setText(String.valueOf(totalExerciciosRealizados));
         minutosTotal.setText(String.valueOf(exercicioDAO.consultarDuracaoTotalUsuario()));
+
+        // Componente de vazio caso não existam exercícios realizados para mostrar nos favoritos
         semFavoritos.setVisible(totalExerciciosRealizados == 0);
 
         if (exerciciosRealizadosChaves.size() > 0) {
@@ -299,7 +289,6 @@ public class Dashboard implements Initializable {
 
                         List<Exercicio> exercicio = exercicioList.stream().filter(ex -> ex.getId() == exerciciosRealizadosChaves.get(finalAux)).collect(Collectors.toList());
                         int quantidade = reverseSortedMap.get(exerciciosRealizadosChaves.get(finalAux));
-
 
                         if (quantidade > 0) {
                             if (component instanceof ImageView) {
@@ -326,7 +315,8 @@ public class Dashboard implements Initializable {
         }
     }
 
-    //listagem exercícios tela de config
+    // Click dos botões de escolher exercícios da tela de configurações (mudar as cores e colocar/tirar da lista)
+    // selectedPane = botão do exercícios escolhido
     public void getExercicioEscolhido(GridPane selectedPane) {
 
         Exercicio exercicio = new Exercicio();
@@ -376,16 +366,11 @@ public class Dashboard implements Initializable {
         novosExerciciosEscolhidos = exercicioList;
     }
 
-    public void listExerciciosDoDia() {
+    // Listagem exercícios tela de configurações
+    public void listExerciciosConfig() {
         try {
-
+            HashMap<Integer, Exercicio> exercicioHashMap = FuncionarioApp.exercicioHashMap(func.getExercicios());
             int aux = 0;
-
-            HashMap<Integer, Exercicio> exercicioHashMap = new HashMap<>();
-            for (Exercicio exercicio : func.getExercicios()) {
-                exercicioHashMap.put(exercicio.getId(), exercicio);
-            }
-
             for (Node pane : exercicios.getChildren()) {
                 if (aux < 16) {
 
@@ -397,24 +382,19 @@ public class Dashboard implements Initializable {
                         for (Node child : ((GridPane) pane).getChildren()) {
 
                             if (child instanceof ImageView) {
-                                Image img = null;
+                                Image img;
                                 if (exercicioHashMap.containsKey(ex.getId())) {
                                     exists = true;
-                                    ((GridPane) pane).setStyle("-fx-background-color: #A3D3E4");
-                                    img = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
+                                    pane.setStyle("-fx-background-color: #A3D3E4");
+                                    img = FuncionarioApp.imagemExercicio(true, ex);
                                 } else {
-                                    img = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "Dark.png").toExternalForm());
+                                    img = FuncionarioApp.imagemExercicio(false, ex);
                                 }
 
                                 ((ImageView) child).setImage(img);
                             }
                             if (child instanceof Label) {
-                                if (exists) {
-                                    ((Label) child).setTextFill(Color.WHITE);
-                                } else {
-                                    ((Label) child).setTextFill(Paint.valueOf("#0B1F38"));
-                                }
-
+                                ((Label) child).setTextFill(FuncionarioApp.lblExercicioCor(exists));
                                 ((Label) child).setText(ex.getNome());
                             }
                         }
@@ -428,7 +408,8 @@ public class Dashboard implements Initializable {
 
     }
 
-    public void resetPopUpSucesso() {
+    // Abertura do pop-up de sucesso
+    public void showPopUpSucesso() {
         try {
 
             Parent root;
@@ -439,17 +420,15 @@ public class Dashboard implements Initializable {
             popUpController.titulo = "Parabéns!";
             popUpController.mensagem = "Você completou um exercício.";
             popUpController.initialize(null, null);
-            Stage dialog = new Stage();
-            dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
-            dialog.setScene(new Scene(root));
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.show();
+
+            FuncionarioApp.openModal("/resources/img/w!.png", root);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    // Abertura do pop-up de confirmação do cancelamento do exercício
     public void showConfirmacaoCancelarExercicio() throws IOException, InterruptedException {
 
         playPause(false);
@@ -462,19 +441,16 @@ public class Dashboard implements Initializable {
         popUpController.titulo = "Atenção!";
         popUpController.mensagem = "Ao cancelar o exercício, todo o progresso será perdido. Deseja realmente cancelar?";
         popUpController.initialize(null, null);
-        Stage dialog = new Stage();
-        dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
-        dialog.setScene(new Scene(root));
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.show();
+
+        FuncionarioApp.openModal("/resources/img/w!.png", root);
     }
 
+    // Realiza uma ação de acordo com o parâmetro recebido
     public void confirmarCancelarExercicio(boolean cancelar) throws InterruptedException {
         if (cancelar) {
             resetDetails();
             goToHome();
         } else {
-            //setDoneEx();
             playPause(true);
         }
     }
@@ -485,24 +461,21 @@ public class Dashboard implements Initializable {
             timeline.stop();
         }
 
-        // update timerLabel
         timeline = new Timeline();
         timelineInstrucoes = new Timeline();
+
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(
                 new KeyFrame(Duration.seconds(1),
-                        new EventHandler() {
-                            @Override
-                            public void handle(Event event) {
-                                timeSeconds--;
+                        (EventHandler) event -> {
+                            timeSeconds--;
 
-                                timerDetails.setText(secondsToString(timeSeconds));
-                                if (timeSeconds <= 0) {
-                                    setDoneEx();
-                                    resetDetails();
-                                    resetPopUpSucesso();
+                            timerDetails.setText(secondsToString(timeSeconds));
+                            if (timeSeconds <= 0) {
+                                setDoneEx();
+                                resetDetails();
+                                showPopUpSucesso();
 
-                                }
                             }
                         }));
 
@@ -513,77 +486,56 @@ public class Dashboard implements Initializable {
         timelineInstrucoes.setCycleCount(Timeline.INDEFINITE);
         timelineInstrucoes.getKeyFrames().add(
                 new KeyFrame(Duration.seconds(5),
-                        new EventHandler() {
-                            @Override
-                            public void handle(Event event) {
-                                aux[0]++;
-                                if (aux[0] == instrucoes.size()) {
-                                    aux[0] = 0;
-                                }
-
-                                instrucaoDetails.setText(instrucoes.get(aux[0]));
+                        (EventHandler) event -> {
+                            aux[0]++;
+                            if (aux[0] == instrucoes.size()) {
+                                aux[0] = 0;
                             }
 
+                            instrucaoDetails.setText(instrucoes.get(aux[0]));
                         }));
 
         timelineInstrucoes.playFromStart();
 
     }
 
+    // Passa o exercício executado para salvar no banco junto com a nova quantidade
+    // de vezes que ainda é possível realizar exercícios
     private void setDoneEx() {
-
-        exercicioDAO.exercicioFeito(exercicioExecutado, --qntExerciciosDisponivel);
+        FuncionarioApp.salvaExercicioFeito(exercicioExecutado, --qntExerciciosDisponivel);
         exercicioExecutado = null;
         btnImagePlay.setImage(imagePlay);
     }
 
+    // Volta para o dashboard principal do funcionário
     public void goToHome() {
         disableButtons(false);
         loadConfig();
-
-        try {
-            AuditoriaTest.getInstance().StartThread("Home");
-        } catch (InterruptedException interruptedException) {
-            interruptedException.printStackTrace();
-        }
-
-        homeGrayScreen.setVisible(true);
-        homeWhiteScreen.setVisible(true);
-        exerciseScreen.setVisible(false);
-        configScreen.setVisible(false);
+        setHomeVisible();
     }
 
+    // Conversão de segundos para string
     private String secondsToString(int pTime) {
         return String.format("%1d:%02d", pTime / 60, pTime % 60);
     }
 
+    // Mostra o intervalo selecionado pelo funcionário anteriormente
     public void getIntervaloExercicios() {
 
-        String selectedInterval = String.valueOf(func.getIntervaloExercicios()).replace(":", "");
-        if (selectedInterval.equals("003000")) {
-            selectedInterval = selectedInterval.substring(2);
-        } else {
-            selectedInterval = selectedInterval.substring(1);
-        }
+        String selectedInterval = FuncionarioApp.formataIntervaloExercicios(func);
 
         if (func.getIntervaloExercicios() != null) {
             GridPane botao = (GridPane) intervaloPane.lookup("#intervalo_" + selectedInterval);
-            String teste = "#lblIntervalo_" + selectedInterval;
-            Label lblBotao = (Label) botao.lookup(teste);
+            Label lblBotao = (Label) botao.lookup("#lblIntervalo_" + selectedInterval);
 
-            //Muda para o estilo de botão selecionado
             changeSelectStyle(true, lblBotao, botao);
 
         }
     }
 
+    // Muda e salva o intervalo de exercícios
     public void setIntervaloExercicios(GridPane newSelectedPane) {
-        String oldIntervalo = String.valueOf(func.getIntervaloExercicios()).replace(":", "");
-        if (oldIntervalo.equals("003000")) {
-            oldIntervalo = oldIntervalo.substring(2);
-        } else {
-            oldIntervalo = oldIntervalo.substring(1);
-        }
+        String oldIntervalo = FuncionarioApp.formataIntervaloExercicios(func);
         String newIntervalo = newSelectedPane.getId().split("_")[1];
         Label lblSelected;
 
@@ -591,43 +543,32 @@ public class Dashboard implements Initializable {
             GridPane botao = (GridPane) intervaloPane.lookup("#intervalo_" + oldIntervalo);
             lblSelected = (Label) botao.lookup("#lblIntervalo_" + oldIntervalo);
 
-            //Muda para o estilo de botão não selecionado
             changeSelectStyle(false, lblSelected, botao);
         }
 
         lblSelected = (Label) newSelectedPane.lookup("#lblIntervalo_" + newIntervalo);
-
-        //Muda para o estilo de botão selecionado
         changeSelectStyle(true, lblSelected, newSelectedPane);
 
-        if (!newIntervalo.equals("3000")) {
-            newIntervalo = "0" + newIntervalo;
-        } else {
-            newIntervalo = "00" + newIntervalo;
-        }
-        newIntervalo = newIntervalo.substring(0, 2) + ":" + newIntervalo.substring(2, 4) + ":00";
-        Time selectedIntervalo = Time.valueOf(newIntervalo);
-        func.setIntervaloExercicios(selectedIntervalo);
-
-
+        FuncionarioApp.formataNovoIntervaloExercicios(newIntervalo, func);
     }
 
+    // Mostra a duração do exercício selecionada pelo funcionário anteriormente
     public void getDuracaoExercicios() {
 
-        String selectedDuracao = String.valueOf(df.format(func.getDuracaoExercicios()));
+        String selectedDuracao = FuncionarioApp.formataDuracaoExercicios(func);
 
         if (!selectedDuracao.equals("0")) {
             GridPane botao = (GridPane) duracaoPane.lookup("#duracao_" + selectedDuracao);
             Label lblBotao = (Label) botao.lookup("#lblDuracao_" + selectedDuracao);
 
-            //Muda para o estilo de botão selecionado
             changeSelectStyle(true, lblBotao, botao);
         }
     }
 
+    // Muda a duração do exercício
     public void setDuracaoExercicios(GridPane newSelectedPane) {
 
-        String oldDuracao = String.valueOf(df.format(func.getDuracaoExercicios()));
+        String oldDuracao = FuncionarioApp.formataDuracaoExercicios(func);
         String newDuracao = newSelectedPane.getId().split("_")[1];
         Label lblSelected;
 
@@ -635,19 +576,16 @@ public class Dashboard implements Initializable {
             GridPane botao = (GridPane) duracaoPane.lookup("#duracao_" + oldDuracao);
             lblSelected = (Label) botao.lookup("#lblDuracao_" + oldDuracao);
 
-            //Muda para o estilo de botão não selecionado
             changeSelectStyle(false, lblSelected, botao);
         }
 
         lblSelected = (Label) newSelectedPane.lookup("#lblDuracao_" + newDuracao);
-
-        //Muda para o estilo de botão selecionado
         changeSelectStyle(true, lblSelected, newSelectedPane);
 
-        int selectedDuracao = Integer.valueOf(newDuracao);
-        func.setDuracaoExercicios(selectedDuracao);
+        FuncionarioApp.salvaDuracaoExercicio(newDuracao, func);
     }
 
+    // Muda o estilo dos botões de seleção de duração, intervalo e exercício
     public void changeSelectStyle(Boolean selected, Label lblSelected, Pane paneSelected) {
 
         if (selected) {
@@ -659,159 +597,152 @@ public class Dashboard implements Initializable {
         }
     }
 
+    // Pega a lista de exercícios existentes no sistema
     public void getExerciciosEscolhidos() {
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        func.setExercicios(usuarioDAO.consultarExerciciosEscolhidos(usuarioDAO.getLastRotina(func)));
-
+        func.setExercicios(FuncionarioApp.listExercicios(func));
     }
 
+    // Mostra o horário formatado e validado
     public void getHorario() {
 
-        if (func.getHoraInicio() == null) {
-            horaInicial.setText("00:00");
-        } else {
-            horaInicial.setText(String.valueOf(func.getHoraInicio()));
-        }
-
-        if (func.getHoraTermino() == null) {
-            horaFinal.setText("00:00");
-        } else {
-            horaFinal.setText(String.valueOf(func.getHoraTermino()));
-        }
+        horaInicial.setText(FuncionarioApp.formataHorario(func.getHoraInicio()));
+        horaFinal.setText(FuncionarioApp.formataHorario(func.getHoraTermino()));
     }
 
+    // Mostra o prêmio ou seu componente de vazio caso não exista
     public void getPremio() {
-        if (empresa.isPossuiPremio()) {
-            PremioDAO premioDAO = new PremioDAO();
-            Premio nomePremio = premioDAO.consultar(empresa.getPremioId());
-            premio.setText(nomePremio.getDescricao());
-        }
-
+        premio.setText(FuncionarioApp.nomePremio());
         semPremio.setVisible(!empresa.isPossuiPremio());
-
     }
 
+    // Pega a lista de instruções do exercício
     public void getInstrucoes(Exercicio exercicio) {
-
-        instrucoes = exercicioDAO.listarInstrucoes(exercicio.getId());
-
+        instrucoes = FuncionarioApp.listInstrucoes(exercicio);
     }
 
+    // Reseta o estado dos botões do menu lateral
     private void disableButtons(boolean disable) {
         Home.setDisable(disable);
         Config.setDisable(disable);
         Logout.setDisable(disable);
     }
 
-    //listagem exercícios dashboard
-    public void getExerciciosDoDia() {
+    // Direciona para a tela de detalhes do exercício
+    private void goToExercise() {
+        configScreen.setVisible(false);
+        exerciseScreen.setVisible(true);
+        homeGrayScreen.setVisible(false);
+        homeWhiteScreen.setVisible(false);
 
-        List<Exercicio> exercicios = func.getExercicios();
+    }
 
-        semExercicios.setVisible(func.getExercicios().size() == 0);
+    // Formata os campos da tela de detalhes do exercício
+    private void iniciarExercicio(Exercicio exercicio) {
+        disableButtons(true);
+        nomeDetails.setText(exercicio.getNome());
+        tempoDetails.setText(func.getDuracaoExercicios() + " min");
+        Image imgEx = FuncionarioApp.imagemExercicio(true, exercicio);
+        imgDetails.setImage(imgEx);
+        timerDetails.setText(func.getDuracaoExercicios() + ":00");
 
-        if (func.getExercicios().size() > 0) {
-            Exercicio exercicio = func.getExercicios().get(0);
+        exercicioExecutado = exercicio;
+        getInstrucoes(exercicio);
+        instrucaoDetails.setText(instrucoes.get(0));
+
+        try {
+            AuditoriaTest.getInstance().StartThread("Initialize");
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+        }
+
+        goToExercise();
+    }
+
+    // Método chamado pelo evento de click dos botões de exercícios do dia do dashboard principal
+    private void clickEventExercicioDoDia(Exercicio ex) {
+        disableButtons(true);
+        nomeDetails.setText(ex.getNome());
+        tempoDetails.setText(func.getDuracaoExercicios() + " min");
+        Image imgEx = FuncionarioApp.imagemExercicio(true, ex);
+        imgDetails.setImage(imgEx);
+        timerDetails.setText(func.getDuracaoExercicios() + ":00");
+
+        exercicioExecutado = ex;
+        getInstrucoes(ex);
+        instrucaoDetails.setText(instrucoes.get(0));
+
+        try {
+            AuditoriaTest.getInstance().StartThread("Exercise Details");
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+        }
+
+        goToExercise();
+    }
+
+    // Lista os exercícios do dia no dashboard principal
+    private void listExerciciosDoDia(List<Exercicio> exercicios) {
+        int aux = 0;
+        for (Node pane : exerciciosDoDia.getChildren()) {
+            if (pane instanceof GridPane) {
+                pane.setVisible(false);
+            }
+            if (aux < exercicios.size()) {
+
+                if (pane instanceof GridPane) {
+                    Exercicio ex = exercicios.get(aux);
+                    pane.setId(pane.getId() + "_" + ex.getId());
+                    pane.setVisible(true);
+                    for (Node child : ((GridPane) pane).getChildren()) {
+
+                        if (child instanceof ImageView) {
+
+                            if (child.getId() != null && child.getId().contains("exDia")) {
+                                Image img = FuncionarioApp.imagemExercicio(true, ex);
+                                ((ImageView) child).setImage(img);
+                            } else {
+                                child.setPickOnBounds(true);
+                                child.setOnMouseClicked((MouseEvent e) -> {
+                                    clickEventExercicioDoDia(ex);
+                                });
+                            }
+                        }
+                        if (child instanceof Label) {
+                            ((Label) child).setText(FuncionarioApp.formatDuracaoExercicioDetails(child, ex, func));
+                        }
+                    }
+                    aux++;
+                }
+            }
+        }
+    }
+
+    // Listagem dos exercícios do usuário no dashboard principal
+    private void getExerciciosDoDia() {
+
+        List<Exercicio> exercicios = FuncionarioApp.listExercicios(func);
+        semExercicios.setVisible(exercicios.size() == 0);
+
+        // Card de PRÓXIMO EXERCÍCIO
+        if (exercicios.size() > 0) {
+            Exercicio exercicio = exercicios.get(0);
 
             proxExercicio.setText(exercicio.getNome());
-            Image img = new Image(getClass().getResource("/resources/img/" + exercicio.getImagem() + "White.png").toExternalForm());
+            Image img = FuncionarioApp.imagemExercicio(true, exercicio);
             imgProxEx.setImage(img);
 
             btnIniciar.setPickOnBounds(true);
             btnIniciar.setOnMouseClicked((MouseEvent e) -> {
-
-                disableButtons(true);
-                nomeDetails.setText(exercicio.getNome());
-                tempoDetails.setText(func.getDuracaoExercicios() + " min");
-                Image imgEx = new Image(getClass().getResource("/resources/img/" + exercicio.getImagem() + "White.png").toExternalForm());
-                imgDetails.setImage(imgEx);
-                timerDetails.setText(func.getDuracaoExercicios() + ":00");
-
-                exercicioExecutado = exercicio;
-                getInstrucoes(exercicio);
-                instrucaoDetails.setText(instrucoes.get(0));
-
-                try {
-                    AuditoriaTest.getInstance().StartThread("Initialize");
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
-
-                configScreen.setVisible(false);
-                exerciseScreen.setVisible(true);
-                homeGrayScreen.setVisible(false);
-                homeWhiteScreen.setVisible(false);
-
+                iniciarExercicio(exercicio);
             });
 
-
-            int aux = 0;
-            for (Node pane : exerciciosDoDia.getChildren()) {
-                if (pane instanceof GridPane) {
-                    pane.setVisible(false);
-                }
-                if (aux < exercicios.size()) {
-
-                    if (pane instanceof GridPane) {
-                        Exercicio ex = exercicios.get(aux);
-
-                        pane.setId(pane.getId() + "_" + ex.getId());
-                        pane.setVisible(true);
-                        for (Node child : ((GridPane) pane).getChildren()) {
-
-                            if (child instanceof ImageView) {
-
-                                if (child.getId() != null && child.getId().contains("exDia")) {
-                                    img = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
-                                    ((ImageView) child).setImage(img);
-                                } else {
-
-                                    child.setPickOnBounds(true);
-                                    child.setOnMouseClicked((MouseEvent e) -> {
-
-                                        Home.setDisable(true);
-                                        Config.setDisable(true);
-                                        Logout.setDisable(true);
-                                        nomeDetails.setText(ex.getNome());
-                                        tempoDetails.setText(func.getDuracaoExercicios() + " min");
-                                        Image imgEx = new Image(getClass().getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
-                                        imgDetails.setImage(imgEx);
-                                        timerDetails.setText(func.getDuracaoExercicios() + ":00");
-
-                                        exercicioExecutado = ex;
-                                        getInstrucoes(ex);
-                                        instrucaoDetails.setText(instrucoes.get(0));
-
-                                        try {
-                                            AuditoriaTest.getInstance().StartThread("Exercise Details");
-                                        } catch (InterruptedException interruptedException) {
-                                            interruptedException.printStackTrace();
-                                        }
-                                        exerciseScreen.setVisible(true);
-                                        homeGrayScreen.setVisible(false);
-                                        homeWhiteScreen.setVisible(false);
-                                        configScreen.setVisible(false);
-                                    });
-                                }
-                            }
-                            if (child instanceof Label) {
-
-                                if (child.getId() != null && child.getId().contains("nome")) {
-                                    ((Label) child).setText(ex.getNome());
-                                } else {
-                                    ((Label) child).setText(String.valueOf(func.getDuracaoExercicios()).replace(".0", "") + " min");
-                                }
-                            }
-                        }
-                        aux++;
-                    }
-                }
-            }
+            listExerciciosDoDia(exercicios);
         }
 
     }
 
-    public void resetDetails() {
+    // Reset dos timers após cancelar a realização do exercício
+    private void resetDetails() {
 
         if (timeline != null && timelineInstrucoes != null) {
             timeline.stop();
@@ -823,34 +754,33 @@ public class Dashboard implements Initializable {
         timeSeconds = func.getDuracaoExercicios() * 60;
     }
 
-    public void checkAvailableEx() {
-
-
+    // Verifica se ainda é possível fazer exercícios de acordo com a quantidade
+    // disponível na rotina do usuário
+    private void checkAvailableEx() {
         Integer qnt = Rotina.getInstance().getQntDisponivelExercicios();
         if (qnt == null || (qnt != null && qnt == 0)) {
 
             String currentDate = String.valueOf(LocalDate.now());
-            String lastDate = String.valueOf(daoFunc.getLastDateDone());
+            String lastDate = FuncionarioApp.getLastDateExerciseWasDone();
 
             if (!lastDate.equals(null)) {
                 bloqExDoDia.setVisible(currentDate.equals(lastDate));
                 bloqParabens.setVisible(currentDate.equals(lastDate));
 
                 if (!currentDate.equals(lastDate)) {
-
-                    exercicioDAO.updateRotina(qntExDisponivel());
+                    FuncionarioApp.saveRotina(qntExDisponivel());
                     qntExerciciosDisponivel = qntExDisponivel();
-
                 }
             }
         }
     }
 
-    public void loadConfig() {
+    // Carrega as principais informações da tela
+    private void loadConfig() {
         getDuracaoExercicios();
         getIntervaloExercicios();
         getExerciciosEscolhidos();
-        listExerciciosDoDia();
+        listExerciciosConfig();
         getHorario();
         getPremio();
         getExerciciosDoDia();
@@ -866,12 +796,13 @@ public class Dashboard implements Initializable {
 
     }
 
-    public void playPause(boolean play) throws InterruptedException {
+    // Controla o andamento do exercício
+    private void playPause(boolean play) throws InterruptedException {
         if (play) {
             pause = true;
             setTimerExercicio();
             btnImagePlay.setImage(imagePause);
-            AuditoriaTest.getInstance().StartThread("Pause");
+            AuditoriaTest.getInstance().StartThread("Play");
         } else {
             btnImagePlay.setImage(imagePlay);
             pause = false;
@@ -881,32 +812,66 @@ public class Dashboard implements Initializable {
                 timelineInstrucoes.pause();
             }
 
-            //AuditoriaTest.getInstance().StartThread("Play");
+            AuditoriaTest.getInstance().StartThread("Pause");
         }
     }
 
-    public Integer qntExDisponivel() {
+    // Retorna a quantidade de exercícios disponível para realizar
+    // de acordo com a rotina do usuário
+    private Integer qntExDisponivel() {
         int total = 0;
-        if (func.getHoraInicio() != null && func.getHoraTermino() != null) {
-            LocalTime horaInicio = LocalTime.parse(func.getHoraInicio());
-            LocalTime horaFinal = LocalTime.parse(func.getHoraTermino());
-            double horas = (double) ((func.getIntervaloExercicios().getHours() * 60) + func.getIntervaloExercicios().getMinutes()) / 60;
-
-            total = qntExerciciosDisponivel = Math.round((int) ((int) (((java.time.Duration.between(horaInicio, horaFinal).toHours()) - 1)) / horas));
-        }
+        total = FuncionarioApp.qtdExercisesToDo(func);
 
         return total;
+    }
+
+    private void startEventExercicioEscolhido(GridPane gridPane) {
+        gridPane.setOnMouseClicked((MouseEvent e) -> {
+            getExercicioEscolhido(gridPane);
+        });
+    }
+
+    private void startEventDuracaoExercicios(GridPane gridPane) {
+        gridPane.setOnMouseClicked((MouseEvent e) -> {
+            setDuracaoExercicios(gridPane);
+        });
+    }
+
+    private void startEventIntervaloExercicios(GridPane gridPane) {
+        gridPane.setOnMouseClicked((MouseEvent e) -> {
+            setIntervaloExercicios(gridPane);
+        });
+    }
+
+    private void setHomeVisible(){
+        try {
+            AuditoriaTest.getInstance().StartThread("Home");
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+        }
+        homeGrayScreen.setVisible(true);
+        homeWhiteScreen.setVisible(true);
+        exerciseScreen.setVisible(false);
+        configScreen.setVisible(false);
+    }
+
+    private void goToConfig(){
+        try {
+            AuditoriaTest.getInstance().StartThread("Settings");
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+        }
+
+        configScreen.setVisible(true);
+        exerciseScreen.setVisible(false);
+        homeGrayScreen.setVisible(false);
+        homeWhiteScreen.setVisible(false);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
-        if (func.getIntervaloExercicios() != null && func.getIntervaloExercicios().getHours() > 0 && func.getIntervaloExercicios().getMinutes() > 0) {
-            double minutos = func.getIntervaloExercicios().getMinutes();
-            double horaTotal = func.getIntervaloExercicios().getHours() + (minutos > 0 ? (minutos / 60) : 0);
-            NotificationApp.startTimerNotification(horaTotal);
-        }
+        FuncionarioApp.startNotificationTimer(func);
         loadConfig();
 
         if (qntExerciciosDisponivel == 0) {
@@ -917,7 +882,6 @@ public class Dashboard implements Initializable {
         for (Exercicio exercicio : func.getExercicios()) {
             novosExerciciosEscolhidos.add(exercicio);
         }
-
 
         playGrid.setOnMouseClicked((MouseEvent e) -> {
             try {
@@ -942,112 +906,42 @@ public class Dashboard implements Initializable {
         });
 
         btnConfigure.setOnMouseClicked((MouseEvent e) -> {
-            try {
-                AuditoriaTest.getInstance().StartThread("Settings");
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
-            configScreen.setVisible(true);
-            exerciseScreen.setVisible(false);
-            homeGrayScreen.setVisible(false);
-            homeWhiteScreen.setVisible(false);
+            goToConfig();
 
         });
 
-        exercicio1.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio1);
-        });
-        exercicio2.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio2);
-        });
-        exercicio3.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio3);
-        });
-        exercicio4.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio4);
-        });
-        exercicio5.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio5);
-        });
-        exercicio6.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio6);
-        });
-        exercicio7.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio7);
-        });
-        exercicio8.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio8);
-        });
-        exercicio9.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio9);
-        });
-        exercicio10.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio10);
-        });
-        exercicio11.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio11);
-        });
-        exercicio12.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio12);
-        });
-        exercicio13.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio13);
-        });
-        exercicio14.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio14);
-        });
-        exercicio15.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio15);
-        });
-        exercicio16.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(exercicio16);
-        });
+        startEventExercicioEscolhido(exercicio1);
+        startEventExercicioEscolhido(exercicio2);
+        startEventExercicioEscolhido(exercicio3);
+        startEventExercicioEscolhido(exercicio4);
+        startEventExercicioEscolhido(exercicio5);
+        startEventExercicioEscolhido(exercicio6);
+        startEventExercicioEscolhido(exercicio7);
+        startEventExercicioEscolhido(exercicio8);
+        startEventExercicioEscolhido(exercicio9);
+        startEventExercicioEscolhido(exercicio10);
+        startEventExercicioEscolhido(exercicio11);
+        startEventExercicioEscolhido(exercicio12);
+        startEventExercicioEscolhido(exercicio13);
+        startEventExercicioEscolhido(exercicio14);
+        startEventExercicioEscolhido(exercicio15);
+        startEventExercicioEscolhido(exercicio16);
 
-        duracao_1.setOnMouseClicked((MouseEvent e) -> {
-            setDuracaoExercicios(duracao_1);
-        });
-        duracao_2.setOnMouseClicked((MouseEvent e) -> {
-            setDuracaoExercicios(duracao_2);
-        });
-        duracao_3.setOnMouseClicked((MouseEvent e) -> {
-            setDuracaoExercicios(duracao_3);
-        });
-        duracao_4.setOnMouseClicked((MouseEvent e) -> {
-            setDuracaoExercicios(duracao_4);
-        });
-        duracao_5.setOnMouseClicked((MouseEvent e) -> {
-            setDuracaoExercicios(duracao_5);
-        });
-        duracao_6.setOnMouseClicked((MouseEvent e) -> {
-            setDuracaoExercicios(duracao_6);
-        });
+        startEventDuracaoExercicios(duracao_1);
+        startEventDuracaoExercicios(duracao_2);
+        startEventDuracaoExercicios(duracao_3);
+        startEventDuracaoExercicios(duracao_4);
+        startEventDuracaoExercicios(duracao_5);
+        startEventDuracaoExercicios(duracao_6);
 
-        intervalo_10000.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_10000);
-        });
-        intervalo_20000.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_20000);
-        });
-        intervalo_30000.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_30000);
-        });
-        intervalo_13000.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_13000);
-        });
-        intervalo_23000.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_23000);
-        });
-        intervalo_3000.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(intervalo_3000);
-        });
+        startEventIntervaloExercicios(intervalo_10000);
+        startEventIntervaloExercicios(intervalo_20000);
+        startEventIntervaloExercicios(intervalo_30000);
+        startEventIntervaloExercicios(intervalo_13000);
+        startEventIntervaloExercicios(intervalo_23000);
+        startEventIntervaloExercicios(intervalo_3000);
 
-        if (func.getLembrete() == null || func.getLembrete().isEmpty()) {
-            lembrete.setText("Clique aqui para adicionar um lembrete!");
-        } else {
-            lembreteEdit.setVisible(false);
-            lembrete.setVisible(true);
-            lembrete.setText(func.getLembrete());
-        }
+        lembrete.setText(FuncionarioApp.setLembreteUsuario(func));
 
         semMotivacao.setVisible(empresa.getFraseMotivacional() == null || empresa.getFraseMotivacional().isEmpty());
         if (empresa.getFraseMotivacional() != null && !empresa.getFraseMotivacional().isEmpty()) {
@@ -1075,32 +969,14 @@ public class Dashboard implements Initializable {
 
         Home.setPickOnBounds(true);
         Home.setOnMouseClicked((MouseEvent e) -> {
-
             loadConfig();
-
-            try {
-                AuditoriaTest.getInstance().StartThread("Home");
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
-            homeGrayScreen.setVisible(true);
-            homeWhiteScreen.setVisible(true);
-            exerciseScreen.setVisible(false);
-            configScreen.setVisible(false);
+            setHomeVisible();
         });
 
 
         Config.setPickOnBounds(true);
         Config.setOnMouseClicked((MouseEvent e) -> {
-            try {
-                AuditoriaTest.getInstance().StartThread("Settings");
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
-            configScreen.setVisible(true);
-            exerciseScreen.setVisible(false);
-            homeGrayScreen.setVisible(false);
-            homeWhiteScreen.setVisible(false);
+            goToConfig();
         });
 
         Logout.setPickOnBounds(true);
@@ -1108,15 +984,13 @@ public class Dashboard implements Initializable {
             try {
                 NotificationApp.timeline.stop();
                 novosExerciciosEscolhidos.clear();
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/Login/login.fxml")));
-                Stage stage = new Stage();
-                stage.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
-                //stage.initStyle(StageStyle.UNDECORATED);
-                stage.setResizable(false);
-                stage.setScene(scene);
-                stage.show();
 
-                stage = (Stage) Logout.getScene().getWindow();
+                Parent root;
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/Login/login.fxml"));
+                root = fxmlLoader.load();
+                FuncionarioApp.openModal("/resources/img/w!.png", root);
+
+                Stage stage = (Stage) Logout.getScene().getWindow();
                 stage.close();
 
                 AuditoriaTest.getInstance().StartThread("Logout");
@@ -1129,58 +1003,41 @@ public class Dashboard implements Initializable {
         iniciarConfig.setPickOnBounds(true);
         iniciarConfig.setOnMouseClicked((MouseEvent e) -> {
 
-            Boolean valid = true;
+            Boolean valid;
             aviso.setVisible(false);
             avisoDuracao.setVisible(false);
             avisoIntervalo.setVisible(false);
             avisoHorario.setVisible(false);
 
-            if (novosExerciciosEscolhidos.size() == 0) {
-                valid = false;
-                aviso.setVisible(true);
-            }
-            if (func.getIntervaloExercicios() == null) {
-                valid = false;
-                avisoIntervalo.setVisible(true);
-            }
-            if (func.getDuracaoExercicios() == 0) {
-                valid = false;
-                avisoDuracao.setVisible(true);
-            }
+            aviso.setVisible(FuncionarioApp.validateExerciciosEscolhidos(novosExerciciosEscolhidos));
+            valid = FuncionarioApp.validateExerciciosEscolhidos(novosExerciciosEscolhidos);
 
-            if (horaInicial.getText().equals("00:00") || horaFinal.getText().equals("00:00")) {
-                valid = false;
-                avisoHorario.setVisible(true);
-            } else {
+            avisoIntervalo.setVisible(FuncionarioApp.validateIntervaloExercicios(func.getIntervaloExercicios()));
+            valid = FuncionarioApp.validateIntervaloExercicios(func.getIntervaloExercicios());
+
+            avisoDuracao.setVisible(FuncionarioApp.validateDuracaoExercicios(func.getDuracaoExercicios()));
+            valid = FuncionarioApp.validateDuracaoExercicios(func.getDuracaoExercicios());
+
+            valid = !FuncionarioApp.validateHorario(horaInicial, horaFinal);
+            avisoHorario.setVisible(FuncionarioApp.validateHorario(horaInicial, horaFinal));
+            if(!FuncionarioApp.validateHorario(horaInicial, horaFinal)){
                 func.setHoraInicio(horaInicial.getText());
                 func.setHoraTermino(horaFinal.getText());
             }
 
             if (valid) {
-                boolean equalLists = func.getExercicios().size() == novosExerciciosEscolhidos.size() && func.getExercicios().containsAll(novosExerciciosEscolhidos) && novosExerciciosEscolhidos.containsAll(func.getExercicios());
 
-                if (!equalLists) {
-                    func.setExercicios(novosExerciciosEscolhidos);
-                    exercicioDAO.escolherExercicio(func, qntExDisponivel());
+                FuncionarioApp.saveConfig(func, qntExDisponivel(), novosExerciciosEscolhidos);
+                FuncionarioApp.startNotificationTimer(func);
 
-                }
-
-                daoFunc.alterarFuncionario(func);
-
-                double minutos = func.getIntervaloExercicios().getMinutes();
-                double horaTotal = func.getIntervaloExercicios().getHours() + (minutos > 0 ? (minutos / 60) : 0);
-
-                NotificationApp.startTimerNotification(horaTotal);
                 loadConfig();
+                setHomeVisible();
                 try {
                     AuditoriaTest.getInstance().StartThread("Initialize");
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
                 }
-                configScreen.setVisible(false);
-                exerciseScreen.setVisible(false);
-                homeGrayScreen.setVisible(true);
-                homeWhiteScreen.setVisible(true);
+
             }
         });
 
