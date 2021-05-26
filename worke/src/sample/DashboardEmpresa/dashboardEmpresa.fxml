@@ -600,7 +600,7 @@
                      </content></ScrollPane>
                     </children>
                 </Pane>
-                <Pane fx:id="UserPane" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">
+                <Pane fx:id="UserPane" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
                     <children>
                         <GridPane layoutX="760.0" layoutY="60.0" prefHeight="43.0" prefWidth="290.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 22; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);">
                             <columnConstraints>
