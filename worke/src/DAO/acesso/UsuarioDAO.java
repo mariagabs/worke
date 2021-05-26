@@ -188,6 +188,33 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
         }
     }
 
+    public Usuario consultarUsuario(int id) {
+        Usuario usuario = new Usuario();
+        String sql = "SELECT Nome FROM Usuario WHERE Id = ?";
+
+        try {
+            if (this.connection.connection()) {
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+                sentenca.setInt(1, id);
+
+                ResultSet resultadoSentenca = sentenca.executeQuery();
+
+                while (resultadoSentenca.next()) {
+
+                    usuario.setNome(resultadoSentenca.getString("Nome"));
+                }
+
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+
+            return usuario;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
     public ArrayList<Usuario> listarFiltro(String nome) {
         ArrayList<Usuario> listaUsuario = new ArrayList<Usuario>();
         String sql = "SELECT Id, Nome, Login FROM Usuario WHERE Nome LIKE ? AND AdmEmpresa = 0 ORDER BY Nome";

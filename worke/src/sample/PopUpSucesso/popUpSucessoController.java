@@ -48,7 +48,11 @@ public class popUpSucessoController implements Initializable {
         btnOK.setOnMouseClicked((MouseEvent e) -> {
 
             if (controller != null){
-                controller.goToHome();
+                try {
+                    controller.goToHome();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             } else if (controllerEmpresa != null){
                 controllerEmpresa.voltarHomePopUpSucesso();
             }

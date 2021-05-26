@@ -29,6 +29,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Cursor;
@@ -46,6 +47,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -63,12 +65,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
 
 public class DashboardEmpresaController implements Initializable {
 
@@ -163,13 +167,37 @@ public class DashboardEmpresaController implements Initializable {
 
     private static Users funcionariosEmpresa;
     @FXML
-    private Circle donut;
-    @FXML
     private GridPane chartEx;
     @FXML
     private Pane semRanking;
-
     @FXML
+    private ScrollPane premiosScroll;
+    @FXML
+    private GridPane premiosGrid;
+
+    public void setHistoricoPremios() throws IOException {
+        premiosGrid.getChildren().clear();
+        List<Premio> premioList = EmpresaApp.listarPremios();
+        int column = 0;
+        int row = 1;
+        for (Premio premio : premioList) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("premio.fxml"));
+            VBox premioBox = fxmlLoader.load();
+            premioController premioController = fxmlLoader.getController();
+            Usuario user = EmpresaApp.consultarUsuarioId(premio.getUsuarioId());
+            premioController.setData(premio, user.getNome());
+
+            if (column == 3) {
+                column = 0;
+                ++row;
+            }
+
+            premiosGrid.add(premioBox, column++, row);
+            GridPane.setMargin(premioBox, new Insets(10));
+        }
+    }
+
     public void setDateTime() {
 
         String pattern = "dd/MM/yyyy";
@@ -188,12 +216,12 @@ public class DashboardEmpresaController implements Initializable {
         clock.play();
     }
 
-    private void setRanking(){
+    private void setRanking() {
         usuarioIdNome = EmpresaApp.mapFuncionarioIdNome(usuariosEmpresa);
         usuarioIdArray = EmpresaApp.listarUsuariosEmpresa(usuariosEmpresa);
 
         semRanking.setVisible(usuarioIdArray.length == 0);
-        if(usuarioIdArray.length > 0) {
+        if (usuarioIdArray.length > 0) {
             int aux = 0;
             for (Node node : rankingPane.getChildren()) {
                 if (aux == usuarioIdArray.length) break;
@@ -221,7 +249,7 @@ public class DashboardEmpresaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        premiosScroll.setPickOnBounds(false);
 
         vazioVerificacao.setVisible(!EmpresaApp.existsDataChartVerificacao());
         if (EmpresaApp.existsDataChartVerificacao()) {
@@ -229,7 +257,7 @@ public class DashboardEmpresaController implements Initializable {
         }
 
         vazioMaisRealizados.setVisible(EmpresaApp.calcTotalExerciciosExEscolhido().size() == 0);
-        if(EmpresaApp.calcTotalExerciciosExEscolhido().size() > 0){
+        if (EmpresaApp.calcTotalExerciciosExEscolhido().size() > 0) {
             barChart.getData().add(EmpresaApp.createBarChart());
             barChart.setLegendSide(Side.TOP);
         }
@@ -237,6 +265,12 @@ public class DashboardEmpresaController implements Initializable {
         homeCarregarDados();
         fraseMotivacional.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= 45 ? change : null));
+
+        try {
+            setHistoricoPremios();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         pesquisarUsuario.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -312,11 +346,16 @@ public class DashboardEmpresaController implements Initializable {
             emailCol.setCellValueFactory(new PropertyValueFactory<Users, String>("email"));
             addButtonToTable();
 
-            usuariosTable.setItems((ObservableList) users);
+            usuariosTable.setItems(users);
         });
 
         btnHistorico.setPickOnBounds(true);
         btnHistorico.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                setHistoricoPremios();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             try {
                 AuditoriaTest.getInstance().StartThread("History");
             } catch (InterruptedException interruptedException) {
@@ -346,6 +385,11 @@ public class DashboardEmpresaController implements Initializable {
 
         historico.setPickOnBounds(true);
         historico.setOnMouseClicked((MouseEvent e) -> {
+            try {
+                setHistoricoPremios();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             try {
                 AuditoriaTest.getInstance().StartThread("History");
             } catch (InterruptedException interruptedException) {
@@ -404,7 +448,7 @@ public class DashboardEmpresaController implements Initializable {
                         emp.setFraseMotivacional(fraseMotivacional.getText() == null ? "" : fraseMotivacional.getText());
                         emp.setPossuiPremio(!naoPossuiPremio.isSelected());
 
-                        if(naoPossuiPremio.isSelected()){
+                        if (naoPossuiPremio.isSelected()) {
                             emp.setPremioId(null);
                         } else if (!naoPossuiPremio.isSelected() && premio.getText().length() > 0) {
                             emp.setNomePremio(premio.getText());
@@ -459,7 +503,7 @@ public class DashboardEmpresaController implements Initializable {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         try {
-                            if (Empresa.getInstance().isPossuiPremio()){
+                            if (Empresa.getInstance().isPossuiPremio()) {
                                 popUpSucessoMensagem("Finalizado!", usuarioIdNome.get(usuarioIdArray[0]) + " venceu essa rodada. Parabéns!");
                                 EmpresaApp.finalizarPremio(usuarioIdArray[0]);
                                 premio.setText(null);

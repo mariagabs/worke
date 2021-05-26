@@ -21,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,6 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -39,6 +41,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import sample.DashboardEmpresa.premioController;
 import sample.Main;
 import sample.PopUpCriarFuncionarios.PopUpCriarFuncionarioController;
 import sample.PopUpDelete.popUpDeleteController;
@@ -245,6 +248,10 @@ public class Dashboard implements Initializable {
     private Pane semExercicios;
     @FXML
     private Button btnConfigure;
+    @FXML
+    private ScrollPane exerciciosScroll;
+    @FXML
+    private GridPane exerciciosGrid;
 
     private Funcionario func = Funcionario.getInstance();
     FuncionarioDAO daoFunc = new FuncionarioDAO();
@@ -263,6 +270,7 @@ public class Dashboard implements Initializable {
     public static List<String> instrucoes;
     public static Integer[] rankingFuncionarios;
     private static List<Exercicio> novosExerciciosEscolhidos = new ArrayList<>();
+
     public Integer[] listarUsuariosEmpresa() {
         return EmpresaApp.listarUsuariosEmpresa();
     }
@@ -445,7 +453,7 @@ public class Dashboard implements Initializable {
     }
 
     // Realiza uma ação de acordo com o parâmetro recebido
-    public void confirmarCancelarExercicio(boolean cancelar) throws InterruptedException {
+    public void confirmarCancelarExercicio(boolean cancelar) throws InterruptedException, IOException {
         if (cancelar) {
             resetDetails();
             goToHome();
@@ -469,11 +477,11 @@ public class Dashboard implements Initializable {
                         (EventHandler) event -> {
                             timeSeconds--;
 
-                                timerDetails.setText(secondsToString(timeSeconds));
-                                if (timeSeconds <= 0) {
-                                    setDoneEx();
-                                    resetDetails();
-                                    showPopUpSucesso("Parabéns!", "Você completou um exercício.");
+                            timerDetails.setText(secondsToString(timeSeconds));
+                            if (timeSeconds <= 0) {
+                                setDoneEx();
+                                resetDetails();
+                                showPopUpSucesso("Parabéns!", "Você completou um exercício.");
 
                             }
                         }));
@@ -507,7 +515,7 @@ public class Dashboard implements Initializable {
     }
 
     // Volta para o dashboard principal do funcionário
-    public void goToHome() {
+    public void goToHome() throws IOException {
         disableButtons(false);
         loadConfig();
         setHomeVisible();
@@ -680,46 +688,36 @@ public class Dashboard implements Initializable {
     }
 
     // Lista os exercícios do dia no dashboard principal
-    private void listExerciciosDoDia(List<Exercicio> exercicios) {
-        int aux = 0;
-        for (Node pane : exerciciosDoDia.getChildren()) {
-            if (pane instanceof GridPane) {
-                pane.setVisible(false);
+    private void listExerciciosDoDia(List<Exercicio> exercicios) throws IOException {
+        int column = 0;
+        int row = 1;
+        exerciciosGrid.getChildren().clear();
+
+        for (Exercicio exercicio : exercicios) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("cardExercicio.fxml"));
+            VBox exercicioBox = fxmlLoader.load();
+            cardExercicioController cardExercicioController = fxmlLoader.getController();
+            cardExercicioController.setExercicio(exercicio, func);
+            cardExercicioController.clickEx.setOnMouseClicked((MouseEvent e) -> {
+                clickEventExercicioDoDia(exercicio);
+            });
+
+            if (column == 3) {
+                column = 0;
+                ++row;
             }
-            if (aux < exercicios.size()) {
 
-                if (pane instanceof GridPane) {
-                    Exercicio ex = exercicios.get(aux);
-                    pane.setId(pane.getId() + "_" + ex.getId());
-                    pane.setVisible(true);
-                    for (Node child : ((GridPane) pane).getChildren()) {
-
-                        if (child instanceof ImageView) {
-
-                            if (child.getId() != null && child.getId().contains("exDia")) {
-                                Image img = FuncionarioApp.imagemExercicio(true, ex);
-                                ((ImageView) child).setImage(img);
-                            } else {
-                                child.setPickOnBounds(true);
-                                child.setOnMouseClicked((MouseEvent e) -> {
-                                    clickEventExercicioDoDia(ex);
-                                });
-                            }
-                        }
-                        if (child instanceof Label) {
-                            ((Label) child).setText(FuncionarioApp.formatDuracaoExercicioDetails(child, ex, func));
-                        }
-                    }
-                    aux++;
-                }
-            }
+            exerciciosGrid.add(exercicioBox, column++, row);
+            GridPane.setMargin(exercicioBox, new Insets(10));
         }
     }
 
     // Listagem dos exercícios do usuário no dashboard principal
-    private void getExerciciosDoDia() {
+    private void getExerciciosDoDia() throws IOException {
 
         List<Exercicio> exercicios = FuncionarioApp.listExercicios(func);
+
         semExercicios.setVisible(exercicios.size() == 0);
 
         // Card de PRÓXIMO EXERCÍCIO
@@ -742,15 +740,12 @@ public class Dashboard implements Initializable {
 
     // Reset dos timers após cancelar a realização do exercício
     private void resetDetails() {
-
+        timeSeconds = func.getDuracaoExercicios() * 60;
         if (timeline != null && timelineInstrucoes != null) {
             timeline.stop();
             timelineInstrucoes.stop();
         }
-
         pause = false;
-
-        timeSeconds = func.getDuracaoExercicios() * 60;
     }
 
     // Verifica se ainda é possível fazer exercícios de acordo com a quantidade
@@ -763,7 +758,7 @@ public class Dashboard implements Initializable {
             String lastDate = FuncionarioApp.getLastDateExerciseWasDone();
 
             if (!lastDate.equals(null)) {
-                bloqExDoDia.setVisible(currentDate.equals(lastDate));
+                exerciciosScroll.setDisable(currentDate.equals(lastDate));
                 bloqParabens.setVisible(currentDate.equals(lastDate));
 
                 if (!currentDate.equals(lastDate)) {
@@ -775,7 +770,7 @@ public class Dashboard implements Initializable {
     }
 
     // Carrega as principais informações da tela
-    private void loadConfig() {
+    private void loadConfig() throws IOException {
         getDuracaoExercicios();
         getIntervaloExercicios();
         getExerciciosEscolhidos();
@@ -842,7 +837,7 @@ public class Dashboard implements Initializable {
         });
     }
 
-    private void setHomeVisible(){
+    private void setHomeVisible() {
         try {
             AuditoriaTest.getInstance().StartThread("Home");
         } catch (InterruptedException interruptedException) {
@@ -858,7 +853,7 @@ public class Dashboard implements Initializable {
         aviso.setVisible(false);
     }
 
-    private void goToConfig(){
+    private void goToConfig() {
         try {
             AuditoriaTest.getInstance().StartThread("Settings");
         } catch (InterruptedException interruptedException) {
@@ -875,7 +870,12 @@ public class Dashboard implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         FuncionarioApp.startNotificationTimer(func);
-        loadConfig();
+        
+        try {
+            loadConfig();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Integer rotinaId = dao.getLastRotina(func);
         Date dataRotina = Rotina.getInstance().getDataCriacao();
         String currentDate = String.valueOf(LocalDate.now());
@@ -978,9 +978,13 @@ public class Dashboard implements Initializable {
 
         Home.setPickOnBounds(true);
         Home.setOnMouseClicked((MouseEvent e) -> {
-            loadConfig();
+            try {
+                loadConfig();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             setHomeVisible();
-            
+
         });
 
 
@@ -1030,7 +1034,7 @@ public class Dashboard implements Initializable {
 
             valid = !FuncionarioApp.validateHorario(horaInicial, horaFinal);
             avisoHorario.setVisible(FuncionarioApp.validateHorario(horaInicial, horaFinal));
-            if(!FuncionarioApp.validateHorario(horaInicial, horaFinal)){
+            if (!FuncionarioApp.validateHorario(horaInicial, horaFinal)) {
                 func.setHoraInicio(horaInicial.getText());
                 func.setHoraTermino(horaFinal.getText());
             }
@@ -1040,7 +1044,11 @@ public class Dashboard implements Initializable {
                 FuncionarioApp.saveConfig(func, qntExDisponivel(), novosExerciciosEscolhidos);
                 FuncionarioApp.startNotificationTimer(func);
 
-                loadConfig();
+                try {
+                    loadConfig();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
                 setHomeVisible();
                 try {
                     showPopUpSucesso("Configurações salvas!", "Os dados das configurações foram atualizados com sucesso!");

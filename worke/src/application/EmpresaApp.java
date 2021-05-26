@@ -153,6 +153,11 @@ public class EmpresaApp {
         empresaDAO.alterar(Empresa.getInstance());
     }
 
+    public static List<Premio> listarPremios() {
+        PremioDAO premioDAO = new PremioDAO();
+        return premioDAO.listar();
+    }
+
     public static boolean existsDataChartVerificacao() {
         LinkedHashMap<Integer, Integer> usuariosEmpresa = mapExercicioIdQuantidade();
         int qtdUsuariosFezExercicio = EmpresaApp.usuariosFezExercicios(usuariosEmpresa);
@@ -199,9 +204,12 @@ public class EmpresaApp {
             Optional<Exercicio> exercicio = exercicioList.stream().filter(ex -> ex.getId() == id).findFirst();
             String nome = exercicio.get().getNome();
 
-            if (nome.split(" ")[0].length() >= 10) {
+            if (nome.contains(" ") && (nome.split(" ")[0].length() + nome.split(" ")[1].length()) >= 10 && nome.split(" ").length > 2) {
+                int qnt = (nome.split(" ")[0].length() + nome.split(" ")[1].length());
+                nome = nome.split(" ")[0] + " " + nome.split(" ")[1].trim() + "\n" + nome.substring(qnt + 1).trim();
+            } else if (nome.contains(" ") && (nome.split(" ")[0].length() > 10)) {
                 int qnt = nome.split(" ")[0].length();
-                nome = nome.split(" ")[0].trim() + "\n" + nome.substring(qnt, nome.length()).trim();
+                nome = nome.split(" ")[0].trim() + "\n" + nome.substring(qnt).trim();
             }
 
             Integer qnt = exercicioIdQntFeita.get(id);
@@ -245,6 +253,11 @@ public class EmpresaApp {
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .forEachOrdered(x -> mapExercicioQtd.put(x.getKey(), x.getValue()));
         return mapExercicioQtd;
+    }
+
+    public static Usuario consultarUsuarioId(int id) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        return usuarioDAO.consultarUsuario(id);
     }
 
 }
