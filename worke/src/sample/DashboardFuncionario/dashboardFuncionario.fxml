@@ -615,6 +615,9 @@
                                     <font>
                                         <Font name="System Bold" size="24.0" />
                                     </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                                 </Label>
                             </children>
                         </GridPane>
@@ -633,6 +636,9 @@
                                     <image>
                                         <Image url="@../../resources/img/botao-play-ponta-de-seta.png" />
                                     </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                                 </ImageView>
                             </children>
                         </GridPane>
@@ -1376,6 +1382,9 @@
                                     <font>
                                         <Font name="Nunito Black" size="21.0" />
                                     </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                                 </Label>
                             </children>
                         </GridPane>
