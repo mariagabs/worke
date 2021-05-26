@@ -27,6 +27,7 @@ import sample.PopUpDelete.popUpDeleteController;
 
 import java.io.IOException;
 import java.sql.Array;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -128,7 +129,8 @@ public class EmpresaApp {
 
     public static String convertToHours(Integer minutes) {
         double resultado = (double) minutes / 60;
-        return String.valueOf(resultado);
+        String resultadoStr = String.format("%.1f", resultado);
+        return resultadoStr;
     }
 
     public static void finalizarPremio(Integer usuarioId) {

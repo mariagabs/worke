@@ -420,6 +420,7 @@ public class UsuarioDAO implements AbstractDAO<Usuario> {
                     while (rs.next()) {
                         rotinaId = rs.getInt("Id");
                         Rotina.getInstance().setQntDisponivelExercicios(rs.getInt("QntExerciciosDisponivel"));
+                        Rotina.getInstance().setDataCriacao(rs.getDate("DataCriacao"));
                         Rotina.getInstance().setId(rotinaId);
                     }
                 }

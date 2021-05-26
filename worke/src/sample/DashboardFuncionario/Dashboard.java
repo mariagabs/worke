@@ -876,6 +876,12 @@ public class Dashboard implements Initializable {
 
         FuncionarioApp.startNotificationTimer(func);
         loadConfig();
+        Integer rotinaId = dao.getLastRotina(func);
+        Date dataRotina = Rotina.getInstance().getDataCriacao();
+        String currentDate = String.valueOf(LocalDate.now());
+        if (!currentDate.equals(String.valueOf(dataRotina))){
+            exercicioDAO.escolherExercicio(func, qntExDisponivel());
+        }
 
         if (qntExerciciosDisponivel == 0) {
             Integer qnt = Rotina.getInstance().getQntDisponivelExercicios();

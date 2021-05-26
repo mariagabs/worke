@@ -234,23 +234,7 @@ public class DashboardEmpresaController implements Initializable {
             barChart.setLegendSide(Side.TOP);
         }
 
-
-
-        setDateTime();
-        String currentDate = String.valueOf(LocalDate.now());
-        usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
-        setRanking();
-        exercicioIdQntFeita = EmpresaApp.calcTotalExerciciosExEscolhido();
-
-        EmpresaDAO empresaDAO = new EmpresaDAO();
-        qntFuncionariosTotal.setText(String.valueOf(empresaDAO.listarFuncionarios().size()));
-        qntExerciciosTotal.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(usuariosEmpresa)));
-        qntMinutosTotal.setText(EmpresaApp.convertToHours(EmpresaApp.totalMinutos()));
-        qntPremiosTotal.setText(String.valueOf(EmpresaApp.totalPremios()));
-        qntHorasDia.setText(String.valueOf(EmpresaApp.totalMinutos(currentDate)));
-        qntExerciciosDia.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(currentDate)));
-
-        loadUsuarios(usuariosTable);
+        homeCarregarDados();
         fraseMotivacional.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= 45 ? change : null));
 
@@ -353,6 +337,7 @@ public class DashboardEmpresaController implements Initializable {
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
             }
+            homeCarregarDados();
             UserPane.setVisible(false);
             PremioPane.setVisible(false);
             DashboardPane.setVisible(true);
@@ -442,32 +427,6 @@ public class DashboardEmpresaController implements Initializable {
                     }
                 }
         );
-
-        btnImprimir.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        try {
-                            //Parent root = FXMLLoader.load(getClass().getResource("/sample/PopUpImpressao/PopUpImpressao.fxml"));
-                            Parent root = FXMLLoader.load(getClass().getResource("/sample/PopUpSucesso/PopUpSucesso.fxml"));
-
-                            Stage dialog = new Stage();
-                            dialog.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
-                            dialog.setScene(new Scene(root));
-                            dialog.initModality(Modality.APPLICATION_MODAL);
-                            dialog.show();
-
-                            AuditoriaTest.getInstance().StartThread("Open Pop-Up Printer");
-
-                        } catch (IOException | InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                }
-        );
-
         btnCriarUsuario.setOnAction(
                 new EventHandler<ActionEvent>() {
                     @Override
@@ -684,6 +643,24 @@ public class DashboardEmpresaController implements Initializable {
             qntFuncionariosTotal.setText(String.valueOf(empresaDAO.listarFuncionarios().size()));
             loadUsuarios(usuariosTable);
         }
+    }
+
+    public void homeCarregarDados() {
+        setDateTime();
+        String currentDate = String.valueOf(LocalDate.now());
+        usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
+        setRanking();
+        exercicioIdQntFeita = EmpresaApp.calcTotalExerciciosExEscolhido();
+
+        EmpresaDAO empresaDAO = new EmpresaDAO();
+        qntFuncionariosTotal.setText(String.valueOf(empresaDAO.listarFuncionarios().size()));
+        qntExerciciosTotal.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(usuariosEmpresa)));
+        qntMinutosTotal.setText(EmpresaApp.convertToHours(EmpresaApp.totalMinutos()));
+        qntPremiosTotal.setText(String.valueOf(EmpresaApp.totalPremios()));
+        qntHorasDia.setText(String.valueOf(EmpresaApp.totalMinutos(currentDate)));
+        qntExerciciosDia.setText(String.valueOf(EmpresaApp.totalExerciciosTodosFuncionarios(currentDate)));
+
+        loadUsuarios(usuariosTable);
     }
 
     public void voltarHomePopUpSucesso() {
