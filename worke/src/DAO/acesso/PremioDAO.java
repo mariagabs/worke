@@ -148,6 +148,11 @@ public class PremioDAO implements AbstractDAO<Premio> {
 
                 while (resultadoSentenca.next()) {
                     Premio premio = new Premio();
+                    premio.setId(resultadoSentenca.getInt("Id"));
+                    premio.setUsuarioId(resultadoSentenca.getInt("UsuarioId"));
+                    premio.setDataFinal(resultadoSentenca.getDate("DataFinal"));
+                    premio.setDescricao(resultadoSentenca.getString("Descricao"));
+
                     listaPremio.add(premio);
                 }
 

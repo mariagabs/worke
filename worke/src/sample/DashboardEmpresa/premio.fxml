@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="310.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 11, 0, 0, 6);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DashboardEmpresa.premioController">
+   <children>
+      <GridPane prefHeight="223.0" prefWidth="310.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="18.0" minWidth="18.0" prefWidth="18.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="314.0" minWidth="10.0" prefWidth="123.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="18.0" minWidth="18.0" prefWidth="18.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="58.0" minHeight="47.4" prefHeight="58.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="21.0" minHeight="0.0" prefHeight="21.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="48.0" minHeight="37.0" prefHeight="37.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="15.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="48.0" minHeight="48.0" prefHeight="48.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="nPremio" style="-fx-font-family: Nunito; -fx-font-weight: bold;" stylesheets="@../../resources/fonts/styles.css" text="Prêmio 1" textFill="#071c35" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E6F2F6; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a3d3e4" height="25.0" layoutX="14.0" layoutY="12.0" stroke="TRANSPARENT" strokeType="INSIDE" width="25.0" />
+                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="19.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/img/gift.png" />
+                     </image></ImageView>
+                  <Label fx:id="nomePremio" layoutX="52.0" layoutY="16.0" prefHeight="17.0" prefWidth="184.0" style="-fx-font-family: Nunito;" text="Nome prêmio" textFill="#071c35" />
+               </children></Pane>
+            <Pane layoutX="28.0" layoutY="97.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fcf2da; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffd46a" height="25.0" layoutX="14.0" layoutY="12.0" stroke="TRANSPARENT" strokeType="INSIDE" width="25.0" />
+                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="19.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/img/trophy.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="vencedor" layoutX="52.0" layoutY="16.0" prefHeight="17.0" prefWidth="184.0" style="-fx-font-family: Nunito;" text="Nome vencedor" textFill="#071c35" />
+               </children></Pane>
+         </children>
+      </GridPane>
+   </children>
+</VBox>

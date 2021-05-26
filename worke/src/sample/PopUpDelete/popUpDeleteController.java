@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import sample.DashboardEmpresa.DashboardEmpresaController;
 import sample.DashboardFuncionario.Dashboard;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -45,7 +46,7 @@ public class popUpDeleteController implements Initializable {
                 } else if (controllerEmpresa != null) {
                     controllerEmpresa.confirmarCancelarUsuario(true);
                 }
-            } catch (InterruptedException interruptedException) {
+            } catch (InterruptedException | IOException interruptedException) {
                 interruptedException.printStackTrace();
             }
             Stage stage = (Stage) btnSim.getScene().getWindow();
@@ -60,7 +61,7 @@ public class popUpDeleteController implements Initializable {
                 } else if (controllerEmpresa != null) {
                     controllerEmpresa.confirmarCancelarUsuario(false);
                 }
-            } catch (InterruptedException interruptedException) {
+            } catch (InterruptedException | IOException interruptedException) {
                 interruptedException.printStackTrace();
             }
             Stage stage = (Stage) btnNao.getScene().getWindow();
