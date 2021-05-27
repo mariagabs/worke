@@ -337,7 +337,9 @@ public class FuncionarioApp {
         }
 
         daoFunc.alterarFuncionario(func);
+        exercicioDAO.updateQtdDisponivelRotina(qntDisponivel);
     }
+
 
 
 

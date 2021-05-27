@@ -752,7 +752,7 @@ public class Dashboard implements Initializable {
     // Retorna a quantidade de exercícios disponível para realizar
     // de acordo com a rotina do usuário
     private Integer qntExDisponivel() {
-        int total = 0;
+        int total;
         total = FuncionarioApp.qtdExercisesToDo(func);
 
         return total;
@@ -985,6 +985,7 @@ public class Dashboard implements Initializable {
         if (valid) {
 
             FuncionarioApp.saveConfig(func, qntExDisponivel(), novosExerciciosEscolhidos);
+            qntExerciciosDisponivel = qntExDisponivel();
             FuncionarioApp.startNotificationTimer(func);
 
             try {
