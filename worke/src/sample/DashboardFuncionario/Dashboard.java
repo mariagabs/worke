@@ -2,7 +2,6 @@ package sample.DashboardFuncionario;
 
 import DAO.acesso.ExercicioDAO;
 import DAO.acesso.FuncionarioDAO;
-import DAO.acesso.PremioDAO;
 import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
 import application.EmpresaApp;
@@ -10,13 +9,8 @@ import application.FuncionarioApp;
 import application.NotificationApp;
 import comuns.acesso.*;
 import comuns.conteudo.Exercicio;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,43 +30,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import sample.DashboardEmpresa.premioController;
-import sample.Main;
-import sample.PopUpCriarFuncionarios.PopUpCriarFuncionarioController;
 import sample.PopUpDelete.popUpDeleteController;
 import sample.PopUpSucesso.popUpSucessoController;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Repeatable;
 import java.net.URL;
-import java.sql.Array;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
 public class Dashboard implements Initializable {
     @FXML
     private ImageView Home;
-    @FXML
-    private ImageView ExerciseDetails;
-    @FXML
-    private Button playPause;
     @FXML
     private ImageView Config;
     @FXML
@@ -87,13 +58,7 @@ public class Dashboard implements Initializable {
     @FXML
     private GridPane playGrid;
     @FXML
-    private Button btnImpress;
-    @FXML
     private ImageView Logout;
-    @FXML
-    private ImageView play;
-    @FXML
-    private Label timer;
     @FXML
     private ImageView btnImagePlay;
     @FXML
@@ -136,30 +101,6 @@ public class Dashboard implements Initializable {
     private GridPane intervalo_30000;
     @FXML
     private GridPane duracaoPane;
-    @FXML
-    private Label lblDuracao1;
-    @FXML
-    private Label lblDuracao2;
-    @FXML
-    private Label lblDuracao3;
-    @FXML
-    private Label lblDuracao4;
-    @FXML
-    private Label lblDuracao5;
-    @FXML
-    private Label lblDuracao6;
-    @FXML
-    private Label lblIntervalo_10000;
-    @FXML
-    private Label lblIntervalo_20000;
-    @FXML
-    private Label lblIntervalo_30000;
-    @FXML
-    private Label lblIntervalo_13000;
-    @FXML
-    private Label lblIntervalo_23000;
-    @FXML
-    private Label lblIntervalo_3000;
     @FXML
     private GridPane iniciarConfig;
     @FXML
@@ -208,8 +149,6 @@ public class Dashboard implements Initializable {
     private Label avisoHorario;
     @FXML
     private Label premio;
-    @FXML
-    private GridPane exerciciosDoDia;
     @FXML
     private Label proxExercicio;
     @FXML
@@ -819,24 +758,22 @@ public class Dashboard implements Initializable {
         return total;
     }
 
+    // Instanciando o click dos botões de exercício da tela de configurações
     private void startEventExercicioEscolhido(GridPane gridPane) {
-        gridPane.setOnMouseClicked((MouseEvent e) -> {
-            getExercicioEscolhido(gridPane);
-        });
+        gridPane.setOnMouseClicked((MouseEvent e) -> getExercicioEscolhido(gridPane));
     }
 
+    // Instanciando o click dos botões de duração de exercício da tela de configurações
     private void startEventDuracaoExercicios(GridPane gridPane) {
-        gridPane.setOnMouseClicked((MouseEvent e) -> {
-            setDuracaoExercicios(gridPane);
-        });
+        gridPane.setOnMouseClicked((MouseEvent e) -> setDuracaoExercicios(gridPane));
     }
 
+    // Instanciando o click dos botões de intervalo entre os exercícios da tela de configurações
     private void startEventIntervaloExercicios(GridPane gridPane) {
-        gridPane.setOnMouseClicked((MouseEvent e) -> {
-            setIntervaloExercicios(gridPane);
-        });
+        gridPane.setOnMouseClicked((MouseEvent e) -> setIntervaloExercicios(gridPane));
     }
 
+    // Visibilidade do dashboard principal do funcionário
     private void setHomeVisible() {
         try {
             AuditoriaTest.getInstance().StartThread("Home");
@@ -853,6 +790,7 @@ public class Dashboard implements Initializable {
         aviso.setVisible(false);
     }
 
+    // Visibilidade da tela de configurações
     private void goToConfig() {
         try {
             AuditoriaTest.getInstance().StartThread("Settings");
@@ -1015,51 +953,53 @@ public class Dashboard implements Initializable {
 
 
         iniciarConfig.setPickOnBounds(true);
-        iniciarConfig.setOnMouseClicked((MouseEvent e) -> {
+        iniciarConfig.setOnMouseClicked((MouseEvent e) -> saveUserConfig());
 
-            Boolean valid;
-            aviso.setVisible(false);
-            avisoDuracao.setVisible(false);
-            avisoIntervalo.setVisible(false);
-            avisoHorario.setVisible(false);
 
-            aviso.setVisible(FuncionarioApp.validateExerciciosEscolhidos(novosExerciciosEscolhidos));
-            valid = FuncionarioApp.validateExerciciosEscolhidos(novosExerciciosEscolhidos);
+    }
 
-            avisoIntervalo.setVisible(FuncionarioApp.validateIntervaloExercicios(func.getIntervaloExercicios()));
-            valid = FuncionarioApp.validateIntervaloExercicios(func.getIntervaloExercicios());
+    // Salva as configurações escolhidas pelo usuário
+    private void saveUserConfig(){
+        Boolean valid;
+        aviso.setVisible(false);
+        avisoDuracao.setVisible(false);
+        avisoIntervalo.setVisible(false);
+        avisoHorario.setVisible(false);
 
-            avisoDuracao.setVisible(FuncionarioApp.validateDuracaoExercicios(func.getDuracaoExercicios()));
-            valid = FuncionarioApp.validateDuracaoExercicios(func.getDuracaoExercicios());
+        aviso.setVisible(FuncionarioApp.validateExerciciosEscolhidos(novosExerciciosEscolhidos));
+        valid = FuncionarioApp.validateExerciciosEscolhidos(novosExerciciosEscolhidos);
 
-            valid = !FuncionarioApp.validateHorario(horaInicial, horaFinal);
-            avisoHorario.setVisible(FuncionarioApp.validateHorario(horaInicial, horaFinal));
-            if (!FuncionarioApp.validateHorario(horaInicial, horaFinal)) {
-                func.setHoraInicio(horaInicial.getText());
-                func.setHoraTermino(horaFinal.getText());
+        avisoIntervalo.setVisible(FuncionarioApp.validateIntervaloExercicios(func.getIntervaloExercicios()));
+        valid = FuncionarioApp.validateIntervaloExercicios(func.getIntervaloExercicios());
+
+        avisoDuracao.setVisible(FuncionarioApp.validateDuracaoExercicios(func.getDuracaoExercicios()));
+        valid = FuncionarioApp.validateDuracaoExercicios(func.getDuracaoExercicios());
+
+        valid = !FuncionarioApp.validateHorario(horaInicial, horaFinal);
+        avisoHorario.setVisible(FuncionarioApp.validateHorario(horaInicial, horaFinal));
+        if (!FuncionarioApp.validateHorario(horaInicial, horaFinal)) {
+            func.setHoraInicio(horaInicial.getText());
+            func.setHoraTermino(horaFinal.getText());
+        }
+
+        if (valid) {
+
+            FuncionarioApp.saveConfig(func, qntExDisponivel(), novosExerciciosEscolhidos);
+            FuncionarioApp.startNotificationTimer(func);
+
+            try {
+                loadConfig();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            setHomeVisible();
+            try {
+                showPopUpSucesso("Configurações salvas!", "Os dados das configurações foram atualizados com sucesso!");
+                AuditoriaTest.getInstance().StartThread("Initialize");
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
             }
 
-            if (valid) {
-
-                FuncionarioApp.saveConfig(func, qntExDisponivel(), novosExerciciosEscolhidos);
-                FuncionarioApp.startNotificationTimer(func);
-
-                try {
-                    loadConfig();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-                setHomeVisible();
-                try {
-                    showPopUpSucesso("Configurações salvas!", "Os dados das configurações foram atualizados com sucesso!");
-                    AuditoriaTest.getInstance().StartThread("Initialize");
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
-
-            }
-        });
-
-
+        }
     }
 }

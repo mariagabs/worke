@@ -4,9 +4,11 @@ module worke {
     requires java.sql;
     requires javafx.graphics;
     requires TrayNotification;
+    requires junit;
 
     exports sample;
     exports mask;
+    exports test;
 
 
     opens sample to javafx.fxml;
