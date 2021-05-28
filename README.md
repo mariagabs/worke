@@ -44,7 +44,7 @@ Em cada área acrescentar o apresentado abaixo:
 
 ## 💾 Banco de Dados
 - Instalar o Xampp: https://www.apachefriends.org/pt_br/index.html 
-- Importar o banco disponível 
+- Importar o banco disponível (worke.sql)
 
 ## 👥 Desenvolvedores
 [<img src="https://avatars.githubusercontent.com/u/71194171?s=400&u=071f7791bb03f8e102d835bdb9c2f0d3d24e8a34&v=" width=115 > <br> <sub> Isabelle Okuma </sub>](https://github.com/isabelleokuma) | [<img src="https://avatars.githubusercontent.com/u/54412527?s=400&u=071f7791bb03f8e102d835bdb9c2f0d3d24e8a34&v=" width=115 > <br> <sub> Laura Bento </sub>](https://github.com/laurabento) | [<img src="https://avatars.githubusercontent.com/u/71193719?s=400&u=071f7791bb03f8e102d835bdb9c2f0d3d24e8a34&v=" width=115 > <br> <sub> Maria Akamine </sub>](https://github.com/mariagabs) | [<img src="https://avatars.githubusercontent.com/u/56551507?s=400&u=071f7791bb03f8e102d835bdb9c2f0d3d24e8a34&v=" width=115 > <br> <sub> Raphael Konichi </sub>](https://github.com/raphaelkonichi) |
