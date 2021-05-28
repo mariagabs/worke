@@ -1,4 +1,4 @@
-package application;
+package doughnutChart;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;

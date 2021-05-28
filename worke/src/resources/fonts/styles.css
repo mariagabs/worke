@@ -95,7 +95,7 @@
 .default-color0.chart-pie { -fx-pie-color: #A3D3E4; }
 .default-color1.chart-pie { -fx-pie-color: #F5986D; }
 
-#btnSalvarConfig:hover{
+#btnSalvarConfig:hover {
     -fx-font-size: 21;
     -fx-font-weight: bold;
     height: 45;
@@ -105,3 +105,9 @@
 .chart-legend-item {
     -fx-alignment: center;
 }
+
+#nPremio:hover, #nPremio:focus, #nPremio {
+    -fx-font-size: 20;
+}
+
+

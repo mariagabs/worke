@@ -1,38 +1,23 @@
 package sample.Login;
 
-import DAO.acesso.UsuarioDAO;
 import DAO.auditoria.AuditoriaTest;
-import application.NotificationApp;
+import application.UsuarioApp;
 import comuns.acesso.Usuario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import sample.Main;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
-
-    @FXML
-    private ImageView sair;
 
     @FXML
     private TextField email;
@@ -62,46 +47,27 @@ public class LoginController implements Initializable {
         });
     }
 
-    EventHandler<ActionEvent> entrarEvent = new EventHandler<ActionEvent>() {
-        public void handle(ActionEvent e) {
-            try {
-                AuditoriaTest.getInstance().StartThread("Login");
+    private boolean isInvalid(Usuario user) {
+        return user == null || user.getId() == 0;
+    }
 
-                Usuario user = usuarioDAO.consultar(email.getText(), senha.getText());
-
-                if (user == null || user.getId() == 0) {
-                    dadosIncorretos.setVisible(true);
-                } else {
-                    dadosIncorretos.setVisible(false);
-                    Scene scene;
-
-                    if (user.isAdmEmpresa()) {
-                        scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/DashboardEmpresa/dashboardEmpresa.fxml")));
-                    } else if (user.getSenha().equals("Trocar123*")) {
-                        scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/CriarSenha/criarSenha.fxml")));
-                    } else {
-                        scene = new Scene(FXMLLoader.load(getClass().getResource("/sample/DashboardFuncionario/dashboardFuncionario.fxml")));
-                    }
-
-                    Stage stage = new Stage();
-                    stage.getIcons().add(new Image(Main.class.getResourceAsStream("/resources/img/w!.png")));
-                    stage.setUserData(user);
-                    usuarioLogado = user;
-                    //stage.initStyle(StageStyle.UNDECORATED);
-                    stage.setResizable(false);
-                    stage.setScene(scene);
-                    stage.show();
-
-                    stage = (Stage) entrar.getScene().getWindow();
-                    stage.close();
-                }
-
-
-            } catch (IOException | InterruptedException ioException) {
-                ioException.printStackTrace();
+    private void login() {
+        try {
+            AuditoriaTest.getInstance().StartThread("Login");
+            Usuario user = UsuarioApp.consultarUsuario(email.getText(), senha.getText());
+            dadosIncorretos.setVisible(isInvalid(user));
+            if (!isInvalid(user)) {
+                usuarioLogado = user;
+                UsuarioApp.redirect(user);
+                Stage stage = (Stage) entrar.getScene().getWindow();
+                stage.close();
             }
+        } catch (InterruptedException | IOException ioException) {
+            ioException.printStackTrace();
         }
-    };
+    }
+
+    EventHandler<ActionEvent> entrarEvent = e -> login();
 
 
 }

@@ -1,41 +1,41 @@
-package application;
+package test;
 
 import DAO.acesso.ExercicioDAO;
 import DAO.acesso.FuncionarioDAO;
 import DAO.acesso.PremioDAO;
 import DAO.acesso.UsuarioDAO;
-import DAO.auditoria.AuditoriaTest;
-import comuns.acesso.*;
+import application.FuncionarioApp;
+import application.NotificationApp;
+import comuns.acesso.Empresa;
+import comuns.acesso.ExercicioEscolhido;
+import comuns.acesso.Funcionario;
+import comuns.acesso.Premio;
 import comuns.conteudo.Exercicio;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.junit.Test;
 import sample.Main;
 
 import java.sql.Time;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class FuncionarioApp {
+public class FuncionarioAppTest {
+    private ExercicioDAO exercicioDAO = new ExercicioDAO();
+    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private Empresa empresa = usuarioDAO.listarDadosEmpresa();
+    private FuncionarioDAO daoFunc = new FuncionarioDAO();
 
-    private static ExercicioDAO exercicioDAO = new ExercicioDAO();
-    private static UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private static Empresa empresa = usuarioDAO.listarDadosEmpresa();
-    private static FuncionarioDAO daoFunc = new FuncionarioDAO();
-
-    public static LinkedHashMap<Integer, Integer> sortHashMapByValues(
-            HashMap<Integer, Integer> passedMap) {
+    @Test
+    public void sortHashMapByValues() {
+        HashMap<Integer, Integer> passedMap = FuncionarioApp.calcTotalExerciciosPorExEscolhido(9, null);
         List<Integer> mapKeys = new ArrayList<>(passedMap.keySet());
         List<Integer> mapValues = new ArrayList<>(passedMap.values());
         Collections.sort(mapValues);
@@ -61,26 +61,26 @@ public class FuncionarioApp {
                 }
             }
         }
-        return sortedMap;
     }
 
-    public static HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioIdExEscolhido(Integer usuarioId) {
+    @Test
+    public void mapExercicioIdExEscolhido() {
         HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = new HashMap<Integer, ArrayList<ExercicioEscolhido>>();
         ExercicioDAO exercicioDAO = new ExercicioDAO();
-        ArrayList<ExercicioEscolhido> exercicioEscolhidosList = exercicioDAO.listarTotalExercicios(usuarioId);
+        ArrayList<ExercicioEscolhido> exercicioEscolhidosList = exercicioDAO.listarTotalExercicios(9);
         for (ExercicioEscolhido exercicioEscolhido : exercicioEscolhidosList) {
             if (!mapExercicioId.containsKey(exercicioEscolhido.getExercicioId())) {
                 mapExercicioId.put(exercicioEscolhido.getExercicioId(), new ArrayList<ExercicioEscolhido>());
             }
             mapExercicioId.get(exercicioEscolhido.getExercicioId()).add(exercicioEscolhido);
         }
-        return mapExercicioId;
     }
 
-    public static Integer calcTotalExercicios(Integer usuarioId, ArrayList<Integer> exerciciosRealizadosChaves, LinkedHashMap<Integer, Integer> reverseSortedMap, String dataHoje) {
-
-        LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = sortHashMapByValues(calcTotalExerciciosPorExEscolhido(usuarioId, dataHoje));
-
+    @Test
+    public void calcTotalExercicios() {
+        ArrayList<Integer> exerciciosRealizadosChaves = new ArrayList<>();
+        LinkedHashMap<Integer, Integer> mapExercicioQtdOrdenado = FuncionarioApp.sortHashMapByValues(FuncionarioApp.calcTotalExerciciosPorExEscolhido(9, null));
+        LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
         //Use Comparator.reverseOrder() for reverse ordering
         mapExercicioQtdOrdenado.entrySet()
                 .stream()
@@ -95,17 +95,14 @@ public class FuncionarioApp {
                 totalExerciciosRealizados += reverseSortedMap.get(i);
             }
         }
-        return totalExerciciosRealizados;
     }
 
-    public static Integer calcTotalExercicios(Integer usuarioId, ArrayList<Integer> exerciciosRealizadosChaves, LinkedHashMap<Integer, Integer> reverseSortedMap) {
-        return calcTotalExercicios(usuarioId, exerciciosRealizadosChaves, reverseSortedMap, null);
-    }
 
-    public static HashMap<Integer, Integer> calcTotalExerciciosPorExEscolhido(Integer usuarioId, String dataHoje) {
+    @Test
+    public void calcTotalExerciciosPorExEscolhido() {
         HashMap<Integer, Integer> mapExercicioIdQnt = new HashMap<Integer, Integer>();
-        HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = mapExercicioIdExEscolhido(usuarioId);
-
+        HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = FuncionarioApp.mapExercicioIdExEscolhido(9);
+        String dataHoje = null;
         for (Integer i = 1; i <= 17; i++) {
             if (mapExercicioId.containsKey(i)) {
                 Integer qtd = 0;
@@ -122,16 +119,12 @@ public class FuncionarioApp {
                 }
             }
         }
-        return mapExercicioIdQnt;
     }
 
-    public static HashMap<Integer, Integer> calcTotalExerciciosPorExEscolhido(Integer usuarioId) {
-        return calcTotalExerciciosPorExEscolhido(usuarioId, null);
-    }
-
-    public static Integer calcDuracaoTotal(Integer usuarioId, ArrayList<Integer> exerciciosRealizadosChaves, LinkedHashMap<Integer, Integer> reverseSortedMap, String dataHoje) {
-        HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = mapExercicioIdExEscolhido(usuarioId);
-
+    @Test
+    public void calcDuracaoTotal() {
+        HashMap<Integer, ArrayList<ExercicioEscolhido>> mapExercicioId = FuncionarioApp.mapExercicioIdExEscolhido(9);
+        String dataHoje = null;
         Integer qtd = 0;
         for (Integer i = 1; i <= 17; i++) {
             if (mapExercicioId.containsKey(i)) {
@@ -146,57 +139,71 @@ public class FuncionarioApp {
                 }
             }
         }
-        return qtd;
     }
 
-    public static Integer calcDuracaoTotal(Integer usuarioId, ArrayList<Integer> exerciciosRealizadosChaves, LinkedHashMap<Integer, Integer> reverseSortedMap) {
-        return calcDuracaoTotal(usuarioId, exerciciosRealizadosChaves, reverseSortedMap, null);
-    }
-
-    public static HashMap<Integer, Exercicio> exercicioHashMap(List<Exercicio> exercicios) {
+    @Test
+    public void exercicioHashMap() {
+        List<Exercicio> exercicios = new ArrayList<>();
         HashMap<Integer, Exercicio> exercicioHashMap = new HashMap<>();
         for (Exercicio exercicio : exercicios) {
             exercicioHashMap.put(exercicio.getId(), exercicio);
         }
-
-        return exercicioHashMap;
     }
 
-    public static Image imagemExercicio(Boolean white, Exercicio ex) {
+    @Test
+    public void imagemExercicio() {
         Image img;
-        if (white) {
-            img = new Image(FuncionarioApp.class.getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
-        } else {
-            img = new Image(FuncionarioApp.class.getResource("/resources/img/" + ex.getImagem() + "Dark.png").toExternalForm());
+        Exercicio ex = new Exercicio();
+        boolean white = false;
+
+        if (ex.getImagem() != null) {
+            if (white) {
+                img = new Image(FuncionarioApp.class.getResource("/resources/img/" + ex.getImagem() + "White.png").toExternalForm());
+            } else {
+                img = new Image(FuncionarioApp.class.getResource("/resources/img/" + ex.getImagem() + "Dark.png").toExternalForm());
+            }
         }
 
-        return img;
     }
 
-    public static Color lblExercicioCor(Boolean exercicioEscolhido){
+    @Test
+    public void lblExercicioCor() {
         Color cor;
+        Boolean exercicioEscolhido = false;
         if (exercicioEscolhido) {
             cor = Color.WHITE;
         } else {
             cor = Color.valueOf("#0B1F38");
         }
-
-        return cor;
     }
 
-    public static void openModal(String endereco, Parent root){
-        Stage dialog = new Stage();
-        dialog.getIcons().add(new Image(Main.class.getResourceAsStream(endereco)));
-        dialog.setScene(new Scene(root));
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.show();
+    @Test
+    public void openModal() {
+        String endereco = null;
+        Parent root = null;
+        Stage dialog = null;
+        if (endereco != null) {
+            dialog.getIcons().add(new Image(Main.class.getResourceAsStream(endereco)));
+        }
+
+        if (root != null) {
+            dialog.setScene(new Scene(root));
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        }
+
     }
 
-    public static void salvaExercicioFeito(Exercicio ex, int qntDisponivel){
+    @Test
+    public void salvaExercicioFeito() {
+        Exercicio ex = new Exercicio();
+        int qntDisponivel = 0;
         exercicioDAO.exercicioFeito(ex, qntDisponivel);
     }
 
-    public static String formataIntervaloExercicios(Funcionario func){
+    @Test
+    public void formataIntervaloExercicios() {
+        Funcionario func = new Funcionario();
         String selectedInterval = String.valueOf(func.getIntervaloExercicios()).replace(":", "");
         if (selectedInterval.equals("003000")) {
             selectedInterval = selectedInterval.substring(2);
@@ -204,83 +211,101 @@ public class FuncionarioApp {
             selectedInterval = selectedInterval.substring(1);
         }
 
-        return selectedInterval;
     }
 
-    public static void formataNovoIntervaloExercicios(String newIntervalo, Funcionario func){
-
-        if (!newIntervalo.equals("3000")) {
-            newIntervalo = "0" + newIntervalo;
-        } else {
-            newIntervalo = "00" + newIntervalo;
+    @Test
+    public void formataNovoIntervaloExercicios() {
+        Funcionario func = new Funcionario();
+        String newIntervalo = null;
+        if (newIntervalo != null) {
+            if (!newIntervalo.equals("3000")) {
+                newIntervalo = "0" + newIntervalo;
+            } else {
+                newIntervalo = "00" + newIntervalo;
+            }
+            newIntervalo = newIntervalo.substring(0, 2) + ":" + newIntervalo.substring(2, 4) + ":00";
+            Time selectedIntervalo = Time.valueOf(newIntervalo);
+            func.setIntervaloExercicios(selectedIntervalo);
         }
-
-        newIntervalo = newIntervalo.substring(0, 2) + ":" + newIntervalo.substring(2, 4) + ":00";
-        Time selectedIntervalo = Time.valueOf(newIntervalo);
-        func.setIntervaloExercicios(selectedIntervalo);
     }
 
-    public static String formataDuracaoExercicios(Funcionario func){
+    @Test
+    public void formataDuracaoExercicios() {
+        Funcionario func = new Funcionario();
         DecimalFormat df = new DecimalFormat("#");
         String selectedDuracao = df.format(func.getDuracaoExercicios());
-        return selectedDuracao;
     }
 
-    public static void salvaDuracaoExercicio(String newDuracao, Funcionario func){
-        int selectedDuracao = Integer.valueOf(newDuracao);
-        func.setDuracaoExercicios(selectedDuracao);
+    @Test
+    public void salvaDuracaoExercicio() {
+        String newDuracao = null;
+        if (newDuracao != null) {
+            Funcionario func = new Funcionario();
+            int selectedDuracao = Integer.valueOf(newDuracao);
+            func.setDuracaoExercicios(selectedDuracao);
+        }
     }
 
-    public static List<Exercicio> listExercicios(Funcionario func){
-        return usuarioDAO.consultarExerciciosEscolhidos(usuarioDAO.getLastRotina(func));
+    @Test
+    public void listExercicios() {
+        Funcionario func = new Funcionario();
+        usuarioDAO.consultarExerciciosEscolhidos(usuarioDAO.getLastRotina(func));
     }
 
-    public static String formataHorario(String horario){
+    @Test
+    public void formataHorario() {
+        String horario = null;
         String horarioFormatado = horario;
 
         if (horario == null) {
-            horarioFormatado= "00:00";
+            horarioFormatado = "00:00";
         }
-
-        return horarioFormatado;
 
     }
 
-    public static String nomePremio(){
+    @Test
+    public void nomePremio() {
         String nomePremio = "";
         if (empresa.isPossuiPremio()) {
             PremioDAO premioDAO = new PremioDAO();
             Premio premio = premioDAO.consultar(empresa.getPremioId());
             nomePremio = premio.getDescricao();
         }
-
-        return nomePremio;
     }
 
-    public static List<String> listInstrucoes(Exercicio exercicio) {
-        return exercicioDAO.listarInstrucoes(exercicio.getId());
+    @Test
+    public void listInstrucoes() {
+        Exercicio exercicio = new Exercicio();
+        exercicioDAO.listarInstrucoes(exercicio.getId());
     }
 
-    public static String formatDuracaoExercicioDetails(Node component, Exercicio ex, Funcionario func){
+    @Test
+    public void formatDuracaoExercicioDetails() {
         String duracao;
-        if (component.getId() != null && component.getId().contains("nome")) {
+        Exercicio ex = new Exercicio();
+        Funcionario func = new Funcionario();
+        Node component = null;
+        if (component != null && component.getId() != null && component.getId().contains("nome")) {
             duracao = ex.getNome();
         } else {
             duracao = String.valueOf(func.getDuracaoExercicios()).replace(".0", "") + " min";
         }
-
-        return duracao;
     }
 
-    public static String getLastDateExerciseWasDone(){
-        return String.valueOf(daoFunc.getLastDateDone());
+    @Test
+    public void getLastDateExerciseWasDone() {
+        String.valueOf(daoFunc.getLastDateDone());
     }
 
-    public static void saveRotina(int qntDisponivel){
+    @Test
+    public void saveRotina() {
+        int qntDisponivel = 0;
         exercicioDAO.updateRotina(qntDisponivel);
     }
 
-    public static int qtdExercisesToDo(Funcionario func){
+    @Test
+    public void qtdExercisesToDo() {
+        Funcionario func = new Funcionario();
         int total = 0;
         if (func.getHoraInicio() != null && func.getHoraTermino() != null) {
             LocalTime horaInicio = LocalTime.parse(func.getHoraInicio());
@@ -289,11 +314,11 @@ public class FuncionarioApp {
 
             total = Math.round((int) ((int) (((java.time.Duration.between(horaInicio, horaFinal).toHours()) - 1)) / horas));
         }
-
-        return total;
     }
 
-    public static void startNotificationTimer(Funcionario func){
+    @Test
+    public void startNotificationTimer() {
+        Funcionario func = new Funcionario();
         if (func.getIntervaloExercicios() != null && func.getIntervaloExercicios().getHours() > 0 && func.getIntervaloExercicios().getMinutes() > 0) {
             double minutos = func.getIntervaloExercicios().getMinutes();
             double horaTotal = func.getIntervaloExercicios().getHours() + (minutos > 0 ? (minutos / 60) : 0);
@@ -301,34 +326,47 @@ public class FuncionarioApp {
         }
     }
 
-    public static String setLembreteUsuario(Funcionario func){
+    @Test
+    public void setLembreteUsuario() {
+        Funcionario func = new Funcionario();
         String lembrete;
         if (func.getLembrete() == null || func.getLembrete().isEmpty()) {
             lembrete = "Clique aqui para adicionar um lembrete!";
         } else {
             lembrete = func.getLembrete();
         }
-
-        return lembrete;
     }
 
-    public static boolean validateExerciciosEscolhidos(List<Exercicio> exercicioList){
-        return exercicioList.size() == 0;
+    @Test
+    public void validateExerciciosEscolhidos() {
+        List<Exercicio> exercicioList = new ArrayList<>();
+        boolean notValid = exercicioList.size() == 0;
     }
 
-    public static boolean validateIntervaloExercicios(Time intervalo){
-        return intervalo == null;
+    @Test
+    public void validateIntervaloExercicios() {
+        Time intervalo = new Time(new Date().getTime());
+        boolean notValid = intervalo == null;
     }
 
-    public static boolean validateDuracaoExercicios(int duracao){
-        return duracao == 0;
+    @Test
+    public void validateDuracaoExercicios() {
+        int duracao = 0;
+        boolean notValid = duracao == 0;
     }
 
-    public static boolean validateHorario(TextField inicio, TextField termino){
-        return inicio.getText().equals("00:00") || termino.getText().equals("00:00");
+    @Test
+    public void validateHorario() {
+        String inicio = "", termino = "";
+        boolean notValid = inicio.equals("00:00") || termino.equals("00:00");
+
     }
 
-    public static void saveConfig(Funcionario func, int qntDisponivel, List<Exercicio> exercicioList){
+    @Test
+    public void saveConfig() {
+        Funcionario func = new Funcionario();
+        int qntDisponivel = 0;
+        List<Exercicio> exercicioList = new ArrayList<>();
         boolean equalLists = func.getExercicios().size() == exercicioList.size() && func.getExercicios().containsAll(exercicioList) && exercicioList.containsAll(func.getExercicios());
 
         if (!equalLists) {
@@ -337,10 +375,7 @@ public class FuncionarioApp {
         }
 
         daoFunc.alterarFuncionario(func);
-        exercicioDAO.updateQtdDisponivelRotina(qntDisponivel);
     }
-
-
 
 
 }

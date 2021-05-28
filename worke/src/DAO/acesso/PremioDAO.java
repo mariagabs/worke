@@ -139,7 +139,7 @@ public class PremioDAO implements AbstractDAO<Premio> {
     public ArrayList<Premio> listar() {
 
         ArrayList<Premio> listaPremio = new ArrayList<Premio>();
-        String sql = "SELECT * FROM Premio WHERE Finalizado = 1 ORDER BY Descricao";
+        String sql = "SELECT * FROM Premio WHERE Finalizado = 1 ORDER BY DataFinal DESC";
 
         try {
             if (this.connection.connection()) {
@@ -148,6 +148,11 @@ public class PremioDAO implements AbstractDAO<Premio> {
 
                 while (resultadoSentenca.next()) {
                     Premio premio = new Premio();
+                    premio.setId(resultadoSentenca.getInt("Id"));
+                    premio.setUsuarioId(resultadoSentenca.getInt("UsuarioId"));
+                    premio.setDataFinal(resultadoSentenca.getDate("DataFinal"));
+                    premio.setDescricao(resultadoSentenca.getString("Descricao"));
+
                     listaPremio.add(premio);
                 }
 

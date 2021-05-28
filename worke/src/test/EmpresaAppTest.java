@@ -1,9 +1,11 @@
-package application;
+package test;
 
 import DAO.acesso.EmpresaDAO;
 import DAO.acesso.ExercicioDAO;
 import DAO.acesso.PremioDAO;
 import DAO.acesso.UsuarioDAO;
+import application.EmpresaApp;
+import application.FuncionarioApp;
 import comuns.acesso.Empresa;
 import comuns.acesso.Premio;
 import comuns.acesso.Usuario;
@@ -14,13 +16,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.*;
 
-public class EmpresaApp {
+public class EmpresaAppTest {
 
-    public static LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade(String dataHoje) {
+    @Test
+    public void mapExercicioIdQuantidade() {
+        String dataHoje = null;
         UsuarioDAO dao = new UsuarioDAO();
         List<Usuario> funcionarioList = dao.listar();
         HashMap<Integer, Integer> mapFuncionarioIdQnt = new HashMap<Integer, Integer>();
@@ -42,10 +47,11 @@ public class EmpresaApp {
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .forEachOrdered(x -> mapExercicioQtd.put(x.getKey(), x.getValue()));
-        return mapExercicioQtd;
     }
 
-    public static HashMap<Integer, String> mapFuncionarioIdNome(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade) {
+    @Test
+    public void mapFuncionarioIdNome() {
+        LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade = EmpresaApp.mapExercicioIdQuantidade();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         HashMap<Integer, String> mapFuncNome = new HashMap<>();
         for (Usuario usuario : usuarioDAO.listar()) {
@@ -53,38 +59,33 @@ public class EmpresaApp {
                 mapFuncNome.put(usuario.getId(), usuario.getNome());
             }
         }
-        return mapFuncNome;
     }
 
-    public static LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade() {
-        return mapExercicioIdQuantidade(null);
+    @Test
+    public void listarUsuariosEmpresa() {
+        LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade = EmpresaApp.mapExercicioIdQuantidade();
+        mapExercicioIdQuantidade.keySet().toArray(new Integer[mapExercicioIdQuantidade.keySet().size()]);
     }
 
-    public static Integer[] listarUsuariosEmpresa(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade) {
-        return mapExercicioIdQuantidade.keySet().toArray(new Integer[mapExercicioIdQuantidade.keySet().size()]);
-    }
-
-    public static Integer[] listarUsuariosEmpresa() {
-        LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade = mapExercicioIdQuantidade();
-        return mapExercicioIdQuantidade.keySet().toArray(new Integer[mapExercicioIdQuantidade.keySet().size()]);
-    }
-
-    public static Integer totalExerciciosTodosFuncionarios(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade) {
+    @Test
+    public void totalExerciciosTodosFuncionarios() {
+        LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade = EmpresaApp.mapExercicioIdQuantidade();
         int sum = mapExercicioIdQuantidade.values().stream().reduce(0, Integer::sum);
-        return sum;
+
+        Assert.assertNotEquals(0, sum);
+        Assert.assertNotEquals(17, sum);
     }
 
-    public static Integer totalExerciciosTodosFuncionarios(String dataHoje) {
-        int sum = mapExercicioIdQuantidade(dataHoje).values().stream().reduce(0, Integer::sum);
-        return sum;
+    @Test
+    public void totalFuncionarios() {
+        LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade = EmpresaApp.mapExercicioIdQuantidade();
+        int length = EmpresaApp.listarUsuariosEmpresa(mapExercicioIdQuantidade).length;
     }
 
-    public static Integer totalFuncionarios(LinkedHashMap<Integer, Integer> mapExercicioIdQuantidade) {
-        return listarUsuariosEmpresa(mapExercicioIdQuantidade).length;
-    }
+    @Test
+    public void totalMinutos() {
 
-    public static Integer totalMinutos(String dataHoje) {
-
+        String dataHoje = null;
         UsuarioDAO dao = new UsuarioDAO();
         List<Usuario> funcionarioList = dao.listar();
         HashMap<Integer, Integer> mapFuncionarioIdQnt = new HashMap<Integer, Integer>();
@@ -100,37 +101,38 @@ public class EmpresaApp {
             reverseSortedMap = new LinkedHashMap<>();
         }
         int sum = mapFuncionarioIdQnt.values().stream().reduce(0, Integer::sum);
-        return sum;
     }
 
-    public static Integer totalMinutos() {
-        return totalMinutos(null);
-    }
-
-    public static Integer totalPremios() {
+    @Test
+    public void totalPremios() {
         PremioDAO premioDAO = new PremioDAO();
-        return premioDAO.listar().size();
+        premioDAO.listar().size();
     }
 
-    public static String convertToHours(Integer minutes) {
+    @Test
+    public void convertToHours() {
+        Integer minutes = 1;
         double resultado = (double) minutes / 60;
         String resultadoStr = String.format("%.1f", resultado);
-        return resultadoStr;
     }
 
-    public static void finalizarPremio(Integer usuarioId) {
-
+    @Test
+    public void finalizarPremio() {
+        Integer usuarioId = 9;
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         Empresa empresa = usuarioDAO.listarDadosEmpresa();
 
         PremioDAO premioDAO = new PremioDAO();
         Premio premio = premioDAO.consultar(empresa.getPremioId());
-        premio.setUsuarioId(usuarioId);
-        premioDAO.alterar(premio);
+        if(premio != null) {
+            premio.setUsuarioId(usuarioId);
+            premioDAO.alterar(premio);
+        }
         finalizarPremioEmpresa();
     }
 
-    public static void finalizarPremioEmpresa() {
+    @Test
+    public void finalizarPremioEmpresa() {
         Empresa.getInstance().setNomePremio(null);
         Empresa.getInstance().setPremioId(null);
         Empresa.getInstance().setPossuiPremio(false);
@@ -138,45 +140,35 @@ public class EmpresaApp {
         empresaDAO.alterar(Empresa.getInstance());
     }
 
-    public static List<Premio> listarPremios() {
+    @Test
+    public void listarPremios() {
         PremioDAO premioDAO = new PremioDAO();
-        return premioDAO.listar();
+        premioDAO.listar();
     }
 
-    public static boolean existsDataChartVerificacao() {
-        LinkedHashMap<Integer, Integer> usuariosEmpresa = mapExercicioIdQuantidade();
+    @Test
+    public void existsDataChartVerificacao() {
+        LinkedHashMap<Integer, Integer> usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
         int qtdUsuariosFezExercicio = EmpresaApp.usuariosFezExercicios(usuariosEmpresa);
         int qtdUsuariosNaoFezExercicio = usuariosEmpresa.keySet().size() - qtdUsuariosFezExercicio;
 
-        return (qtdUsuariosFezExercicio > 0 && qtdUsuariosNaoFezExercicio > 0);
+        boolean exists = (qtdUsuariosFezExercicio > 0 && qtdUsuariosNaoFezExercicio > 0);
     }
 
-    public static ObservableList<PieChart.Data> createData() {
+    @Test
+    public void createData() {
 
-        LinkedHashMap<Integer, Integer> usuariosEmpresa = mapExercicioIdQuantidade();
+        LinkedHashMap<Integer, Integer> usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
         int qtdUsuariosFezExercicio = EmpresaApp.usuariosFezExercicios(usuariosEmpresa);
         int qtdUsuariosNaoFezExercicio = usuariosEmpresa.keySet().size() - qtdUsuariosFezExercicio;
 
-        return FXCollections.observableArrayList(
+        FXCollections.observableArrayList(
                 new PieChart.Data("realizaram", qtdUsuariosFezExercicio),
                 new PieChart.Data("não realizaram", qtdUsuariosNaoFezExercicio));
     }
 
-    public static Chart createChart() {
-        ObservableList<PieChart.Data> pieChartData = createData();
-        final Chart chart = new Chart(pieChartData);
-        pieChartData.forEach(data ->
-                data.nameProperty().bind(
-                        Bindings.concat(
-                                data.pieValueProperty().intValue(), " funcionários ", data.getName()
-                        )
-                )
-        );
-        chart.setLabelsVisible(false);
-        return chart;
-    }
-
-    public static XYChart.Series createBarChart() {
+    @Test
+    public void createBarChart() {
         ExercicioDAO exercicioDAO = new ExercicioDAO();
         List<Exercicio> exercicioList = exercicioDAO.listar();
         HashMap<Integer, Integer> exercicioIdQntFeita = EmpresaApp.calcTotalExerciciosExEscolhido();
@@ -202,21 +194,21 @@ public class EmpresaApp {
             series.getData().add(new XYChart.Data(nome, qnt));
             aux++;
         }
-
-        return series;
     }
 
-    public static Integer usuariosFezExercicios(LinkedHashMap<Integer, Integer> usuariosEmpresa) {
+    @Test
+    public void usuariosFezExercicios() {
+        LinkedHashMap<Integer, Integer> usuariosEmpresa = EmpresaApp.mapExercicioIdQuantidade();
         int qtd = 0;
         for (Integer usuarioId : usuariosEmpresa.keySet()) {
             if (usuariosEmpresa.get(usuarioId) != 0) {
                 qtd++;
             }
         }
-        return qtd;
     }
 
-    public static HashMap<Integer, Integer> calcTotalExerciciosExEscolhido() {
+    @Test
+    public void calcTotalExerciciosExEscolhido() {
         HashMap<Integer, Integer> mapFuncionarioIdQnt = new HashMap<Integer, Integer>();
         UsuarioDAO dao = new UsuarioDAO();
         List<Usuario> funcionarioList = dao.listar();
@@ -237,26 +229,13 @@ public class EmpresaApp {
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .forEachOrdered(x -> mapExercicioQtd.put(x.getKey(), x.getValue()));
-        return mapExercicioQtd;
     }
 
-    public static Usuario consultarUsuarioId(int id) {
+    @Test
+    public void consultarUsuarioId() {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        return usuarioDAO.consultarUsuario(id);
+        usuarioDAO.consultarUsuario(9);
     }
 
-    public static boolean isInvalid(boolean naoPossuiPremio, String premio){
-        return !naoPossuiPremio && premio.length() <= 0;
-    }
-
-    public static void saveConfigEmpresa(Empresa emp){
-        EmpresaDAO empresaDAO = new EmpresaDAO();
-        empresaDAO.alterar(emp);
-    }
-
-    public static void excluirUsuario(int id){
-        UsuarioDAO dao = new UsuarioDAO();
-        dao.excluir(id);
-    }
 
 }

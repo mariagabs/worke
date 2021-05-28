@@ -1,21 +1,17 @@
 package sample.PopUpCriarFuncionarios;
 
-import DAO.acesso.UsuarioDAO;
+import application.UsuarioApp;
 import comuns.acesso.Usuario;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import sample.DashboardEmpresa.DashboardEmpresaController;
 
 import java.io.IOException;
@@ -38,11 +34,11 @@ public class PopUpCriarFuncionarioController implements Initializable {
 
     private Usuario usuario;
 
-    public void setUser(Usuario user){
+    public void setUser(Usuario user) {
         this.usuario = user;
     }
 
-    public Usuario getUser(){
+    public Usuario getUser() {
         return usuario;
     }
 
@@ -52,55 +48,47 @@ public class PopUpCriarFuncionarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        if(usuario != null && !usuario.getNome().isEmpty() && !usuario.getEmail().isEmpty()){
+        checkIfIsEdit(usuario);
+
+        btnSalvar.setPickOnBounds(true);
+        btnSalvar.setOnMouseClicked((MouseEvent e) -> saveUser());
+    }
+
+    private void checkIfIsEdit(Usuario usuario) {
+        if (usuario != null && !usuario.getNome().isEmpty() && !usuario.getEmail().isEmpty()) {
             nomeCompleto.setText(usuario.getNome());
             email.setText(usuario.getEmail());
         }
+    }
 
+    private void saveUser() {
+        msgAviso.setVisible(UsuarioApp.isInvalid(nomeCompleto.getText(), email.getText()));
 
-        btnSalvar.setPickOnBounds(true);
-        btnSalvar.setOnMouseClicked((MouseEvent e) -> {
+        if(!UsuarioApp.isInvalid(nomeCompleto.getText(), email.getText())){
+            UsuarioApp.saveUser(nomeCompleto.getText(), email.getText(), usuario, getUser());
+            redirect();
+        }
+    }
 
-            if(nomeCompleto.getText().trim().isEmpty() || email.getText().trim().isEmpty()){
-                msgAviso.setVisible(true);
-            }else {
-                msgAviso.setVisible(false);
-                Usuario user = new Usuario();
-                user.setAdmEmpresa(false);
-                user.setNome(nomeCompleto.getText());
-                user.setEmail(email.getText());
-
-                UsuarioDAO dao = new UsuarioDAO();
-
-                if(usuario != null && usuario.getId() > 0){
-                    user.setId(getUser().getId());
-                    dao.alterar(user);
-                }else{
-
-                    dao.inserir(user);
-                }
-
-
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/DashboardEmpresa/dashboardEmpresa.fxml"));
-                try {
-                    Parent root = (Parent) fxmlLoader.load();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-                DashboardEmpresaController controller = fxmlLoader.getController();
-                    controller.loadUsuarios(tableTeste);
-                try {
-                    if (usuario == null || usuario.getId() == 0){
-                        DashboardEmpresaController.popUpSucessoMensagem("Usuário criado!","O usuário "+nomeCompleto.getText() + " foi criado com sucesso!");
-                    } else {
-                        DashboardEmpresaController.popUpSucessoMensagem("Usuário alterado!","O usuário "+nomeCompleto.getText() + " foi alterado com sucesso!");
-                    }
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-                Stage stage = (Stage) btnSalvar.getScene().getWindow();
-                stage.close();
+    private void redirect(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/DashboardEmpresa/dashboardEmpresa.fxml"));
+        try {
+            Parent root = fxmlLoader.load();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        DashboardEmpresaController controller = fxmlLoader.getController();
+        controller.loadUsuarios(tableTeste);
+        try {
+            if (usuario == null || usuario.getId() == 0) {
+                DashboardEmpresaController.popUpSucessoMensagem("Usuário criado!", "O usuário " + nomeCompleto.getText() + " foi criado com sucesso!");
+            } else {
+                DashboardEmpresaController.popUpSucessoMensagem("Usuário alterado!", "O usuário " + nomeCompleto.getText() + " foi alterado com sucesso!");
             }
-        });
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        Stage stage = (Stage) btnSalvar.getScene().getWindow();
+        stage.close();
     }
 }

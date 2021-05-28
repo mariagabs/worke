@@ -4,9 +4,11 @@ module worke {
     requires java.sql;
     requires javafx.graphics;
     requires TrayNotification;
+    requires junit;
 
     exports sample;
     exports mask;
+    exports test;
 
 
     opens sample to javafx.fxml;
@@ -15,7 +17,6 @@ module worke {
     opens sample.DashboardEmpresa to javafx.fxml, javafx.base;
     opens sample.DashboardFuncionario to javafx.fxml;
     opens sample.PopUpCriarFuncionarios to javafx.fxml;
-    opens sample.PopUpImpressao to javafx.fxml;
     opens sample.PopUpSucesso to javafx.fxml;
     opens sample.PopUpDelete to javafx.fxml;
 }

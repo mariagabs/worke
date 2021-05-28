@@ -228,6 +228,27 @@ public class ExercicioDAO {
         }
     }
 
+    public void updateQtdDisponivelRotina(int qntDisponivel) {
+        String sql = "UPDATE rotina_exercicios SET QntExerciciosDisponivel = ? WHERE Id = ?";
+
+        try {
+
+            if (this.connection.connection()) {
+
+                PreparedStatement sentenca = this.connection.getConnection().prepareStatement(sql);
+
+                sentenca.setInt(1, qntDisponivel);
+                sentenca.setInt(2, Rotina.getInstance().getId());
+
+                sentenca.execute();
+                sentenca.close();
+                this.connection.getConnection().close();
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     public void updateRotina(int qntDisponivel) {
         String sql = "UPDATE rotina_exercicios SET DuracaoTotalExercicios = DuracaoTotalExercicios + ?, QntExerciciosDisponivel = ? WHERE Id = ?";
 
