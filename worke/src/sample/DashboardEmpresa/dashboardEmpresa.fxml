@@ -680,7 +680,7 @@
                         </GridPane>
                     </children>
                 </Pane>
-                <Pane fx:id="ConfigPane" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;">
+                <Pane fx:id="ConfigPane" layoutX="92.0" prefHeight="780.0" prefWidth="1108.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 35 0 0 35;" visible="false">
                     <children>
                         <Label layoutX="50.0" layoutY="55.0" style="-fx-font-family: Nunito; -fx-font-weight: Bold;" text="Configurações" textFill="#071c35">
                             <font>
